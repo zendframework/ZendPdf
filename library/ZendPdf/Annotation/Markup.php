@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Annotation;
+namespace ZendPdf\Annotation;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * A markup annotation
@@ -33,7 +33,7 @@ class Markup extends AbstractAnnotation
     /**
      * Annotation object constructor
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $annotationDictionary)
     {
@@ -62,10 +62,10 @@ class Markup extends AbstractAnnotation
      * they display a pop-up window containing the text of the associated note.
      *
      * $subType parameter may contain
-     *     \Zend\Pdf\Annotation\Markup::SUBTYPE_HIGHLIGHT
-     *     \Zend\Pdf\Annotation\Markup::SUBTYPE_UNDERLINE
-     *     \Zend\Pdf\Annotation\Markup::SUBTYPE_SQUIGGLY
-     *     \Zend\Pdf\Annotation\Markup::SUBTYPE_STRIKEOUT
+     *     \ZendPdf\Annotation\Markup::SUBTYPE_HIGHLIGHT
+     *     \ZendPdf\Annotation\Markup::SUBTYPE_UNDERLINE
+     *     \ZendPdf\Annotation\Markup::SUBTYPE_SQUIGGLY
+     *     \ZendPdf\Annotation\Markup::SUBTYPE_STRIKEOUT
      * for for a highlight, underline, squiggly-underline, or strikeout annotation,
      * respectively.
      *
@@ -86,8 +86,8 @@ class Markup extends AbstractAnnotation
      * @param string $text
      * @param string $subType
      * @param array $quadPoints  [x1 y1 x2 y2 x3 y3 x4 y4]
-     * @return \Zend\Pdf\Annotation\Markup
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Annotation\Markup
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function create($x1, $y1, $x2, $y2, $text, $subType, $quadPoints)
     {

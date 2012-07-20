@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Color;
+namespace ZendPdf\Color;
 
-use Zend\Pdf\InternalType;
+use ZendPdf\InternalType;
 
 /**
  * GrayScale color implementation
@@ -25,7 +25,7 @@ class GrayScale implements ColorInterface
      * GrayLevel.
      * 0.0 (black) - 1.0 (white)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_grayLevel;
 

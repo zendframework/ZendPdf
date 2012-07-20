@@ -8,16 +8,16 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font;
+namespace ZendPdf\Resource\Font;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
 
 /**
  * Adobe PDF composite fonts implementation
  *
  * A composite font is one whose glyphs are obtained from other fonts or from fontlike
- * objects called CIDFonts ({@link \Zend\Pdf\Resource\Font\CidFont\AbstractCidFont}),
+ * objects called CIDFonts ({@link \ZendPdf\Resource\Font\CidFont\AbstractCidFont}),
  * organized hierarchically.
  * In PDF, a composite font is represented by a font dictionary whose Subtype value is Type0;
  * this is also called a Type 0 font (the Type 0 font at the top level of the hierarchy is the
@@ -38,7 +38,7 @@ use Zend\Pdf\InternalType;
  *
  *
  * Font objects should be normally be obtained from the factory methods
- * {@link \Zend\Pdf\Font::fontWithName} and {@link \Zend\Pdf\Font::fontWithPath}.
+ * {@link \ZendPdf\Font::fontWithName} and {@link \ZendPdf\Font::fontWithPath}.
  *
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Fonts
@@ -48,7 +48,7 @@ class Type0 extends AbstractFont
     /**
      * Descendant CIDFont
      *
-     * @var \Zend\Pdf\Resource\Font\CidFont\AbstractCidFont
+     * @var \ZendPdf\Resource\Font\CidFont\AbstractCidFont
      */
     private $_descendantFont;
 
@@ -189,7 +189,7 @@ class Type0 extends AbstractFont
      *
      * @param array &$glyphNumbers Array of glyph numbers.
      * @return array Array of glyph widths (integers).
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function widthsForGlyphs($glyphNumbers)
     {
@@ -203,7 +203,7 @@ class Type0 extends AbstractFont
      *
      * @param integer $glyphNumber
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function widthForGlyph($glyphNumber)
     {

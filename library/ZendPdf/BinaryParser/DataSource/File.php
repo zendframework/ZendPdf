@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\BinaryParser\DataSource;
+namespace ZendPdf\BinaryParser\DataSource;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * Concrete subclass of {@link \Zend\Pdf\BinaryParser\DataSource\AbstractDataSource}
+ * Concrete subclass of {@link \ZendPdf\BinaryParser\DataSource\AbstractDataSource}
  * that provides an interface to filesystem objects.
  *
  * Note that this class cannot be used for other sources that may be supported
@@ -58,7 +58,7 @@ class File extends AbstractDataSource
      * Throws an exception if the file is missing or cannot be opened.
      *
      * @param string $filePath Fully-qualified path to the file.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($filePath)
     {
@@ -102,7 +102,7 @@ class File extends AbstractDataSource
      *
      * @param integer $byteCount Number of bytes to read.
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function readBytes($byteCount)
     {
@@ -152,7 +152,7 @@ class File extends AbstractDataSource
      * moved beyond EOF (end of file).
      *
      * @param integer $offset Destination byte offset.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function moveToOffset($offset)
     {

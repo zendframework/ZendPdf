@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf\InternalType;
+namespace ZendPdfTest\InternalType;
 
-use Zend\Pdf\InternalType;
-use Zend\Pdf;
+use ZendPdf\InternalType;
+use ZendPdf as Pdf;
 
 /**
- * \Zend\Pdf\InternalType\ArrayObject
+ * \ZendPdf\InternalType\ArrayObject
  */
 
 /**
@@ -50,15 +50,15 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
 
     public function testPDFArrayBadInput1()
     {
-        $this->setExpectedException('\Zend\Pdf\Exception\RuntimeException', 'Argument must be an array');
+        $this->setExpectedException('\ZendPdf\Exception\RuntimeException', 'Argument must be an array');
         $arrayObj = new InternalType\ArrayObject(346);
     }
 
     public function testPDFArrayBadInput2()
     {
         $this->setExpectedException(
-            '\Zend\Pdf\Exception\RuntimeException',
-            'Array elements must be \Zend\Pdf\InternalType\AbstractTypeObject objects'
+            '\ZendPdf\Exception\RuntimeException',
+            'Array elements must be \ZendPdf\InternalType\AbstractTypeObject objects'
         );
 
         $srcArray = array();
@@ -89,29 +89,29 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @todo \Zend\Pdf\InternalType\ArrayObject::add() does not exist
+     * @todo \ZendPdf\InternalType\ArrayObject::add() does not exist
      */
     /*
     public function testAdd()
     {
-        $arrayObj = new \Zend\Pdf\InternalType\ArrayObject($srcArray);
-        $arrayObj->add(new \Zend\Pdf\InternalType\BooleanObject(false));
-        $arrayObj->add(new \Zend\Pdf\InternalType\NumericObject(100.426));
-        $arrayObj->add(new \Zend\Pdf\InternalType\NameObject('MyName'));
-        $arrayObj->add(new \Zend\Pdf\InternalType\StringObject('some text'));
+        $arrayObj = new \ZendPdf\InternalType\ArrayObject($srcArray);
+        $arrayObj->add(new \ZendPdf\InternalType\BooleanObject(false));
+        $arrayObj->add(new \ZendPdf\InternalType\NumericObject(100.426));
+        $arrayObj->add(new \ZendPdf\InternalType\NameObject('MyName'));
+        $arrayObj->add(new \ZendPdf\InternalType\StringObject('some text'));
         $this->assertEquals($arrayObj->toString(), '[false 100.426 /MyName (some text) ]' );
     }
     //*/
 
     /**
-     * @todo \Zend\Pdf\InternalType\ArrayObject::add() does not exist
+     * @todo \ZendPdf\InternalType\ArrayObject::add() does not exist
      */
     /*
     public function testAddBadArgument()
     {
         $this->setExpectedException(
-            '\Zend\Pdf\Exception\RuntimeException',
-            'Array elements must be \Zend\Pdf\InternalType\AbstractTypeObject objects'
+            '\ZendPdf\Exception\RuntimeException',
+            'Array elements must be \ZendPdf\InternalType\AbstractTypeObject objects'
         );
 
         $arrayObj = new ZPDFPDFArray();

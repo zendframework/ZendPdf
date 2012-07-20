@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font\Simple\Standard;
+namespace ZendPdf\Resource\Font\Simple\Standard;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
 
 /**
  * Abstract class definition for the standard 14 Type 1 PDF fonts.
@@ -23,29 +23,29 @@ use Zend\Pdf\InternalType;
  *
  * The standard fonts and the corresponding subclasses that manage them:
  * <ul>
- *  <li>Courier - {@link \Zend\Pdf\Resource\Font\Simple\Standard\Courier}
- *  <li>Courier-Bold - {@link \Zend\Pdf\Resource\Font\Simple\Standard\CourierBold}
- *  <li>Courier-Oblique - {@link \Zend\Pdf\Resource\Font\Simple\Standard\CourierOblique}
- *  <li>Courier-BoldOblique - {@link \Zend\Pdf\Resource\Font\Simple\Standard\CourierBoldOblique}
- *  <li>Helvetica - {@link \Zend\Pdf\Resource\Font\Simple\Standard\Helvetica}
- *  <li>Helvetica-Bold - {@link \Zend\Pdf\Resource\Font\Simple\Standard\HelveticaBold}
- *  <li>Helvetica-Oblique - {@link \Zend\Pdf\Resource\Font\Simple\Standard\HelveticaOblique}
- *  <li>Helvetica-BoldOblique - {@link \Zend\Pdf\Resource\Font\Simple\Standard\HelveticaBoldOblique}
- *  <li>Symbol - {@link \Zend\Pdf\Resource\Font\Simple\Standard\Symbol}
- *  <li>Times - {@link \Zend\Pdf\Resource\Font\Simple\Standard\Times}
- *  <li>Times-Bold - {@link \Zend\Pdf\Resource\Font\Simple\Standard\TimesBold}
- *  <li>Times-Italic - {@link \Zend\Pdf\Resource\Font\Simple\Standard\TimesItalic}
- *  <li>Times-BoldItalic - {@link \Zend\Pdf\Resource\Font\Simple\Standard\TimesBoldItalic}
- *  <li>ZapfDingbats - {@link \Zend\Pdf\Resource\Font\Simple\Standard\ZapfDingbats}
+ *  <li>Courier - {@link \ZendPdf\Resource\Font\Simple\Standard\Courier}
+ *  <li>Courier-Bold - {@link \ZendPdf\Resource\Font\Simple\Standard\CourierBold}
+ *  <li>Courier-Oblique - {@link \ZendPdf\Resource\Font\Simple\Standard\CourierOblique}
+ *  <li>Courier-BoldOblique - {@link \ZendPdf\Resource\Font\Simple\Standard\CourierBoldOblique}
+ *  <li>Helvetica - {@link \ZendPdf\Resource\Font\Simple\Standard\Helvetica}
+ *  <li>Helvetica-Bold - {@link \ZendPdf\Resource\Font\Simple\Standard\HelveticaBold}
+ *  <li>Helvetica-Oblique - {@link \ZendPdf\Resource\Font\Simple\Standard\HelveticaOblique}
+ *  <li>Helvetica-BoldOblique - {@link \ZendPdf\Resource\Font\Simple\Standard\HelveticaBoldOblique}
+ *  <li>Symbol - {@link \ZendPdf\Resource\Font\Simple\Standard\Symbol}
+ *  <li>Times - {@link \ZendPdf\Resource\Font\Simple\Standard\Times}
+ *  <li>Times-Bold - {@link \ZendPdf\Resource\Font\Simple\Standard\TimesBold}
+ *  <li>Times-Italic - {@link \ZendPdf\Resource\Font\Simple\Standard\TimesItalic}
+ *  <li>Times-BoldItalic - {@link \ZendPdf\Resource\Font\Simple\Standard\TimesBoldItalic}
+ *  <li>ZapfDingbats - {@link \ZendPdf\Resource\Font\Simple\Standard\ZapfDingbats}
  * </ul>
  *
  * Font objects should be normally be obtained from the factory methods
- * {@link \Zend\Pdf\Font::fontWithName} and {@link \Zend\Pdf\Font::fontWithPath}.
+ * {@link \ZendPdf\Font::fontWithName} and {@link \ZendPdf\Font::fontWithPath}.
  *
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Fonts
  */
-abstract class AbstractStandard extends \Zend\Pdf\Resource\Font\Simple\AbstractSimple
+abstract class AbstractStandard extends \ZendPdf\Resource\Font\Simple\AbstractSimple
 {
     /**** Public Interface ****/
 

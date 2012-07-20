@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf\InternalType\String;
+namespace ZendPdfTest\InternalType\String;
 
-use Zend\Pdf\InternalType;
+use ZendPdf\InternalType;
 
 /**
- * Zend\Pdf\InternalType\BinaryStringObject
+ * ZendPdf\InternalType\BinaryStringObject
  */
 
 /**

@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf\InternalType;
+namespace ZendPdfTest\InternalType;
 
-use Zend\Pdf\InternalType;
+use ZendPdf\InternalType;
 
 /**
- * \Zend\Pdf\InternalType\BooleanObject
+ * \ZendPdf\InternalType\BooleanObject
  */
 
 /**
@@ -36,7 +36,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
 
     public function testPDFBooleanBadArgument()
     {
-        $this->setExpectedException('\Zend\Pdf\Exception\RuntimeException', 'must be boolean');
+        $this->setExpectedException('\ZendPdf\Exception\RuntimeException', 'must be boolean');
         $boolObj = new InternalType\BooleanObject('some input');
     }
 

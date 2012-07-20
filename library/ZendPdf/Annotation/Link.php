@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Annotation;
+namespace ZendPdf\Annotation;
 
-use Zend\Pdf;
-use Zend\Pdf\Destination;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalStructure;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Destination;
+use ZendPdf\Exception;
+use ZendPdf\InternalStructure;
+use ZendPdf\InternalType;
 
 /**
  * A link annotation represents either a hypertext link to a destination elsewhere in
@@ -31,7 +31,7 @@ class Link extends AbstractAnnotation
     /**
      * Annotation object constructor
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $annotationDictionary)
     {
@@ -55,8 +55,8 @@ class Link extends AbstractAnnotation
      * @param float $y1
      * @param float $x2
      * @param float $y2
-     * @param \Zend\Pdf\InternalStructure\NavigationTarget|string $target
-     * @return \Zend\Pdf\Annotation\Link
+     * @param \ZendPdf\InternalStructure\NavigationTarget|string $target
+     * @return \ZendPdf\Annotation\Link
      */
     public static function create($x1, $y1, $x2, $y2, $target)
     {
@@ -64,7 +64,7 @@ class Link extends AbstractAnnotation
             $destination = Destination\Named::create($target);
         }
         if (!$target instanceof InternalStructure\NavigationTarget) {
-            throw new Exception\InvalidArgumentException('$target parameter must be a \Zend\Pdf\InternalStructure\NavigationTarget object or a string.');
+            throw new Exception\InvalidArgumentException('$target parameter must be a \ZendPdf\InternalStructure\NavigationTarget object or a string.');
         }
 
         $annotationDictionary = new InternalType\DictionaryObject();
@@ -91,8 +91,8 @@ class Link extends AbstractAnnotation
     /**
      * Set link annotation destination
      *
-     * @param \Zend\Pdf\InternalStructure\NavigationTarget|string $target
-     * @return \Zend\Pdf\Annotation\Link
+     * @param \ZendPdf\InternalStructure\NavigationTarget|string $target
+     * @return \ZendPdf\Annotation\Link
      */
     public function setDestination($target)
     {
@@ -100,7 +100,7 @@ class Link extends AbstractAnnotation
             $destination = Destination\Named::create($target);
         }
         if (!$target instanceof InternalStructure\NavigationTarget) {
-            throw new Exception\InvalidArgumentException('$target parameter must be a \Zend\Pdf\InternalStructure\NavigationTarget object or a string.');
+            throw new Exception\InvalidArgumentException('$target parameter must be a \ZendPdf\InternalStructure\NavigationTarget object or a string.');
         }
 
         $this->_annotationDictionary->touch();
@@ -119,7 +119,7 @@ class Link extends AbstractAnnotation
     /**
      * Get link annotation destination
      *
-     * @return \Zend\Pdf\InternalStructure\NavigationTarget|null
+     * @return \ZendPdf\InternalStructure\NavigationTarget|null
      */
     public function getDestination()
     {

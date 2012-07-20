@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font\Simple\Standard;
+namespace ZendPdf\Resource\Font\Simple\Standard;
 
-use Zend\Pdf;
-use Zend\Pdf\Cmap;
+use ZendPdf as Pdf;
+use ZendPdf\Cmap;
 
 /**
  * Implementation for the standard PDF font Symbol.
@@ -377,7 +377,7 @@ class Symbol extends AbstractStandard
             if (isset($this->_toFontEncoding[$characterCode])) {
                 $encodedString .= $this->_toFontEncoding[$characterCode];
             } else {
-                /* For now, mimic the behavior in \Zend\Pdf\Font::encodeString()
+                /* For now, mimic the behavior in \ZendPdf\Font::encodeString()
                  * where unknown characters are removed completely. This is not
                  * perfect, but we should be consistent. In a future revision,
                  * we will use the well-known substitution character 0x1a
@@ -404,7 +404,7 @@ class Symbol extends AbstractStandard
             if (isset($this->_fromFontEncoding[$characterCode])) {
                 $decodedString .= $this->_fromFontEncoding[$characterCode];
             } else {
-                /* For now, mimic the behavior in \Zend\Pdf\Font::encodeString()
+                /* For now, mimic the behavior in \ZendPdf\Font::encodeString()
                  * where unknown characters are removed completely. This is not
                  * perfect, but we should be consistent. In a future revision,
                  * we will use the Unicode substitution character (U+FFFD).

@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Action;
+namespace ZendPdf\Action;
 
 /**
  * PDF 'Set the states of optional content groups' action

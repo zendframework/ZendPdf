@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource;
+namespace ZendPdf\Resource;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
+use ZendPdf\ObjectFactory;
 
 /**
  * Resource extractor class is used to detach resources from original PDF document.
@@ -33,7 +33,7 @@ class Extractor
     /**
      * PDF objects factory.
      *
-     * @var \Zend\Pdf\ObjectFactory
+     * @var \ZendPdf\ObjectFactory
      */
     protected $_factory;
 
@@ -57,7 +57,7 @@ class Extractor
      * Clone page, extract it and dependent objects from the current document,
      * so it can be used within other docs
      *
-     * return \Zend\Pdf\Page
+     * return \ZendPdf\Page
      */
     public function clonePage(Pdf\Page $page)
     {

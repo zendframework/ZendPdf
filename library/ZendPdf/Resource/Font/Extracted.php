@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font;
+namespace ZendPdf\Resource\Font;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * Extracted fonts implementation
@@ -43,11 +43,11 @@ class Extracted extends AbstractFont
     /**
      * Object constructor
      *
-     * $fontDictionary is a \Zend\Pdf\InternalType\IndirectObjectReference or
-     * \Zend\Pdf\InternalType\IndirectObject object
+     * $fontDictionary is a \ZendPdf\InternalType\IndirectObjectReference or
+     * \ZendPdf\InternalType\IndirectObject object
      *
      * @param mixed $fontDictionary
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($fontDictionary)
     {
@@ -186,7 +186,7 @@ class Extracted extends AbstractFont
      *
      * @param array $glyphNumbers Array of glyph numbers.
      * @return array Array of glyph widths (integers).
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function widthsForGlyphs($glyphNumbers)
     {
@@ -200,7 +200,7 @@ class Extracted extends AbstractFont
      *
      * @param integer $glyphNumber
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function widthForGlyph($glyphNumber)
     {

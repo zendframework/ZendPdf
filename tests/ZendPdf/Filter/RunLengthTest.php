@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf\Filter;
+namespace ZendPdfTest\Filter;
 
-use Zend\Pdf\InternalType\StreamFilter;
+use ZendPdf\InternalType\StreamFilter;
 
 /**
- * \Zend\Pdf\Filter\RunLength
+ * \ZendPdf\Filter\RunLength
  */
 
 /**

@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Action;
+namespace ZendPdf\Action;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * PDF 'Resolve a uniform resource identifier' action
@@ -27,10 +27,10 @@ class Uri extends AbstractAction
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\InternalType\DictionaryObject $dictionary
+     * @param \ZendPdf\InternalType\DictionaryObject $dictionary
      * @param SplObjectStorage      $processedActions  list of already processed action dictionaries,
      *                                                 used to avoid cyclic references
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $dictionary, \SplObjectStorage $processedActions)
     {
@@ -46,7 +46,7 @@ class Uri extends AbstractAction
      *
      * @param string $uri
      * @return true
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     protected static function _validateUri($uri)
     {
@@ -57,11 +57,11 @@ class Uri extends AbstractAction
     }
 
     /**
-     * Create new \Zend\Pdf\Action\Uri object using specified uri
+     * Create new \ZendPdf\Action\Uri object using specified uri
      *
      * @param string  $uri    The URI to resolve, encoded in 7-bit ASCII
      * @param boolean $isMap  A flag specifying whether to track the mouse position when the URI is resolved
-     * @return \Zend\Pdf\Action\Uri
+     * @return \ZendPdf\Action\Uri
      */
     public static function create($uri, $isMap = false)
     {
@@ -83,7 +83,7 @@ class Uri extends AbstractAction
      * Set URI to resolve
      *
      * @param string $uri   The uri to resolve, encoded in 7-bit ASCII.
-     * @return \Zend\Pdf\Action\Uri
+     * @return \ZendPdf\Action\Uri
      */
     public function setUri($uri)
     {
@@ -114,7 +114,7 @@ class Uri extends AbstractAction
      * relative to the upper-left corner of the annotation rectangle.
      *
      * @param boolean $isMap  A flag specifying whether to track the mouse position when the URI is resolved
-     * @return \Zend\Pdf\Action\Uri
+     * @return \ZendPdf\Action\Uri
      */
     public function setIsMap($isMap)
     {

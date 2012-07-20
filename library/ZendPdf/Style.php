@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf;
+namespace ZendPdf;
 
 /**
  * Style object.
  * Style object doesn't directly correspond to any PDF file object.
  * It's utility class, used as a container for style information.
- * It's used by \Zend\Pdf\Page class for draw operations.
+ * It's used by \ZendPdf\Page class for draw operations.
  *
  * @package    Zend_PDF
  */
@@ -24,7 +24,7 @@ class Style
      * Fill color.
      * Used to fill geometric shapes or text.
      *
-     * @var \Zend\Pdf\Color|null
+     * @var \ZendPdf\Color|null
      */
     private $_fillColor = null;
 
@@ -32,7 +32,7 @@ class Style
      * Line color.
      * Current color, used for lines and font outlines.
      *
-     * @var \Zend\Pdf\Color|null
+     * @var \ZendPdf\Color|null
      */
 
     private $_color;
@@ -40,7 +40,7 @@ class Style
     /**
      * Line width.
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_lineWidth;
 
@@ -63,7 +63,7 @@ class Style
     /**
      * Current font
      *
-     * @var \Zend\Pdf\Resource\Font\AbstractFont
+     * @var \ZendPdf\Resource\Font\AbstractFont
      */
     private $_font;
 
@@ -79,7 +79,7 @@ class Style
     /**
      * Create style.
      *
-     * @param \Zend\Pdf\Style $anotherStyle
+     * @param \ZendPdf\Style $anotherStyle
      */
     public function __construct($anotherStyle = null)
     {
@@ -98,7 +98,7 @@ class Style
     /**
      * Set fill color.
      *
-     * @param \Zend\Pdf\Color $color
+     * @param \ZendPdf\Color $color
      */
     public function setFillColor(Color $color)
     {
@@ -108,7 +108,7 @@ class Style
     /**
      * Set line color.
      *
-     * @param \Zend\Pdf\Color $color
+     * @param \ZendPdf\Color $color
      */
     public function setLineColor(Color $color)
     {
@@ -147,7 +147,7 @@ class Style
     /**
      * Set current font.
      *
-     * @param \Zend\Pdf\Resource\Font\AbstractFont $font
+     * @param \ZendPdf\Resource\Font\AbstractFont $font
      * @param float $fontSize
      */
     public function setFont(Resource\Font\AbstractFont $font, $fontSize)
@@ -169,7 +169,7 @@ class Style
     /**
      * Get fill color.
      *
-     * @return \Zend\Pdf\Color|null
+     * @return \ZendPdf\Color|null
      */
     public function getFillColor()
     {
@@ -179,7 +179,7 @@ class Style
     /**
      * Get line color.
      *
-     * @return \Zend\Pdf\Color|null
+     * @return \ZendPdf\Color|null
      */
     public function getLineColor()
     {
@@ -210,7 +210,7 @@ class Style
     /**
      * Get current font.
      *
-     * @return \Zend\Pdf\Resource\Font\AbstractFont $font
+     * @return \ZendPdf\Resource\Font\AbstractFont $font
      */
     public function getFont()
     {

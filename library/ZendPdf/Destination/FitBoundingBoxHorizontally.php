@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
- * \Zend\Pdf\Destination\FitBoundingBoxHorizontally explicit detination
+ * \ZendPdf\Destination\FitBoundingBoxHorizontally explicit detination
  *
  * Destination array: [page /FitBH top]
  *
@@ -32,10 +32,10 @@ class FitBoundingBoxHorizontally extends AbstractExplicitDestination
     /**
      * Create destination object
      *
-     * @param \Zend\Pdf\Page|integer $page  Page object or page number
+     * @param \ZendPdf\Page|integer $page  Page object or page number
      * @param float $top   Top edge of displayed page
-     * @return \Zend\Pdf\Destination\FitBoundingBoxHorizontally
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Destination\FitBoundingBoxHorizontally
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function create($page, $top)
     {
@@ -46,7 +46,7 @@ class FitBoundingBoxHorizontally extends AbstractExplicitDestination
         } elseif (is_integer($page)) {
             $destinationArray->items[] = new InternalType\NumericObject($page);
         } else {
-            throw new Exception\InvalidArgumentException('$page parametr must be a \Zend\Pdf\Page object or a page number.');
+            throw new Exception\InvalidArgumentException('$page parametr must be a \ZendPdf\Page object or a page number.');
         }
 
         $destinationArray->items[] = new InternalType\NameObject('FitBH');
@@ -69,7 +69,7 @@ class FitBoundingBoxHorizontally extends AbstractExplicitDestination
      * Set top edge of the displayed page
      *
      * @param float $top
-     * @return \Zend\Pdf\Action\FitBoundingBoxHorizontally
+     * @return \ZendPdf\Action\FitBoundingBoxHorizontally
      */
     public function setTopEdge($top)
     {

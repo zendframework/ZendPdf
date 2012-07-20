@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Color;
+namespace ZendPdf\Color;
 
-use Zend\Pdf\InternalType;
+use ZendPdf\InternalType;
 
 /**
  * CMYK color implementation
@@ -25,7 +25,7 @@ class Cmyk implements ColorInterface
      * Cyan level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_c;
 
@@ -33,7 +33,7 @@ class Cmyk implements ColorInterface
      * Magenta level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_m;
 
@@ -41,7 +41,7 @@ class Cmyk implements ColorInterface
      * Yellow level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_y;
 
@@ -49,7 +49,7 @@ class Cmyk implements ColorInterface
      * Key (BlacK) level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_k;
 

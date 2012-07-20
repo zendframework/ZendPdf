@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf\InternalType\Object;
+namespace ZendPdfTest\InternalType\Object;
 
-use Zend\Pdf\InternalType;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf\InternalType;
+use ZendPdf\ObjectFactory;
 
 /**
- * \Zend\Pdf\InternalType\StreamObject
+ * \ZendPdf\InternalType\StreamObject
  */
 
 /**

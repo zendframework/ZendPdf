@@ -8,15 +8,15 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Cmap;
+namespace ZendPdf\Cmap;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * Implements the "trimmed table mapping" character map (type 6).
  *
- * This table type is preferred over the {@link \Zend\Pdf\Cmap\SegmentToDelta}
+ * This table type is preferred over the {@link \ZendPdf\Cmap\SegmentToDelta}
  * table when the Unicode characters covered by the font fall into a single
  * contiguous range.
  *
@@ -149,7 +149,7 @@ class TrimmedTable extends AbstractCmap
      * malformed.
      *
      * @param string $cmapData Raw binary cmap table data.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($cmapData)
     {

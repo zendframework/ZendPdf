@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Outline;
+namespace ZendPdf\Outline;
 
 use Countable;
 use RecursiveIterator;
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
+use ZendPdf\ObjectFactory;
 
 /**
  * Abstract PDF outline representation class
@@ -37,7 +37,7 @@ abstract class AbstractOutline implements
     protected $_open = false;
 
     /**
-     * Array of child outlines (array of \Zend\Pdf\Outline\AbstractOutline objects)
+     * Array of child outlines (array of \ZendPdf\Outline\AbstractOutline objects)
      *
      * @var array
      */
@@ -55,7 +55,7 @@ abstract class AbstractOutline implements
      * Set outline title
      *
      * @param string $title
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     abstract public function setTitle($title);
 
@@ -73,7 +73,7 @@ abstract class AbstractOutline implements
      * Sets 'isOpen' outline flag
      *
      * @param boolean $isOpen
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     public function setIsOpen($isOpen)
     {
@@ -92,7 +92,7 @@ abstract class AbstractOutline implements
      * Sets 'isItalic' outline flag
      *
      * @param boolean $isItalic
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     abstract public function setIsItalic($isItalic);
 
@@ -107,7 +107,7 @@ abstract class AbstractOutline implements
      * Sets 'isBold' outline flag
      *
      * @param boolean $isBold
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     abstract public function setIsBold($isBold);
 
@@ -115,7 +115,7 @@ abstract class AbstractOutline implements
     /**
      * Get outline text color.
      *
-     * @return \Zend\Pdf\Color\Rgb
+     * @return \ZendPdf\Color\Rgb
      */
     abstract public function getColor();
 
@@ -123,15 +123,15 @@ abstract class AbstractOutline implements
      * Set outline text color.
      * (null means default color which is black)
      *
-     * @param \Zend\Pdf\Color\Rgb $color
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @param \ZendPdf\Color\Rgb $color
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     abstract public function setColor(Pdf\Color\Rgb $color);
 
     /**
      * Get outline target.
      *
-     * @return \Zend\Pdf\InternalStructure\NavigationTarget
+     * @return \ZendPdf\InternalStructure\NavigationTarget
      */
     abstract public function getTarget();
 
@@ -139,8 +139,8 @@ abstract class AbstractOutline implements
      * Set outline target.
      * Null means no target
      *
-     * @param \Zend\Pdf\InternalStructure\NavigationTarget|string $target
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @param \ZendPdf\InternalStructure\NavigationTarget|string $target
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     abstract public function setTarget($target = null);
 
@@ -163,8 +163,8 @@ abstract class AbstractOutline implements
      * Set outline options
      *
      * @param array $options
-     * @return \Zend\Pdf\Action\AbstractAction
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Action\AbstractAction
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function setOptions(array $options)
     {
@@ -207,33 +207,33 @@ abstract class AbstractOutline implements
      *
      * It provides two forms of input parameters:
      *
-     * 1. \Zend\Pdf\Outline\AbstractOutline::create(string $title[, \Zend\Pdf\InternalStructure\NavigationTarget $target])
-     * 2. \Zend\Pdf\Outline\AbstractOutline::create(array $options)
+     * 1. \ZendPdf\Outline\AbstractOutline::create(string $title[, \ZendPdf\InternalStructure\NavigationTarget $target])
+     * 2. \ZendPdf\Outline\AbstractOutline::create(array $options)
      *
      * Second form allows to provide outline options as an array.
      * The followed options are supported:
      *   'title'  - string, outline title, required
      *   'open'   - boolean, true if outline entry is open (default value is false)
-     *   'color'  - \Zend\Pdf\Color\Rgb object, true if outline entry is open (default value is null - black)
+     *   'color'  - \ZendPdf\Color\Rgb object, true if outline entry is open (default value is null - black)
      *   'italic' - boolean, true if outline entry is displayed in italic (default value is false)
      *   'bold'   - boolean, true if outline entry is displayed in bold (default value is false)
-     *   'target' - \Zend\Pdf\InternalStructure\NavigationTarget object or string, outline item destination
+     *   'target' - \ZendPdf\InternalStructure\NavigationTarget object or string, outline item destination
      *
-     * @return \Zend\Pdf\Outline\AbstractOutline
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Outline\AbstractOutline
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function create($param1, $param2 = null)
     {
         if (is_string($param1)) {
             if ($param2 !== null  &&  !($param2 instanceof Pdf\InternalStructure\NavigationTarget  ||  is_string($param2))) {
-                throw new Exception\InvalidArgumentException('Outline create method takes $title (string) and $target (\Zend\Pdf\InternalStructure\NavigationTarget or string) or an array as an input');
+                throw new Exception\InvalidArgumentException('Outline create method takes $title (string) and $target (\ZendPdf\InternalStructure\NavigationTarget or string) or an array as an input');
             }
 
             return new Created(array('title'  => $param1,
                                      'target' => $param2));
         } else {
             if (!is_array($param1)  ||  $param2 !== null) {
-                throw new Exception\InvalidArgumentException('Outline create method takes $title (string) and $destination (\Zend\Pdf\InternalStructure\NavigationTarget) or an array as an input');
+                throw new Exception\InvalidArgumentException('Outline create method takes $title (string) and $destination (\ZendPdf\InternalStructure\NavigationTarget) or an array as an input');
             }
 
             return new Created($param1);
@@ -264,12 +264,12 @@ abstract class AbstractOutline implements
      *
      * Returns dictionary indirect object or reference
      *
-     * @param \Zend\Pdf\ObjectFactory    $factory object factory for newly created indirect objects
+     * @param \ZendPdf\ObjectFactory    $factory object factory for newly created indirect objects
      * @param boolean $updateNavigation  Update navigation flag
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $parent   Parent outline dictionary reference
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $prev     Previous outline dictionary reference
+     * @param \ZendPdf\InternalType\AbstractTypeObject $parent   Parent outline dictionary reference
+     * @param \ZendPdf\InternalType\AbstractTypeObject $prev     Previous outline dictionary reference
      * @param SplObjectStorage $processedOutlines  List of already processed outlines
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     abstract public function dumpOutline(ObjectFactory $factory,
                                                        $updateNavigation,
@@ -285,7 +285,7 @@ abstract class AbstractOutline implements
     /**
      * Returns the child outline.
      *
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     public function current()
     {
@@ -331,7 +331,7 @@ abstract class AbstractOutline implements
     /**
      * Returns the child outline.
      *
-     * @return \Zend\Pdf\Outline\AbstractOutline|null
+     * @return \ZendPdf\Outline\AbstractOutline|null
      */
     public function getChildren()
     {

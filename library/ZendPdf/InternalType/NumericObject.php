@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType;
+namespace ZendPdf\InternalType;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * PDF file 'numeric' element implementation
@@ -34,7 +34,7 @@ class NumericObject extends AbstractTypeObject
      * Object constructor
      *
      * @param numeric $val
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($val)
     {
@@ -60,7 +60,7 @@ class NumericObject extends AbstractTypeObject
     /**
      * Return object as string
      *
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @return string
      */
     public function toString(Pdf\ObjectFactory $factory = null)

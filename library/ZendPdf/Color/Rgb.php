@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Color;
+namespace ZendPdf\Color;
 
-use Zend\Pdf\InternalType;
+use ZendPdf\InternalType;
 
 /**
  * RGB color implementation
@@ -24,7 +24,7 @@ class Rgb implements ColorInterface
      * Red level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_r;
 
@@ -32,7 +32,7 @@ class Rgb implements ColorInterface
      * Green level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_g;
 
@@ -40,7 +40,7 @@ class Rgb implements ColorInterface
      * Blue level.
      * 0.0 (zero concentration) - 1.0 (maximum concentration)
      *
-     * @var \Zend\Pdf\InternalType\NumericObject
+     * @var \ZendPdf\InternalType\NumericObject
      */
     private $_b;
 

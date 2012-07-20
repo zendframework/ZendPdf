@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font;
+namespace ZendPdf\Resource\Font;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\Resource;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
+use ZendPdf\Resource;
 
 /**
  * Abstract class which manages PDF fonts.
@@ -23,7 +23,7 @@ use Zend\Pdf\Resource;
  * and glyph-specific metric data.
  *
  * Font objects should be normally be obtained from the factory methods
- * {@link \Zend\Pdf\Font::fontWithName} and {@link \Zend\Pdf\Font::fontWithPath}.
+ * {@link \ZendPdf\Font::fontWithName} and {@link \ZendPdf\Font::fontWithPath}.
  *
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Fonts
@@ -34,7 +34,7 @@ abstract class AbstractFont extends Resource\AbstractResource
 
 
     /**
-     * The type of font. Use TYPE_ constants defined in {@link \Zend\Pdf\Font}.
+     * The type of font. Use TYPE_ constants defined in {@link \ZendPdf\Font}.
      * @var integer
      */
     protected $_fontType = Pdf\Font::TYPE_UNKNOWN;
@@ -150,7 +150,7 @@ abstract class AbstractFont extends Resource\AbstractResource
      * Returns the type of font.
      *
      * @return integer One of the TYPE_ constants defined in
-     *   {@link \Zend\Pdf\Font}.
+     *   {@link \ZendPdf\Font}.
      */
     public function getFontType()
     {
@@ -162,25 +162,25 @@ abstract class AbstractFont extends Resource\AbstractResource
      *
      * The font name type is usually one of the following:
      * <ul>
-     *  <li>{@link \Zend\Pdf\Font::NAME_FULL}
-     *  <li>{@link \Zend\Pdf\Font::NAME_FAMILY}
-     *  <li>{@link \Zend\Pdf\Font::NAME_PREFERRED_FAMILY}
-     *  <li>{@link \Zend\Pdf\Font::NAME_STYLE}
-     *  <li>{@link \Zend\Pdf\Font::NAME_PREFERRED_STYLE}
-     *  <li>{@link \Zend\Pdf\Font::NAME_DESCRIPTION}
-     *  <li>{@link \Zend\Pdf\Font::NAME_SAMPLE_TEXT}
-     *  <li>{@link \Zend\Pdf\Font::NAME_ID}
-     *  <li>{@link \Zend\Pdf\Font::NAME_VERSION}
-     *  <li>{@link \Zend\Pdf\Font::NAME_POSTSCRIPT}
-     *  <li>{@link \Zend\Pdf\Font::NAME_CID_NAME}
-     *  <li>{@link \Zend\Pdf\Font::NAME_DESIGNER}
-     *  <li>{@link \Zend\Pdf\Font::NAME_DESIGNER_URL}
-     *  <li>{@link \Zend\Pdf\Font::NAME_MANUFACTURER}
-     *  <li>{@link \Zend\Pdf\Font::NAME_VENDOR_URL}
-     *  <li>{@link \Zend\Pdf\Font::NAME_COPYRIGHT}
-     *  <li>{@link \Zend\Pdf\Font::NAME_TRADEMARK}
-     *  <li>{@link \Zend\Pdf\Font::NAME_LICENSE}
-     *  <li>{@link \Zend\Pdf\Font::NAME_LICENSE_URL}
+     *  <li>{@link \ZendPdf\Font::NAME_FULL}
+     *  <li>{@link \ZendPdf\Font::NAME_FAMILY}
+     *  <li>{@link \ZendPdf\Font::NAME_PREFERRED_FAMILY}
+     *  <li>{@link \ZendPdf\Font::NAME_STYLE}
+     *  <li>{@link \ZendPdf\Font::NAME_PREFERRED_STYLE}
+     *  <li>{@link \ZendPdf\Font::NAME_DESCRIPTION}
+     *  <li>{@link \ZendPdf\Font::NAME_SAMPLE_TEXT}
+     *  <li>{@link \ZendPdf\Font::NAME_ID}
+     *  <li>{@link \ZendPdf\Font::NAME_VERSION}
+     *  <li>{@link \ZendPdf\Font::NAME_POSTSCRIPT}
+     *  <li>{@link \ZendPdf\Font::NAME_CID_NAME}
+     *  <li>{@link \ZendPdf\Font::NAME_DESIGNER}
+     *  <li>{@link \ZendPdf\Font::NAME_DESIGNER_URL}
+     *  <li>{@link \ZendPdf\Font::NAME_MANUFACTURER}
+     *  <li>{@link \ZendPdf\Font::NAME_VENDOR_URL}
+     *  <li>{@link \ZendPdf\Font::NAME_COPYRIGHT}
+     *  <li>{@link \ZendPdf\Font::NAME_TRADEMARK}
+     *  <li>{@link \ZendPdf\Font::NAME_LICENSE}
+     *  <li>{@link \ZendPdf\Font::NAME_LICENSE_URL}
      * </ul>
      *
      * Note that not all names are available for all fonts. In addition, some
@@ -451,7 +451,7 @@ abstract class AbstractFont extends Resource\AbstractResource
      *
      * @param array $glyphNumbers Array of glyph numbers.
      * @return array Array of glyph widths (integers).
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     abstract public function widthsForGlyphs($glyphNumbers);
 
@@ -462,7 +462,7 @@ abstract class AbstractFont extends Resource\AbstractResource
      *
      * @param integer $glyphNumber
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     abstract public function widthForGlyph($glyphNumber);
 

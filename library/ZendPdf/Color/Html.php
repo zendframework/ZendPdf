@@ -8,15 +8,15 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Color;
+namespace ZendPdf\Color;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * HTML color implementation
  *
- * Factory class which vends \Zend\Pdf\Color objects from typical HTML
+ * Factory class which vends \ZendPdf\Color objects from typical HTML
  * representations.
  *
  * @category   Zend
@@ -69,11 +69,11 @@ class Html implements ColorInterface
     }
 
     /**
-     * Creates a \Zend\Pdf\Color object from the HTML representation.
+     * Creates a \ZendPdf\Color object from the HTML representation.
      *
      * @param string $color May either be a hexidecimal number of the form
      *    #rrggbb or one of the 140 well-known names (black, white, blue, etc.)
-     * @return \Zend\Pdf\Color
+     * @return \ZendPdf\Color
      */
     public static function color($color)
     {
@@ -93,11 +93,11 @@ class Html implements ColorInterface
     }
 
     /**
-     * Creates a \Zend\Pdf\Color object from the named color.
+     * Creates a \ZendPdf\Color object from the named color.
      *
      * @param string $color One of the 140 well-known color names (black, white,
      *    blue, etc.)
-     * @return \Zend\Pdf\Color
+     * @return \ZendPdf\Color
      */
     public static function namedColor($color)
     {

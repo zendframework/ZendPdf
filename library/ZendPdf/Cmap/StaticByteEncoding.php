@@ -8,15 +8,15 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Cmap;
+namespace ZendPdf\Cmap;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * Custom cmap type used for the Adobe Standard 14 PDF fonts.
  *
- * Just like {@link \Zend\Pdf\Cmap\ByteEncoding} except that the constructor
+ * Just like {@link \ZendPdf\Cmap\ByteEncoding} except that the constructor
  * takes a predefined array of glyph numbers and can cover any Unicode character.
  *
  * @package    Zend_PDF
@@ -34,7 +34,7 @@ class StaticByteEncoding extends ByteEncoding
      *
      * @param array $cmapData Array whose keys are Unicode character codes and
      *   values are glyph numbers.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($cmapData)
     {

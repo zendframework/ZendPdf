@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType;
+namespace ZendPdf\InternalType;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * PDF file 'dictionary' element implementation
@@ -24,7 +24,7 @@ class DictionaryObject extends AbstractTypeObject
 {
     /**
      * Dictionary elements
-     * Array of \Zend\Pdf\InternalType objects ('name' => \Zend\Pdf\InternalType\AbstaractTypeObject)
+     * Array of \ZendPdf\InternalType objects ('name' => \ZendPdf\InternalType\AbstaractTypeObject)
      *
      * @var array
      */
@@ -34,8 +34,8 @@ class DictionaryObject extends AbstractTypeObject
     /**
      * Object constructor
      *
-     * @param array $val   - array of \Zend\Pdf\InternalType\AbstractTypeObject objects
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param array $val   - array of \ZendPdf\InternalType\AbstractTypeObject objects
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($val = null)
     {
@@ -47,7 +47,7 @@ class DictionaryObject extends AbstractTypeObject
 
         foreach ($val as $name => $element) {
             if (!$element instanceof AbstractTypeObject) {
-                throw new Exception\RuntimeException('Array elements must be \Zend\Pdf\InternalType\AbstractTypeObject objects');
+                throw new Exception\RuntimeException('Array elements must be \ZendPdf\InternalType\AbstractTypeObject objects');
             }
             if (!is_string($name)) {
                 throw new Exception\RuntimeException('Array keys must be strings');
@@ -60,9 +60,9 @@ class DictionaryObject extends AbstractTypeObject
     /**
      * Add element to an array
      *
-     * @name \Zend\Pdf\InternalType\NameObject $name
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $val   - \Zend\Pdf\InternalType\AbstractTypeObject object
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @name \ZendPdf\InternalType\NameObject $name
+     * @param \ZendPdf\InternalType\AbstractTypeObject $val   - \ZendPdf\InternalType\AbstractTypeObject object
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function add(NameObject $name, AbstractTypeObject $val)
     {
@@ -84,7 +84,7 @@ class DictionaryObject extends AbstractTypeObject
      * Get handler
      *
      * @param string $property
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject | null
+     * @return \ZendPdf\InternalType\AbstractTypeObject | null
      */
     public function __get($item)
     {
@@ -122,7 +122,7 @@ class DictionaryObject extends AbstractTypeObject
     /**
      * Return object as string
      *
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @return string
      */
     public function toString(Pdf\ObjectFactory $factory = null)
@@ -151,11 +151,11 @@ class DictionaryObject extends AbstractTypeObject
     /**
      * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
      *
-     * @param \Zend\Pdf\ObjectFactory $factory  The factory to attach
+     * @param \ZendPdf\ObjectFactory $factory  The factory to attach
      * @param array &$processed List of already processed indirect objects, used to avoid objects duplication
      * @param integer $mode  Cloning mode (defines filter for objects cloning)
-     * @returns \Zend\Pdf\InternalType\AbstractTypeObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @returns \ZendPdf\InternalType\AbstractTypeObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function makeClone(Pdf\ObjectFactory $factory, array &$processed, $mode)
     {
@@ -185,7 +185,7 @@ class DictionaryObject extends AbstractTypeObject
     /**
      * Set top level parent indirect object.
      *
-     * @param \Zend\Pdf\InternalType\IndirectObject $parent
+     * @param \ZendPdf\InternalType\IndirectObject $parent
      */
     public function setParentObject(IndirectObject $parent)
     {

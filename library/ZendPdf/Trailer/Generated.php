@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Trailer;
+namespace ZendPdf\Trailer;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
 
 /**
  * PDF file trailer generator (used for just created PDF)
@@ -24,7 +24,7 @@ class Generated extends AbstractTrailer
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\InternalType\DictionaryObject $dict
+     * @param \ZendPdf\InternalType\DictionaryObject $dict
      */
     public function __construct(InternalType\DictionaryObject $dict)
     {

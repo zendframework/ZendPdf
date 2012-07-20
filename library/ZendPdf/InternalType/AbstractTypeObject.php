@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType;
+namespace ZendPdf\InternalType;
 
-use Zend\Pdf;
+use ZendPdf as Pdf;
 
 /**
  * PDF file element implementation
@@ -32,7 +32,7 @@ abstract class AbstractTypeObject
     /**
      * Reference to the top level indirect object, which contains this element.
      *
-     * @var \Zend\Pdf\InternalType\IndirectObject
+     * @var \ZendPdf\InternalType\IndirectObject
      */
     private $_parentObject = null;
 
@@ -50,7 +50,7 @@ abstract class AbstractTypeObject
      *
      * $factory parameter defines operation context.
      *
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @return string
      */
     abstract public function toString(Pdf\ObjectFactory $factory = null);
@@ -65,10 +65,10 @@ abstract class AbstractTypeObject
      * @todo It's necessary to check if SplObjectStorage class works faster
      * (Needs PHP 5.3.x to attach object _with_ additional data to storage)
      *
-     * @param \Zend\Pdf\ObjectFactory $factory  The factory to attach
+     * @param \ZendPdf\ObjectFactory $factory  The factory to attach
      * @param array &$processed List of already processed indirect objects, used to avoid objects duplication
      * @param integer $mode  Cloning mode (defines filter for objects cloning)
-     * @returns \Zend\Pdf\InternalType\AbstractTypeObject
+     * @returns \ZendPdf\InternalType\AbstractTypeObject
      */
     public function makeClone(Pdf\ObjectFactory $factory, array &$processed, $mode)
     {
@@ -78,7 +78,7 @@ abstract class AbstractTypeObject
     /**
      * Set top level parent indirect object.
      *
-     * @param \Zend\Pdf\InternalType\IndirectObject $parent
+     * @param \ZendPdf\InternalType\IndirectObject $parent
      */
     public function setParentObject(IndirectObject $parent)
     {
@@ -89,7 +89,7 @@ abstract class AbstractTypeObject
     /**
      * Get top level parent indirect object.
      *
-     * @return \Zend\Pdf\InternalType\IndirectObject
+     * @return \ZendPdf\InternalType\IndirectObject
      */
     public function getParentObject()
     {
@@ -132,7 +132,7 @@ abstract class AbstractTypeObject
      * Convert PHP value into PDF element.
      *
      * @param mixed $input
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     public static function phpToPDF($input)
     {

@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font\Simple;
+namespace ZendPdf\Resource\Font\Simple;
 
-use Zend\Pdf\InternalType;
-use Zend\Pdf\Resource\Font as FontResource;
+use ZendPdf\InternalType;
+use ZendPdf\Resource\Font as FontResource;
 
 /**
  * Adobe PDF Simple fonts implementation
@@ -37,7 +37,7 @@ use Zend\Pdf\Resource\Font as FontResource;
  * directly with subclasses.
  *
  * Font objects should be normally be obtained from the factory methods
- * {@link \Zend\Pdf\Font::fontWithName} and {@link \Zend\Pdf\Font::fontWithPath}.
+ * {@link \ZendPdf\Font::fontWithName} and {@link \ZendPdf\Font::fontWithPath}.
  *
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Fonts
@@ -48,7 +48,7 @@ abstract class AbstractSimple extends FontResource\AbstractFont
      * Object representing the font's cmap (character to glyph map).
      * Is set in descending classes
      *
-     * @var \Zend\Pdf\Cmap\AbstractCmap
+     * @var \ZendPdf\Cmap\AbstractCmap
      */
     protected $_cmap = null;
 
@@ -56,7 +56,7 @@ abstract class AbstractSimple extends FontResource\AbstractFont
      * Array containing the widths of each of the glyphs contained in the font.
      *
      * Keys are integers starting from 0, which coresponds to
-     * \Zend\Pdf\Cmap\AbstractCmap::MISSING_CHARACTER_GLYPH.
+     * \ZendPdf\Cmap\AbstractCmap::MISSING_CHARACTER_GLYPH.
      *
      * Font character map may contain gaps for actually used glyphs, nevertheless glyphWidths array
      * contains widths for all glyphs even they are unused.

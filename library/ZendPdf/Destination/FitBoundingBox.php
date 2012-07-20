@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
- * \Zend\Pdf\Destination\FitBoundingBox explicit detination
+ * \ZendPdf\Destination\FitBoundingBox explicit detination
  *
  * Destination array: [page /FitB]
  *
@@ -33,9 +33,9 @@ class FitBoundingBox extends AbstractExplicitDestination
     /**
      * Create destination object
      *
-     * @param \Zend\Pdf\Page|integer $page  Page object or page number
-     * @return \Zend\Pdf\Destination\FitBoundingBox
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param \ZendPdf\Page|integer $page  Page object or page number
+     * @return \ZendPdf\Destination\FitBoundingBox
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function create($page)
     {
@@ -46,7 +46,7 @@ class FitBoundingBox extends AbstractExplicitDestination
         } elseif (is_integer($page)) {
             $destinationArray->items[] = new InternalType\NumericObject($page);
         } else {
-            throw new Exception\InvalidArgumentException('$page parametr must be a \Zend\Pdf\Page object or a page number.');
+            throw new Exception\InvalidArgumentException('$page parametr must be a \ZendPdf\Page object or a page number.');
         }
 
         $destinationArray->items[] = new InternalType\NameObject('FitB');

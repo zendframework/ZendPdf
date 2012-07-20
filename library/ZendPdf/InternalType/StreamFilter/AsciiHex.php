@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType\StreamFilter;
+namespace ZendPdf\InternalType\StreamFilter;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * AsciiHex stream filter
@@ -27,7 +27,7 @@ class AsciiHex implements StreamFilterInterface
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function encode($data, $params = null)
     {
@@ -40,7 +40,7 @@ class AsciiHex implements StreamFilterInterface
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function decode($data, $params = null)
     {

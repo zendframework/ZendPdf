@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\BinaryParser\Font;
+namespace ZendPdf\BinaryParser\Font;
 
 use Zend\Log;
-use Zend\Pdf\BinaryParser;
+use ZendPdf\BinaryParser;
 
 /**
- * Abstract helper class for {@link \Zend\Pdf\Font} that parses font files.
+ * Abstract helper class for {@link \ZendPdf\Font} that parses font files.
  *
  * Defines the public interface for concrete subclasses which are responsible
  * for parsing the raw binary data from the font file on disk. Also provides
@@ -53,13 +53,13 @@ abstract class AbstractFont extends BinaryParser\AbstractBinaryParser
      *
      * Validates the data source and enables debug logging if so configured.
      *
-     * @param \Zend\Pdf\BinaryParser\DataSource\AbstractDataSource $dataSource
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param \ZendPdf\BinaryParser\DataSource\AbstractDataSource $dataSource
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(BinaryParser\DataSource\AbstractDataSource $dataSource)
     {
         parent::__construct($dataSource);
-        $this->fontType = \Zend\Pdf\Font::TYPE_UNKNOWN;
+        $this->fontType = \ZendPdf\Font::TYPE_UNKNOWN;
     }
 
 
@@ -93,11 +93,11 @@ abstract class AbstractFont extends BinaryParser\AbstractBinaryParser
      *
      * @param integer $byteCount Number of bytes (characters * 2) to return.
      * @param integer $byteOrder (optional) Big- or little-endian byte order.
-     *   Use the BYTE_ORDER_ constants defined in {@link \Zend\Pdf\BinaryParser\AbstractBinaryParser}. If
+     *   Use the BYTE_ORDER_ constants defined in {@link \ZendPdf\BinaryParser\AbstractBinaryParser}. If
      *   omitted, uses big-endian.
      * @param string $characterSet (optional) --Ignored--
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function readStringUTF16($byteCount,
                                     $byteOrder = BinaryParser\AbstractBinaryParser::BYTE_ORDER_BIG_ENDIAN,
@@ -113,7 +113,7 @@ abstract class AbstractFont extends BinaryParser\AbstractBinaryParser
      * @param integer $byteCount Number of bytes (characters) to return.
      * @param string $characterSet (optional) --Ignored--
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function readStringMacRoman($byteCount, $characterSet = '')
     {
@@ -128,7 +128,7 @@ abstract class AbstractFont extends BinaryParser\AbstractBinaryParser
      * @param integer $lengthBytes (optional) Number of bytes that make up the
      *   length. Default is 1.
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function readStringPascal($characterSet = '', $lengthBytes = 1)
     {

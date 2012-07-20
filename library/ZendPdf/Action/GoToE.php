@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Action;
+namespace ZendPdf\Action;
 
 /**
  * PDF 'Go to a destination in an embedded file' action

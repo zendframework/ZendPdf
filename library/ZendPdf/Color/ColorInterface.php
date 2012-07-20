@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Color;
+namespace ZendPdf\Color;
 
 /**
  * PDF provides a powerfull facilities for specifying the colors of graphics objects.

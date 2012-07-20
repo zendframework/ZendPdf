@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font\Simple\Standard;
+namespace ZendPdf\Resource\Font\Simple\Standard;
 
-use Zend\Pdf;
-use Zend\Pdf\Cmap;
+use ZendPdf as Pdf;
+use ZendPdf\Cmap;
 
 /**
  * Implementation for the standard PDF font Helvetica-Bold.

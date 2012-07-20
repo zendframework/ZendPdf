@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Image;
+namespace ZendPdf\Resource\Image;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * JPEG image
@@ -31,7 +31,7 @@ class Jpeg extends AbstractImage
      * Object constructor
      *
      * @param string $imageFileName
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($imageFileName)
     {

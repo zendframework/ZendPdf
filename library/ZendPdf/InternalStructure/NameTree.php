@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalStructure;
+namespace ZendPdf\InternalStructure;
 
 use ArrayAccess;
 use Countable;
 use Iterator;
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * PDF name tree representation class
@@ -39,7 +39,7 @@ class NameTree implements ArrayAccess, Countable, Iterator
      * Object constructor
      *
      * @param $rootDictionary root of name dictionary
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $rootDictionary)
     {

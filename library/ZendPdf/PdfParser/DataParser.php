@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\PdfParser;
+namespace ZendPdf\PdfParser;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\InternalType\IndirectObjectReference;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
+use ZendPdf\InternalType\IndirectObjectReference;
+use ZendPdf\ObjectFactory;
 
 /**
  * PDF string parser
@@ -41,7 +41,7 @@ class DataParser
     /**
      * Current reference context
      *
-     * @var \Zend\Pdf\InternalType\IndirectObjectReference\Context
+     * @var \ZendPdf\InternalType\IndirectObjectReference\Context
      */
     private $_context = null;
 
@@ -55,7 +55,7 @@ class DataParser
     /**
      * PDF objects factory.
      *
-     * @var \Zend\Pdf\ObjectFactory
+     * @var \ZendPdf\ObjectFactory
      */
     private $_objFactory = null;
 
@@ -254,8 +254,8 @@ class DataParser
     /**
      * Read elemental object from a PDF stream
      *
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\AbstractTypeObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function readElement($nextLexeme = null)
     {
@@ -323,8 +323,8 @@ class DataParser
      * Read string PDF object
      * Also reads trailing ')' from a pdf stream
      *
-     * @return \Zend\Pdf\InternalType\StringObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\StringObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _readString()
     {
@@ -369,8 +369,8 @@ class DataParser
      * Read binary string PDF object
      * Also reads trailing '>' from a pdf stream
      *
-     * @return \Zend\Pdf\InternalType\BinaryStringObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\BinaryStringObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _readBinaryString()
     {
@@ -397,8 +397,8 @@ class DataParser
      * Read array PDF object
      * Also reads trailing ']' from a pdf stream
      *
-     * @return \Zend\Pdf\InternalType\ArrayObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\ArrayObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _readArray()
     {
@@ -420,8 +420,8 @@ class DataParser
      * Read dictionary PDF object
      * Also reads trailing '>>' from a pdf stream
      *
-     * @return \Zend\Pdf\InternalType\DictionaryObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\DictionaryObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _readDictionary()
     {
@@ -452,7 +452,7 @@ class DataParser
      * Read reference PDF object
      *
      * @param string $nextLexeme
-     * @return \Zend\Pdf\InternalType\IndirectObjectReference
+     * @return \ZendPdf\InternalType\IndirectObjectReference
      */
     private function _readReference($nextLexeme = null)
     {
@@ -490,7 +490,7 @@ class DataParser
      * Read numeric PDF object
      *
      * @param string $nextLexeme
-     * @return \Zend\Pdf\InternalType\NumericObject
+     * @return \ZendPdf\InternalType\NumericObject
      */
     private function _readNumeric($nextLexeme = null)
     {
@@ -506,8 +506,8 @@ class DataParser
      * Read inderect object from a PDF stream
      *
      * @param integer $offset
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference\Context $context
-     * @return \Zend\Pdf\InternalType\IndirectObject
+     * @param \ZendPdf\InternalType\IndirectObjectReference\Context $context
+     * @return \ZendPdf\InternalType\IndirectObject
      */
     public function getObject($offset, IndirectObjectReference\Context $context)
     {
@@ -665,7 +665,7 @@ class DataParser
     /**
      * Set current context
      *
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference\Context $context
+     * @param \ZendPdf\InternalType\IndirectObjectReference\Context $context
      */
     public function setContext(IndirectObjectReference\Context $context)
     {
@@ -679,7 +679,7 @@ class DataParser
      * Thus we don't need to care about overhead
      *
      * @param string $pdfString
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      */
     public function __construct($source, ObjectFactory $factory)
     {

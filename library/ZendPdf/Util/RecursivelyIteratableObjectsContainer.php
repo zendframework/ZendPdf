@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Util;
+namespace ZendPdf\Util;
 
 /**
  * Iteratable objects container

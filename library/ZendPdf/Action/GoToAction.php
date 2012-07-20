@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Action;
+namespace ZendPdf\Action;
 
-use Zend\Pdf;
-use Zend\Pdf\Destination;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Destination;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * PDF 'Go to' action
@@ -26,7 +26,7 @@ class GoToAction extends AbstractAction
     /**
      * GoTo Action destination
      *
-     * @var \Zend\Pdf\Destination\AbstractDestination
+     * @var \ZendPdf\Destination\AbstractDestination
      */
     protected $_destination;
 
@@ -34,7 +34,7 @@ class GoToAction extends AbstractAction
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\InternalType\DictionaryObject $dictionary
+     * @param \ZendPdf\InternalType\DictionaryObject $dictionary
      * @param SplObjectStorage    $processedActions  list of already processed action dictionaries,
      *                                               used to avoid cyclic references
      */
@@ -46,10 +46,10 @@ class GoToAction extends AbstractAction
     }
 
     /**
-     * Create new \Zend\Pdf\Action\GoToAction object using specified destination
+     * Create new \ZendPdf\Action\GoToAction object using specified destination
      *
-     * @param \Zend\Pdf\Destination\AbstractDestination|string $destination
-     * @return \Zend\Pdf\Action\GoToAction
+     * @param \ZendPdf\Destination\AbstractDestination|string $destination
+     * @return \ZendPdf\Action\GoToAction
      */
     public static function create($destination)
     {
@@ -58,7 +58,7 @@ class GoToAction extends AbstractAction
         }
 
         if (!$destination instanceof Destination\AbstractDestination) {
-            throw new Exception\InvalidArgumentException('$destination parameter must be a \Zend\Pdf\Destination object or string.');
+            throw new Exception\InvalidArgumentException('$destination parameter must be a \ZendPdf\Destination object or string.');
         }
 
         $dictionary       = new InternalType\DictionaryObject();
@@ -73,8 +73,8 @@ class GoToAction extends AbstractAction
     /**
      * Set goto action destination
      *
-     * @param \Zend\Pdf\Destination\AbstractDestination|string $destination
-     * @return \Zend\Pdf\Action\GoToAction
+     * @param \ZendPdf\Destination\AbstractDestination|string $destination
+     * @return \ZendPdf\Action\GoToAction
      */
     public function setDestination(Destination\AbstractDestination $destination)
     {
@@ -89,7 +89,7 @@ class GoToAction extends AbstractAction
     /**
      * Get goto action destination
      *
-     * @return \Zend\Pdf\Destination\AbstractDestination
+     * @return \ZendPdf\Destination\AbstractDestination
      */
     public function getDestination()
     {

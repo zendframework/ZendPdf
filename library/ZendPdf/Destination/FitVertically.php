@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
- * \Zend\Pdf\Destination\FitVertically explicit detination
+ * \ZendPdf\Destination\FitVertically explicit detination
  *
  * Destination array: [page /FitV left]
  *
@@ -31,10 +31,10 @@ class FitVertically extends AbstractExplicitDestination
     /**
      * Create destination object
      *
-     * @param \Zend\Pdf\Page|integer $page  Page object or page number
+     * @param \ZendPdf\Page|integer $page  Page object or page number
      * @param float $left  Left edge of displayed page
-     * @return \Zend\Pdf\Destination\FitVertically
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Destination\FitVertically
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function create($page, $left)
     {
@@ -45,7 +45,7 @@ class FitVertically extends AbstractExplicitDestination
         } elseif (is_integer($page)) {
             $destinationArray->items[] = new InternalType\NumericObject($page);
         } else {
-            throw new Exception\InvalidArgumentException('$page parametr must be a \Zend\Pdf\Page object or a page number.');
+            throw new Exception\InvalidArgumentException('$page parametr must be a \ZendPdf\Page object or a page number.');
         }
 
         $destinationArray->items[] = new InternalType\NameObject('FitV');
@@ -68,7 +68,7 @@ class FitVertically extends AbstractExplicitDestination
      * Set left edge of the displayed page
      *
      * @param float $left
-     * @return \Zend\Pdf\Action\FitVertically
+     * @return \ZendPdf\Action\FitVertically
      */
     public function setLeftEdge($left)
     {

@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType\StreamFilter\Compression;
+namespace ZendPdf\InternalType\StreamFilter\Compression;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * Abstract compression stream filter
@@ -54,7 +54,7 @@ abstract class AbstractCompression implements Pdf\InternalType\StreamFilter\Stre
      *
      * @param array $params
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private static function _getPredictorValue(&$params)
     {
@@ -77,7 +77,7 @@ abstract class AbstractCompression implements Pdf\InternalType\StreamFilter\Stre
      *
      * @param array $params
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private static function _getColorsValue(&$params)
     {
@@ -98,7 +98,7 @@ abstract class AbstractCompression implements Pdf\InternalType\StreamFilter\Stre
      *
      * @param array $params
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private static function _getBitsPerComponentValue(&$params)
     {
@@ -138,7 +138,7 @@ abstract class AbstractCompression implements Pdf\InternalType\StreamFilter\Stre
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     protected static function _applyEncodeParams($data, $params)
     {

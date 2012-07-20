@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf;
+namespace ZendPdfTest;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\Destination;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
+use ZendPdf\Destination;
 
-/** \Zend\Pdf\Destination */
+/** \ZendPdf\Destination */
 
 
 /** Zend_PDF */
@@ -57,7 +57,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $page2 = $pdf->newPage(Pdf\Page::SIZE_A4);
 
 
-        // \Zend\Pdf\Destination\Zoom
+        // \ZendPdf\Destination\Zoom
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('XYZ');
@@ -71,7 +71,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /XYZ 0 842 1 ]');
 
 
-        // \Zend\Pdf\Destination\Fit
+        // \ZendPdf\Destination\Fit
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('Fit');
@@ -82,7 +82,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /Fit ]');
 
 
-        // \Zend\Pdf\Destination\FitHorizontally
+        // \ZendPdf\Destination\FitHorizontally
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitH');
@@ -94,7 +94,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /FitH 842 ]');
 
 
-        // \Zend\Pdf\Destination\FitVertically
+        // \ZendPdf\Destination\FitVertically
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitV');
@@ -106,7 +106,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /FitV 0 ]');
 
 
-        // \Zend\Pdf\Destination\FitRectangle
+        // \ZendPdf\Destination\FitRectangle
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitR');
@@ -121,7 +121,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /FitR 0 10 595 842 ]');
 
 
-        // \Zend\Pdf\Destination\FitBoundingBox
+        // \ZendPdf\Destination\FitBoundingBox
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitB');
@@ -132,7 +132,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /FitB ]');
 
 
-        // \Zend\Pdf\Destination\FitBoundingBoxHorizontally
+        // \ZendPdf\Destination\FitBoundingBoxHorizontally
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitBH');
@@ -144,7 +144,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getResource()->toString(), '[4 0 R /FitBH 842 ]');
 
 
-        // \Zend\Pdf\Destination\FitBoundingBoxVertically
+        // \ZendPdf\Destination\FitBoundingBoxVertically
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitBV');
@@ -163,7 +163,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $page2 = $pdf->newPage(Pdf\Page::SIZE_A4);
 
 
-        // \Zend\Pdf\Destination\Zoom
+        // \ZendPdf\Destination\Zoom
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('XYZ');
@@ -186,7 +186,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getZoomFactor(), 0.5);
 
 
-        // \Zend\Pdf\Destination\FitHorizontally
+        // \ZendPdf\Destination\FitHorizontally
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitH');
@@ -199,7 +199,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getTopEdge(), 825);
 
 
-        // \Zend\Pdf\Destination\FitVertically
+        // \ZendPdf\Destination\FitVertically
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitV');
@@ -212,7 +212,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getLeftEdge(), 5);
 
 
-        // \Zend\Pdf\Destination\FitRectangle
+        // \ZendPdf\Destination\FitRectangle
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitR');
@@ -240,7 +240,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getTopEdge(), 825);
 
 
-        // \Zend\Pdf\Destination\FitBoundingBoxHorizontally
+        // \ZendPdf\Destination\FitBoundingBoxHorizontally
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitBH');
@@ -253,7 +253,7 @@ class DestinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($destination->getTopEdge(), 825);
 
 
-        // \Zend\Pdf\Destination\FitBoundingBoxVertically
+        // \ZendPdf\Destination\FitBoundingBoxVertically
         $destArray = new InternalType\ArrayObject();
         $destArray->items[] = $page2->getPageDictionary();
         $destArray->items[] = new InternalType\NameObject('FitBV');

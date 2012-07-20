@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType\StreamFilter;
+namespace ZendPdf\InternalType\StreamFilter;
 
-use Zend\Pdf\Exception;
+use ZendPdf\Exception;
 
 /**
  * ASCII85 stream filter
@@ -26,7 +26,7 @@ class Ascii85 implements StreamFilterInterface
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function encode($data, $params = null)
     {
@@ -97,7 +97,7 @@ class Ascii85 implements StreamFilterInterface
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function decode($data, $params = null)
     {

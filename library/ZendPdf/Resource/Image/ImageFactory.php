@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Image;
+namespace ZendPdf\Resource\Image;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
- * \Zend\Pdf\Resource\Image\ImageFactory
+ * \ZendPdf\Resource\Image\ImageFactory
  *
  * Helps manage the diverse set of supported image file types.
  *

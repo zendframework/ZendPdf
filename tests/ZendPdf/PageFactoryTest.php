@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf;
+namespace ZendPdfTest;
 
-use Zend\Pdf;
+use ZendPdf as Pdf;
 
-/** \Zend\Pdf\Page */
+/** \ZendPdf\Page */
 
 /** PHPUnit Test Case */
 

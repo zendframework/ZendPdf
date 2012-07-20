@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType;
+namespace ZendPdf\InternalType;
 
 /**
  * PDF stream filter
@@ -24,7 +24,7 @@ interface StreamFilter
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception
+     * @throws \ZendPdf\Exception
      */
     public static function encode($data, $params = null);
 
@@ -34,7 +34,7 @@ interface StreamFilter
      * @param string $data
      * @param array $params
      * @return string
-     * @throws \Zend\Pdf\Exception
+     * @throws \ZendPdf\Exception
      */
     public static function decode($data, $params = null);
 }

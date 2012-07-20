@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Action;
+namespace ZendPdf\Action;
 
 use Countable;
 use RecursiveIterator;
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
+use ZendPdf\ObjectFactory;
 
 /**
  * Abstract PDF action representation class
@@ -30,9 +30,9 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
     /**
      * Action dictionary
      *
-     * @var   \Zend\Pdf\InternalType\DictionaryObject
-     *      | \Zend\Pdf\InternalType\IndirectObject
-     *      | \Zend\Pdf\InternalType\IndirectObjectReference
+     * @var   \ZendPdf\InternalType\DictionaryObject
+     *      | \ZendPdf\InternalType\IndirectObject
+     *      | \ZendPdf\InternalType\IndirectObjectReference
      */
     protected $_actionDictionary;
 
@@ -40,24 +40,24 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
     /**
      * An original list of chained actions
      *
-     * @var array  Array of \Zend\Pdf\Action\AbstractAction objects
+     * @var array  Array of \ZendPdf\Action\AbstractAction objects
      */
     protected $_originalNextList;
 
     /**
      * A list of next actions in actions tree (used for actions chaining)
      *
-     * @var array  Array of \Zend\Pdf\Action\AbstractAction objects
+     * @var array  Array of \ZendPdf\Action\AbstractAction objects
      */
     public $next = array();
 
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\InternalType\DictionaryObject $dictionary
+     * @param \ZendPdf\InternalType\DictionaryObject $dictionary
      * @param SplObjectStorage      $processedActions  list of already processed action dictionaries,
      *                                                 used to avoid cyclic references
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $dictionary, \SplObjectStorage $processedActions)
     {
@@ -94,10 +94,10 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
      * Load PDF action object using specified dictionary
      *
      * @internal
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $dictionary (It's actually Dictionary or Dictionary Object or Reference to a Dictionary Object)
+     * @param \ZendPdf\InternalType\AbstractTypeObject $dictionary (It's actually Dictionary or Dictionary Object or Reference to a Dictionary Object)
      * @param SplObjectStorage $processedActions  list of already processed action dictionaries, used to avoid cyclic references
-     * @return \Zend\Pdf\Action\AbstractAction
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Action\AbstractAction
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function load(InternalType\AbstractTypeObject $dictionary, \SplObjectStorage $processedActions = null)
     {
@@ -180,7 +180,7 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
      * Get resource
      *
      * @internal
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     public function getResource()
     {
@@ -193,10 +193,10 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
      * Returns dictionary indirect object or reference
      *
      * @internal
-     * @param \Zend\Pdf\ObjectFactory $factory    Object factory for newly created indirect objects
+     * @param \ZendPdf\ObjectFactory $factory    Object factory for newly created indirect objects
      * @param SplObjectStorage $processedActions  list of already processed actions
      *                                            (used to prevent infinity loop caused by cyclic references)
-     * @return \Zend\Pdf\InternalType\IndirectObject|\Zend\Pdf\InternalType\IndirectObjectReference
+     * @return \ZendPdf\InternalType\IndirectObject|\ZendPdf\InternalType\IndirectObjectReference
      */
     public function dumpAction(ObjectFactory $factory, \SplObjectStorage $processedActions = null)
     {
@@ -268,7 +268,7 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
     /**
      * Returns current child action.
      *
-     * @return \Zend\Pdf\Action\AbstractAction
+     * @return \ZendPdf\Action\AbstractAction
      */
     public function current()
     {
@@ -314,7 +314,7 @@ abstract class AbstractAction extends Pdf\InternalStructure\NavigationTarget imp
     /**
      * Returns the child action.
      *
-     * @return \Zend\Pdf\Action\AbstractAction|null
+     * @return \ZendPdf\Action\AbstractAction|null
      */
     public function getChildren()
     {

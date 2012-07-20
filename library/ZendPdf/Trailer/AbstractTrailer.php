@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Trailer;
+namespace ZendPdf\Trailer;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * PDF file trailer
@@ -27,7 +27,7 @@ abstract class AbstractTrailer
     /**
      * Trailer dictionary.
      *
-     * @var \Zend\Pdf\InternalType\DictionaryObject
+     * @var \ZendPdf\InternalType\DictionaryObject
      */
     private $_dict;
 
@@ -35,7 +35,7 @@ abstract class AbstractTrailer
      * Check if key is correct
      *
      * @param string $key
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _checkDictKey($key)
     {
@@ -49,7 +49,7 @@ abstract class AbstractTrailer
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\InternalType\DictionaryObject $dict
+     * @param \ZendPdf\InternalType\DictionaryObject $dict
      */
     public function __construct(InternalType\DictionaryObject $dict)
     {

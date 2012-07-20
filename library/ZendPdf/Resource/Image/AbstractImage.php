@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Image;
+namespace ZendPdf\Resource\Image;
 
-use Zend\Pdf\InternalType;
-use Zend\Pdf\Resource;
+use ZendPdf\InternalType;
+use ZendPdf\Resource;
 
 /**
  * Image abstraction.

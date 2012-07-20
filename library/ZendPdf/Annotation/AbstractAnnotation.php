@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Annotation;
+namespace ZendPdf\Annotation;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * Abstract PDF annotation representation class
@@ -29,7 +29,7 @@ abstract class AbstractAnnotation
     /**
      * Annotation dictionary
      *
-     * @var \Zend\Pdf\InternalType\DictionaryObject|\Zend\Pdf\InternalType\IndirectObject|\Zend\Pdf\InternalType\IndirectObjectReference
+     * @var \ZendPdf\InternalType\DictionaryObject|\ZendPdf\InternalType\IndirectObject|\ZendPdf\InternalType\IndirectObjectReference
      */
     protected $_annotationDictionary;
 
@@ -37,7 +37,7 @@ abstract class AbstractAnnotation
      * Get annotation dictionary
      *
      * @internal
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     public function getResource()
     {
@@ -49,7 +49,7 @@ abstract class AbstractAnnotation
      * Set bottom edge of the annotation rectangle.
      *
      * @param float $bottom
-     * @return \Zend\Pdf\Annotation\AbstractAnnotation
+     * @return \ZendPdf\Annotation\AbstractAnnotation
      */
     public function setBottom($bottom)
     {
@@ -73,7 +73,7 @@ abstract class AbstractAnnotation
      * Set top edge of the annotation rectangle.
      *
      * @param float $top
-     * @return \Zend\Pdf\Annotation\AbstractAnnotation
+     * @return \ZendPdf\Annotation\AbstractAnnotation
      */
     public function setTop($top)
     {
@@ -97,7 +97,7 @@ abstract class AbstractAnnotation
      * Set right edge of the annotation rectangle.
      *
      * @param float $right
-     * @return \Zend\Pdf\Annotation\AbstractAnnotation
+     * @return \ZendPdf\Annotation\AbstractAnnotation
      */
     public function setRight($right)
     {
@@ -121,7 +121,7 @@ abstract class AbstractAnnotation
      * Set left edge of the annotation rectangle.
      *
      * @param float $left
-     * @return \Zend\Pdf\Annotation\AbstractAnnotation
+     * @return \ZendPdf\Annotation\AbstractAnnotation
      */
     public function setLeft($left)
     {
@@ -163,7 +163,7 @@ abstract class AbstractAnnotation
      * in human-readable form.
      *
      * @param string $text
-     * @return \Zend\Pdf\Annotation\AbstractAnnotation
+     * @return \ZendPdf\Annotation\AbstractAnnotation
      */
     public function setText($text)
     {
@@ -181,7 +181,7 @@ abstract class AbstractAnnotation
     /**
      * Annotation object constructor
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $annotationDictionary)
     {
@@ -214,7 +214,7 @@ abstract class AbstractAnnotation
      *
      * @internal
      * @param $destinationArray
-     * @return \Zend\Pdf\Annotation\AbstractAnnotation
+     * @return \ZendPdf\Annotation\AbstractAnnotation
      */
     public static function load(InternalType\AbstractTypeObject $resource)
     {

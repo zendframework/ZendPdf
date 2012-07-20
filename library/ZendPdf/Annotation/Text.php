@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Annotation;
+namespace ZendPdf\Annotation;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * A text annotation represents a "sticky note" attached to a point in the PDF document.
@@ -25,7 +25,7 @@ class Text extends AbstractAnnotation
     /**
      * Annotation object constructor
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $annotationDictionary)
     {
@@ -50,7 +50,7 @@ class Text extends AbstractAnnotation
      * @param float $x2
      * @param float $y2
      * @param string $text
-     * @return \Zend\Pdf\Annotation\Text
+     * @return \ZendPdf\Annotation\Text
      */
     public static function create($x1, $y1, $x2, $y2, $text)
     {

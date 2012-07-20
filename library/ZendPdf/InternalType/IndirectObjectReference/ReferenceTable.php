@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType\IndirectObjectReference;
+namespace ZendPdf\InternalType\IndirectObjectReference;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
  * PDF file reference table
@@ -25,7 +25,7 @@ class ReferenceTable
     /**
      * Parent reference table
      *
-     * @var \Zend\Pdf\InternalType\IndirectObjectReference\ReferenceTable
+     * @var \ZendPdf\InternalType\IndirectObjectReference\ReferenceTable
      */
     private $_parent;
 
@@ -103,7 +103,7 @@ class ReferenceTable
     /**
      * Set parent reference table
      *
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference\ReferenceTable $parent
+     * @param \ZendPdf\InternalType\IndirectObjectReference\ReferenceTable $parent
      */
     public function setParent(self $parent)
     {
@@ -140,7 +140,7 @@ class ReferenceTable
      *
      * @param string $ref
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function getNextFree($ref)
     {

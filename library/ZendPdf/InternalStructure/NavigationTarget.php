@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalStructure;
+namespace ZendPdf\InternalStructure;
 
-use Zend\Pdf;
-use Zend\Pdf\Action;
-use Zend\Pdf\Destination;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Action;
+use ZendPdf\Destination;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * PDF target (action or destination)
@@ -27,9 +27,9 @@ abstract class NavigationTarget
     /**
      * Parse resource and return it as an Action or Explicit Destination
      *
-     * $param \Zend\Pdf\InternalType $resource
-     * @return \Zend\Pdf\Destination\AbstractDestination|\Zend\Pdf\Action\AbstractAction
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * $param \ZendPdf\InternalType $resource
+     * @return \ZendPdf\Destination\AbstractDestination|\ZendPdf\Action\AbstractAction
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function load(InternalType\AbstractTypeObject $resource)
     {
@@ -59,7 +59,7 @@ abstract class NavigationTarget
      * Get resource
      *
      * @internal
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     abstract public function getResource();
 }

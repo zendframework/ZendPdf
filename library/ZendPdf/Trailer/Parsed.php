@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Trailer;
+namespace ZendPdf\Trailer;
 
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * PDF file trailer.
@@ -25,14 +25,14 @@ class Parsed extends AbstractTrailer
     /**
      * Reference context
      *
-     * @var \Zend\Pdf\InternalType\IndirectObjectReference\Context
+     * @var \ZendPdf\InternalType\IndirectObjectReference\Context
      */
     private $_context;
 
     /**
      * Previous trailer
      *
-     * @var \Zend\Pdf\Trailer\AbstractTrailer
+     * @var \ZendPdf\Trailer\AbstractTrailer
      */
     private $_prev;
 
@@ -40,9 +40,9 @@ class Parsed extends AbstractTrailer
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\InternalType\DictionaryObject $dict
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference\Context $context
-     * @param \Zend\Pdf\Trailer\AbstractTrailer $prev
+     * @param \ZendPdf\InternalType\DictionaryObject $dict
+     * @param \ZendPdf\InternalType\IndirectObjectReference\Context $context
+     * @param \ZendPdf\Trailer\AbstractTrailer $prev
      */
     public function __construct(InternalType\DictionaryObject $dict,
                                 InternalType\IndirectObjectReference\Context $context,
@@ -57,7 +57,7 @@ class Parsed extends AbstractTrailer
     /**
      * Setter for $this->_prev
      *
-     * @param \Zend\Pdf\Trailer\Parsed $prev
+     * @param \ZendPdf\Trailer\Parsed $prev
      */
     public function setPrev(Parsed $prev)
     {
@@ -67,7 +67,7 @@ class Parsed extends AbstractTrailer
     /**
      * Getter for $this->_prev
      *
-     * @return \Zend\Pdf\Trailer\AbstractTrailer
+     * @return \ZendPdf\Trailer\AbstractTrailer
      */
     public function getPrev()
     {
@@ -98,7 +98,7 @@ class Parsed extends AbstractTrailer
      * Get reference table, which corresponds to the trailer.
      * Proxy to the $_context member methad call
      *
-     * @return \Zend\Pdf\InternalType\IndirectObjectReference\Context
+     * @return \ZendPdf\InternalType\IndirectObjectReference\Context
      */
     public function getRefTable()
     {
@@ -109,7 +109,7 @@ class Parsed extends AbstractTrailer
      * Get header of free objects list
      * Returns object number of last free object
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      * @return integer
      */
     public function getLastFreeObject()

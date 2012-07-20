@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
 /**
  * Unrecognized explicit destination representation class

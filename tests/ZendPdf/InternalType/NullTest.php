@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf\InternalType;
+namespace ZendPdfTest\InternalType;
 
-use Zend\Pdf\InternalType;
+use ZendPdf\InternalType;
 
 /**
- * \Zend\Pdf\InternalType\NullObject
+ * \ZendPdf\InternalType\NullObject
  */
 
 /**

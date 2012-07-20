@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * Abstract PDF destination representation class
@@ -27,7 +27,7 @@ abstract class AbstractDestination extends Pdf\InternalStructure\NavigationTarge
      *
      * @internal
      * @param $destinationArray
-     * @return \Zend\Pdf\Destination\AbstractDestination
+     * @return \ZendPdf\Destination\AbstractDestination
      */
     public static function load(InternalType\AbstractTypeObject $resource)
     {

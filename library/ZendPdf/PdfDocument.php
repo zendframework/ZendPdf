@@ -8,10 +8,10 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf;
+namespace ZendPdf;
 
 use Zend\Memory;
-use Zend\Pdf\Exception;
+use ZendPdf\Exception;
 
 /**
  * General entity which describes PDF document.
@@ -49,7 +49,7 @@ class PdfDocument
      *       to provide incremental parsing and pages tree updating.
      *       That will give good performance and memory (PDF size) benefits.
      *
-     * @var array   - array of \Zend\Pdf\Page object
+     * @var array   - array of \ZendPdf\Page object
      */
     public $pages = array();
 
@@ -90,14 +90,14 @@ class PdfDocument
      * Document named destinations or "GoTo..." actions, used to refer
      * document parts from outside PDF
      *
-     * @var array   - array of \Zend\Pdf\InternalStructure\NavigationTarget objects
+     * @var array   - array of \ZendPdf\InternalStructure\NavigationTarget objects
      */
     protected $_namedTargets = array();
 
     /**
      * Document outlines
      *
-     * @var array - array of \Zend\Pdf\Outline\AbstractOutline objects
+     * @var array - array of \ZendPdf\Outline\AbstractOutline objects
      */
     public $outlines = array();
 
@@ -105,7 +105,7 @@ class PdfDocument
      * Original document outlines list
      * Used to track outlines update
      *
-     * @var array - array of \Zend\Pdf\Outline\AbstractOutline objects
+     * @var array - array of \ZendPdf\Outline\AbstractOutline objects
      */
     protected $_originalOutlines = array();
 
@@ -120,14 +120,14 @@ class PdfDocument
     /**
      * PDF trailer (last or just created)
      *
-     * @var \Zend\Pdf\Trailer\AbstractTrailer
+     * @var \ZendPdf\Trailer\AbstractTrailer
      */
     protected $_trailer = null;
 
     /**
      * PDF objects factory.
      *
-     * @var \Zend\Pdf\ObjectFactory
+     * @var \ZendPdf\ObjectFactory
      */
     protected $_objFactory = null;
 
@@ -142,7 +142,7 @@ class PdfDocument
      * PDF file parser.
      * It's not used, but has to be destroyed only with Zend_PDF object
      *
-     * @var \Zend\Pdf\PdfParser\StructureParser
+     * @var \ZendPdf\PdfParser\StructureParser
      */
     protected $_parser;
 
@@ -184,7 +184,7 @@ class PdfDocument
      *
      * @param string $source
      * @param integer $revision
-     * @return \Zend\Pdf\PdfDocument
+     * @return \ZendPdf\PdfDocument
      */
     public static function parse(&$source = null, $revision = null)
     {
@@ -196,7 +196,7 @@ class PdfDocument
      *
      * @param string $source
      * @param integer $revision
-     * @return \Zend\Pdf\PdfDocument
+     * @return \ZendPdf\PdfDocument
      */
     public static function load($source = null, $revision = null)
     {
@@ -210,7 +210,7 @@ class PdfDocument
      *
      * @param string $filename
      * @param boolean $updateOnly
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function save($filename, $updateOnly = false)
     {
@@ -239,8 +239,8 @@ class PdfDocument
      *
      * @param string  $source - PDF file to load
      * @param integer $revision
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
-     * @return \Zend\Pdf\PdfDocument
+     * @throws \ZendPdf\Exception\ExceptionInterface
+     * @return \ZendPdf\PdfDocument
      */
     public function __construct($source = null, $revision = null, $load = false)
     {
@@ -374,7 +374,7 @@ class PdfDocument
     /**
      * Load pages recursively
      *
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference $pages
+     * @param \ZendPdf\InternalType\IndirectObjectReference $pages
      * @param array|null $attributes
      */
     protected function _loadPages(InternalType\IndirectObjectReference $pages, $attributes = array())
@@ -419,9 +419,9 @@ class PdfDocument
     /**
      * Load named destinations recursively
      *
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference $root Document catalog entry
+     * @param \ZendPdf\InternalType\IndirectObjectReference $root Document catalog entry
      * @param string $pdfHeaderVersion
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     protected function _loadNamedDestinations(InternalType\IndirectObjectReference $root, $pdfHeaderVersion)
     {
@@ -457,7 +457,7 @@ class PdfDocument
     /**
      * Load outlines recursively
      *
-     * @param \Zend\Pdf\InternalType\IndirectObjectReference $root Document catalog entry
+     * @param \ZendPdf\InternalType\IndirectObjectReference $root Document catalog entry
      */
     protected function _loadOutlines(InternalType\IndirectObjectReference $root)
     {
@@ -602,7 +602,7 @@ class PdfDocument
             if ($destination instanceof InternalStructure\NavigationTarget) {
                 $destArrayItems[] = $destination->getResource();
             } else {
-                throw new Exception\RuntimeException('PDF named destinations must be a \Zend\Pdf\InternalStructure\NavigationTarget object.');
+                throw new Exception\RuntimeException('PDF named destinations must be a \ZendPdf\InternalStructure\NavigationTarget object.');
             }
         }
         $destArray = $this->_objFactory->newObject(new InternalType\ArrayObject($destArrayItems));
@@ -695,19 +695,19 @@ class PdfDocument
      *    If $factory is null then it will be created and page must be attached to the document to be
      *    included into output.
      * ---------------------------------------------------------
-     * new \Zend\Pdf\Page(string $pagesize);
+     * new \ZendPdf\Page(string $pagesize);
      * ---------------------------------------------------------
      *
      * 2. Create new page with a specified pagesize (in default user space units).
      *    If $factory is null then it will be created and page must be attached to the document to be
      *    included into output.
      * ---------------------------------------------------------
-     * new \Zend\Pdf\Page(numeric $width, numeric $height);
+     * new \ZendPdf\Page(numeric $width, numeric $height);
      * ---------------------------------------------------------
      *
      * @param mixed $param1
      * @param mixed $param2
-     * @return \Zend\Pdf\Page
+     * @return \ZendPdf\Page
      */
     public function newPage($param1, $param2 = null)
     {
@@ -761,10 +761,10 @@ class PdfDocument
 
     /**
      * Get open Action
-     * Returns \Zend\Pdf\InternalStructure\NavigationTarget
-     * (\Zend\Pdf\Destination\AbstractDestination or \Zend\Pdf\Action\AbstractAction object)
+     * Returns \ZendPdf\InternalStructure\NavigationTarget
+     * (\ZendPdf\Destination\AbstractDestination or \ZendPdf\Action\AbstractAction object)
      *
-     * @return \Zend\Pdf\InternalStructure\NavigationTarget
+     * @return \ZendPdf\InternalStructure\NavigationTarget
      */
     public function getOpenAction()
     {
@@ -776,10 +776,10 @@ class PdfDocument
     }
 
     /**
-     * Set open Action which is actually \Zend\Pdf\Destination\AbstractDestination or
-     * \Zend\Pdf\Action\AbstractAction object
+     * Set open Action which is actually \ZendPdf\Destination\AbstractDestination or
+     * \ZendPdf\Action\AbstractAction object
      *
-     * @param \Zend\Pdf\InternalStructure\NavigationTarget $openAction
+     * @param \ZendPdf\InternalStructure\NavigationTarget $openAction
      * @returns Zend_PDF
      */
     public function setOpenAction(InternalStructure\NavigationTarget $openAction = null)
@@ -816,7 +816,7 @@ class PdfDocument
      * Return specified named destination
      *
      * @param string $name
-     * @return \Zend\Pdf\Destination\AbstractExplicitDestination|\Zend\Pdf\Action\GoToAction
+     * @return \ZendPdf\Destination\AbstractExplicitDestination|\ZendPdf\Action\GoToAction
      */
     public function getNamedDestination($name)
     {
@@ -831,7 +831,7 @@ class PdfDocument
      * Set specified named destination
      *
      * @param string $name
-     * @param \Zend\Pdf\Destination\AbstractExplicitDestination|\Zend\Pdf\Action\GoToAction $target
+     * @param \ZendPdf\Destination\AbstractExplicitDestination|\ZendPdf\Action\GoToAction $target
      */
     public function setNamedDestination($name, $destination = null)
     {
@@ -850,7 +850,7 @@ class PdfDocument
 
     /**
      * Pages collection hash:
-     * <page dictionary object hash id> => \Zend\Pdf\Page
+     * <page dictionary object hash id> => \ZendPdf\Page
      *
      * @var SplObjectStorage
      */
@@ -858,7 +858,7 @@ class PdfDocument
 
     /**
      * Pages collection hash:
-     * <page number> => \Zend\Pdf\Page
+     * <page number> => \ZendPdf\Page
      *
      * @var array
      */
@@ -867,7 +867,7 @@ class PdfDocument
     /**
      * Refresh page collection hashes
      *
-     * @return \Zend\Pdf\PdfDocument
+     * @return \ZendPdf\PdfDocument
      */
     protected function _refreshPagesHash()
     {
@@ -886,12 +886,12 @@ class PdfDocument
     /**
      * Resolve destination.
      *
-     * Returns \Zend\Pdf\Page page object or null if destination is not found within PDF document.
+     * Returns \ZendPdf\Page page object or null if destination is not found within PDF document.
      *
-     * @param \Zend\Pdf\Destination\AbstractDestination $destination  Destination to resolve
+     * @param \ZendPdf\Destination\AbstractDestination $destination  Destination to resolve
      * @param boolean $refreshPagesHash  Refresh page collection hashes before processing
-     * @return \Zend\Pdf\Page|null
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Page|null
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function resolveDestination(Destination\AbstractDestination $destination, $refreshPageCollectionHashes = true)
     {
@@ -945,9 +945,9 @@ class PdfDocument
      *
      * @todo Give appropriate name and make method public
      *
-     * @param \Zend\Pdf\Action\AbstractAction $action
+     * @param \ZendPdf\Action\AbstractAction $action
      * @param boolean $refreshPagesHash  Refresh page collection hashes before processing
-     * @return \Zend\Pdf\Action\AbstractAction|null
+     * @return \ZendPdf\Action\AbstractAction|null
      */
     protected function _cleanUpAction(Action\AbstractAction $action, $refreshPageCollectionHashes = true)
     {
@@ -986,10 +986,10 @@ class PdfDocument
     /**
      * Extract fonts attached to the document
      *
-     * returns array of \Zend\Pdf\Resource\Font\Extracted objects
+     * returns array of \ZendPdf\Resource\Font\Extracted objects
      *
      * @return array
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function extractFonts()
     {
@@ -1038,8 +1038,8 @@ class PdfDocument
      *
      * $fontName should be specified in UTF-8 encoding
      *
-     * @return \Zend\Pdf\Resource\Font\Extracted|null
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Resource\Font\Extracted|null
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function extractFont($fontName)
     {
@@ -1096,7 +1096,7 @@ class PdfDocument
      * @param boolean $newSegmentOnly
      * @param resource $outputStream
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function render($newSegmentOnly = false, $outputStream = null)
     {
@@ -1301,7 +1301,7 @@ class PdfDocument
      * One) defined in ISO/IEC 8824).
      *
      * @todo This really isn't the best location for this method. It should
-     *   probably actually exist as \Zend\Pdf\InternalType\Date or something like that.
+     *   probably actually exist as \ZendPdf\InternalType\Date or something like that.
      *
      * @todo Address the following E_STRICT issue:
      *   PHP Strict Standards:  date(): It is not safe to rely on the system's

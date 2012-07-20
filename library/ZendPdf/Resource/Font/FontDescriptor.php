@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font;
+namespace ZendPdf\Resource\Font;
 
-use Zend\Pdf;
-use Zend\Pdf\BinaryParser\Font\OpenType as OpenTypeFontParser;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\BinaryParser\Font\OpenType as OpenTypeFontParser;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * FontDescriptor implementation
@@ -31,11 +31,11 @@ class FontDescriptor
 {
     /**
      * Object constructor
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct()
     {
-        throw new Exception\RuntimeException('\Zend\Pdf\Resource\Font\FontDescriptor is not intended to be instantiated');
+        throw new Exception\RuntimeException('\ZendPdf\Resource\Font\FontDescriptor is not intended to be instantiated');
     }
 
     /**
@@ -43,7 +43,7 @@ class FontDescriptor
      *
      * The $embeddingOptions parameter allows you to set certain flags related
      * to font embedding. You may combine options by OR-ing them together. See
-     * the EMBED_ constants defined in {@link \Zend\Pdf\Font} for the list of
+     * the EMBED_ constants defined in {@link \ZendPdf\Font} for the list of
      * available options and their descriptions.
      *
      * Note that it is not requried that fonts be embedded within the PDF file
@@ -52,11 +52,11 @@ class FontDescriptor
      * the PDF viewer will substitute or synthesize a replacement.
      *
      *
-     * @param \Zend\Pdf\Resource\Font\AbstractFont $font Font
-     * @param \Zend\Pdf\BinaryParser\Font\OpenType\AbstractOpenType $fontParser Font parser object containing parsed TrueType file.
+     * @param \ZendPdf\Resource\Font\AbstractFont $font Font
+     * @param \ZendPdf\BinaryParser\Font\OpenType\AbstractOpenType $fontParser Font parser object containing parsed TrueType file.
      * @param integer $embeddingOptions Options for font embedding.
-     * @return \Zend\Pdf\InternalType\DictionaryObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\DictionaryObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function factory(AbstractFont $font,
                                    OpenTypeFontParser\AbstractOpenType $fontParser,
@@ -147,7 +147,7 @@ class FontDescriptor
                  */
                 if (!($embeddingOptions & Pdf\Font::EMBED_SUPPRESS_EMBED_EXCEPTION)) {
                     $message = 'This font cannot be embedded in the PDF document. If you would like to use '
-                             . 'it anyway, you must pass \Zend\Pdf\Font::EMBED_SUPPRESS_EMBED_EXCEPTION '
+                             . 'it anyway, you must pass \ZendPdf\Font::EMBED_SUPPRESS_EMBED_EXCEPTION '
                              . 'in the $options parameter of the font constructor.';
                     throw new Exception\DomainException($message);
                 }

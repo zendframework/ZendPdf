@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\BinaryParser\DataSource;
+namespace ZendPdf\BinaryParser\DataSource;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
- * Abstract helper class for {@link \Zend\Pdf\BinaryParser\AbstractBinaryParser}
+ * Abstract helper class for {@link \ZendPdf\BinaryParser\AbstractBinaryParser}
  * that provides the data source for parsing.
  *
  * Concrete subclasses allow for parsing of in-memory, filesystem, and other
@@ -75,7 +75,7 @@ abstract class AbstractDataSource
      *
      * @param integer $byteCount Number of bytes to read.
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     abstract public function readBytes($byteCount);
 
@@ -145,7 +145,7 @@ abstract class AbstractDataSource
      * parent method.
      *
      * @param integer $offset Destination byte offset.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function moveToOffset($offset)
     {
@@ -170,7 +170,7 @@ abstract class AbstractDataSource
      * the end of the data source.
      *
      * @param integer $byteCount Number of bytes to skip.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function skipBytes($byteCount)
     {

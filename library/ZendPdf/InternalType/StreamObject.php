@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType;
+namespace ZendPdf\InternalType;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType\StreamFilter\Compression as CompressionFilter;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType\StreamFilter\Compression as CompressionFilter;
+use ZendPdf\ObjectFactory;
 
 /**
  * PDF file 'stream object' element implementation
@@ -29,7 +29,7 @@ class StreamObject extends IndirectObject
      * Required enries:
      * Length
      *
-     * @var \Zend\Pdf\InternalType\DictionaryObject
+     * @var \ZendPdf\InternalType\DictionaryObject
      */
     private $_dictionary;
 
@@ -56,9 +56,9 @@ class StreamObject extends IndirectObject
      * @param mixed $val
      * @param integer $objNum
      * @param integer $genNum
-     * @param \Zend\Pdf\ObjectFactory $factory
-     * @param \Zend\Pdf\InternalType\DictionaryObject|null $dictionary
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param \ZendPdf\ObjectFactory $factory
+     * @param \ZendPdf\InternalType\DictionaryObject|null $dictionary
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($val, $objNum, $genNum, ObjectFactory $factory, $dictionary = null)
     {
@@ -155,7 +155,7 @@ class StreamObject extends IndirectObject
     /**
      * Decode stream
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _decodeStream()
     {
@@ -209,7 +209,7 @@ class StreamObject extends IndirectObject
     /**
      * Encode stream
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     private function _encodeStream()
     {
@@ -263,7 +263,7 @@ class StreamObject extends IndirectObject
      *
      * @param string $property
      * @return mixed
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __get($property)
     {
@@ -340,10 +340,10 @@ class StreamObject extends IndirectObject
     /**
      * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
      *
-     * @param \Zend\Pdf\ObjectFactory $factory  The factory to attach
+     * @param \ZendPdf\ObjectFactory $factory  The factory to attach
      * @param array &$processed  List of already processed indirect objects, used to avoid objects duplication
      * @param integer $mode  Cloning mode (defines filter for objects cloning)
-     * @returns \Zend\Pdf\InternalType\AbstractTypeObject
+     * @returns \ZendPdf\InternalType\AbstractTypeObject
      */
     public function makeClone(ObjectFactory $factory, array &$processed, $mode)
     {
@@ -374,7 +374,7 @@ class StreamObject extends IndirectObject
      *
      * $factory parameter defines operation context.
      *
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @return string
      */
     public function dump(ObjectFactory $factory)

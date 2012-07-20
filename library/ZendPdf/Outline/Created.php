@@ -8,15 +8,15 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Outline;
+namespace ZendPdf\Outline;
 
-use Zend\Pdf;
-use Zend\Pdf\Action;
-use Zend\Pdf\Destination;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalStructure;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\Action;
+use ZendPdf\Destination;
+use ZendPdf\Exception;
+use ZendPdf\InternalStructure;
+use ZendPdf\InternalType;
+use ZendPdf\ObjectFactory;
 
 /**
  * PDF outline representation class
@@ -41,7 +41,7 @@ class Created extends AbstractOutline
      * It uses the DeviceRGB color space for color representation.
      * Null means default value - black ([0.0 0.0 0.0] in RGB representation).
      *
-     * @var \Zend\Pdf\Color\Rgb
+     * @var \ZendPdf\Color\Rgb
      */
     protected $_color = null;
 
@@ -67,7 +67,7 @@ class Created extends AbstractOutline
      *
      * Null means no target.
      *
-     * @var \Zend\Pdf\InternalStructure\NavigationTarget
+     * @var \ZendPdf\InternalStructure\NavigationTarget
      */
     protected $_target = null;
 
@@ -86,7 +86,7 @@ class Created extends AbstractOutline
      * Set outline title
      *
      * @param string $title
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     public function setTitle($title)
     {
@@ -108,7 +108,7 @@ class Created extends AbstractOutline
      * Sets 'isItalic' outline flag
      *
      * @param boolean $isItalic
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     public function setIsItalic($isItalic)
     {
@@ -130,7 +130,7 @@ class Created extends AbstractOutline
      * Sets 'isBold' outline flag
      *
      * @param boolean $isBold
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     public function setIsBold($isBold)
     {
@@ -142,7 +142,7 @@ class Created extends AbstractOutline
     /**
      * Get outline text color.
      *
-     * @return \Zend\Pdf\Color\Rgb
+     * @return \ZendPdf\Color\Rgb
      */
     public function getColor()
     {
@@ -153,8 +153,8 @@ class Created extends AbstractOutline
      * Set outline text color.
      * (null means default color which is black)
      *
-     * @param \Zend\Pdf\Color\Rgb $color
-     * @return \Zend\Pdf\Outline\AbstractOutline
+     * @param \ZendPdf\Color\Rgb $color
+     * @return \ZendPdf\Outline\AbstractOutline
      */
     public function setColor(Pdf\Color\Rgb $color)
     {
@@ -165,7 +165,7 @@ class Created extends AbstractOutline
     /**
      * Get outline target.
      *
-     * @return \Zend\Pdf\InternalStructure\NavigationTarget
+     * @return \ZendPdf\InternalStructure\NavigationTarget
      */
     public function getTarget()
     {
@@ -176,9 +176,9 @@ class Created extends AbstractOutline
      * Set outline target.
      * Null means no target
      *
-     * @param \Zend\Pdf\InternalStructure\NavigationTarget|string $target
-     * @return \Zend\Pdf\Outline\AbstractOutline
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param \ZendPdf\InternalStructure\NavigationTarget|string $target
+     * @return \ZendPdf\Outline\AbstractOutline
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function setTarget($target = null)
     {
@@ -189,7 +189,7 @@ class Created extends AbstractOutline
         if ($target === null  ||  $target instanceof InternalStructure\NavigationTarget) {
             $this->_target = $target;
         } else {
-            throw new Exception\InvalidArgumentException('Outline target has to be \Zend\Pdf\Destination or \Zend\Pdf\Action object or string');
+            throw new Exception\InvalidArgumentException('Outline target has to be \ZendPdf\Destination or \ZendPdf\Action object or string');
         }
 
         return $this;
@@ -200,7 +200,7 @@ class Created extends AbstractOutline
      * Object constructor
      *
      * @param array $options
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($options = array())
     {
@@ -217,13 +217,13 @@ class Created extends AbstractOutline
      * Returns dictionary indirect object or reference
      *
      * @internal
-     * @param \Zend\Pdf\ObjectFactory    $factory object factory for newly created indirect objects
+     * @param \ZendPdf\ObjectFactory    $factory object factory for newly created indirect objects
      * @param boolean $updateNavigation  Update navigation flag
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $parent   Parent outline dictionary reference
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $prev     Previous outline dictionary reference
+     * @param \ZendPdf\InternalType\AbstractTypeObject $parent   Parent outline dictionary reference
+     * @param \ZendPdf\InternalType\AbstractTypeObject $prev     Previous outline dictionary reference
      * @param SplObjectStorage $processedOutlines  List of already processed outlines
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\InternalType\AbstractTypeObject
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function dumpOutline(ObjectFactory $factory,
                                               $updateNavigation,
@@ -248,7 +248,7 @@ class Created extends AbstractOutline
         } elseif ($target instanceof Action\AbstractAction) {
             $outlineDictionary->A    = $target->getResource();
         } else {
-            throw new Exception\CorruptedPdfException('Outline target has to be \Zend\Pdf\Destination, \Zend\Pdf\Action object or null');
+            throw new Exception\CorruptedPdfException('Outline target has to be \ZendPdf\Destination, \ZendPdf\Action object or null');
         }
 
         $color = $this->getColor();

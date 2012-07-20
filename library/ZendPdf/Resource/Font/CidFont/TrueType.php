@@ -8,12 +8,12 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font\CidFont;
+namespace ZendPdf\Resource\Font\CidFont;
 
-use Zend\Pdf;
-use Zend\Pdf\BinaryParser\Font\OpenType as OpenTypeFontParser;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\Resource\Font as FontResource;
+use ZendPdf as Pdf;
+use ZendPdf\BinaryParser\Font\OpenType as OpenTypeFontParser;
+use ZendPdf\InternalType;
+use ZendPdf\Resource\Font as FontResource;
 
 /**
  * Type 2 CIDFonts implementation
@@ -33,12 +33,12 @@ class TrueType extends AbstractCidFont
     /**
      * Object constructor
      *
-     * @todo Joing this class with \Zend\Pdf\Resource\Font\Simple\Parsed\TrueType
+     * @todo Joing this class with \ZendPdf\Resource\Font\Simple\Parsed\TrueType
      *
-     * @param \Zend\Pdf\BinaryParser\Font\OpenType\TrueType $fontParser Font parser
+     * @param \ZendPdf\BinaryParser\Font\OpenType\TrueType $fontParser Font parser
      *   object containing parsed TrueType file.
      * @param integer $embeddingOptions Options for font embedding.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(OpenTypeFontParser\TrueType $fontParser, $embeddingOptions)
     {

@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * Abstract PDF explicit destination representation class
@@ -25,7 +25,7 @@ abstract class AbstractExplicitDestination extends AbstractDestination
     /**
      * Destination description array
      *
-     * @var \Zend\Pdf\InternalType\ArrayObject
+     * @var \ZendPdf\InternalType\ArrayObject
      */
     protected $_destinationArray;
 
@@ -39,8 +39,8 @@ abstract class AbstractExplicitDestination extends AbstractDestination
     /**
      * AbstractExplicitDestination destination object constructor
      *
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject $destinationArray
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param \ZendPdf\InternalType\AbstractTypeObject $destinationArray
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $destinationArray)
     {
@@ -93,7 +93,7 @@ abstract class AbstractExplicitDestination extends AbstractDestination
      * Get resource
      *
      * @internal
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     public function getResource()
     {

@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * Destination array: [page /Fit]
@@ -31,7 +31,7 @@ class Named extends AbstractDestination
     /**
      * Destination name
      *
-     * @var \Zend\Pdf\InternalType\NameObject|\Zend\Pdf\InternalType\StringObject
+     * @var \ZendPdf\InternalType\NameObject|\ZendPdf\InternalType\StringObject
      */
     protected $_nameElement;
 
@@ -39,7 +39,7 @@ class Named extends AbstractDestination
      * Named destination object constructor
      *
      * @param $resource
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $resource)
     {
@@ -54,7 +54,7 @@ class Named extends AbstractDestination
      * Create named destination object
      *
      * @param string $name
-     * @return \Zend\Pdf\Destination\Named
+     * @return \ZendPdf\Destination\Named
      */
     public static function create($name)
     {
@@ -64,7 +64,7 @@ class Named extends AbstractDestination
     /**
      * Get name
      *
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     public function getName()
     {
@@ -75,7 +75,7 @@ class Named extends AbstractDestination
      * Get resource
      *
      * @internal
-     * @return \Zend\Pdf\InternalType\AbstractTypeObject
+     * @return \ZendPdf\InternalType\AbstractTypeObject
      */
     public function getResource()
     {

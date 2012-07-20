@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\InternalType;
+namespace ZendPdf\InternalType;
 
-use Zend\Pdf;
+use ZendPdf as Pdf;
 
 /**
  * PDF file 'stream' element implementation
@@ -85,10 +85,10 @@ class StreamContent extends AbstractTypeObject
     /**
       * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
       *
-      * @param \Zend\Pdf\ObjectFactory $factory  The factory to attach
+      * @param \ZendPdf\ObjectFactory $factory  The factory to attach
       * @param array &$processed  List of already processed indirect objects, used to avoid objects duplication
       * @param integer $mode  Cloning mode (defines filter for objects cloning)
-      * @returns \Zend\Pdf\InternalType\AbstractTypeObject
+      * @returns \ZendPdf\InternalType\AbstractTypeObject
       */
      public function makeClone(Pdf\ObjectFactory $factory, array &$processed, $mode)
      {
@@ -98,7 +98,7 @@ class StreamContent extends AbstractTypeObject
     /**
      * Return object as string
      *
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @return string
      */
     public function toString(Pdf\ObjectFactory $factory = null)

@@ -8,9 +8,9 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\ObjectFactory;
+namespace ZendPdf\ObjectFactory;
 
-use Zend\Pdf;
+use ZendPdf as Pdf;
 
 /**
  * Container which collects updated object info.

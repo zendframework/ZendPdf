@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf;
+namespace ZendPdfTest;
 
-use Zend\Pdf;
-use Zend\Pdf\Destination;
-use Zend\Pdf\Action;
+use ZendPdf as Pdf;
+use ZendPdf\Destination;
+use ZendPdf\Action;
 
 /** Zend_PDF */
 

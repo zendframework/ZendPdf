@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\PdfParser;
+namespace ZendPdf\PdfParser;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\InternalType\IndirectObjectReference;
-use Zend\Pdf\Trailer;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
+use ZendPdf\InternalType\IndirectObjectReference;
+use ZendPdf\Trailer;
 
 /**
  * PDF file parser
@@ -27,14 +27,14 @@ class StructureParser
     /**
      * String parser
      *
-     * @var \Zend\Pdf\PdfParser\DataParser
+     * @var \ZendPdf\PdfParser\DataParser
      */
     private $_stringParser;
 
     /**
      * Last PDF file trailer
      *
-     * @var \Zend\Pdf\Trailer\Parsed
+     * @var \ZendPdf\Trailer\Parsed
      */
     private $_trailer;
 
@@ -80,8 +80,8 @@ class StructureParser
      * Load XReference table and referenced objects
      *
      * @param integer $offset
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
-     * @return \Zend\Pdf\Trailer\Parsed
+     * @throws \ZendPdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Trailer\Parsed
      */
     private function _loadXRefTable($offset)
     {
@@ -310,7 +310,7 @@ class StructureParser
     /**
      * Get Trailer object
      *
-     * @return \Zend\Pdf\Trailer\Parsed
+     * @return \ZendPdf\Trailer\Parsed
      */
     public function getTrailer()
     {
@@ -324,9 +324,9 @@ class StructureParser
      * Thus we don't need to care about overhead
      *
      * @param mixed $source
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @param boolean $load
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct($source, Pdf\ObjectFactory $factory, $load)
     {

@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\BinaryParser\DataSource;
+namespace ZendPdf\BinaryParser\DataSource;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
- * Concrete subclass of {@link \Zend\Pdf\BinaryParser\DataSource\AbstractDataSource}
+ * Concrete subclass of {@link \ZendPdf\BinaryParser\DataSource\AbstractDataSource}
  * that provides an interface to binary strings.
  *
  * @package    Zend_PDF
@@ -73,7 +73,7 @@ class String extends AbstractDataSource
      *
      * @param integer $byteCount Number of bytes to read.
      * @return string
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function readBytes($byteCount)
     {

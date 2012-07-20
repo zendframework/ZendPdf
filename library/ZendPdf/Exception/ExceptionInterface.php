@@ -8,7 +8,7 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Exception;
+namespace ZendPdf\Exception;
 
 /**
  * Exception interface for Zend\Pdf.

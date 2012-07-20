@@ -8,16 +8,16 @@
  * @package   Zend_Pdf
  */
 
-namespace ZendTest\Pdf;
+namespace ZendPdfTest;
 
-use Zend\Pdf\InternalType;
-use Zend\Pdf\Action;
-use Zend\Pdf\Util;
-use Zend\Pdf\ObjectFactory;
-use Zend\Pdf;
-use Zend\Pdf\Destination;
+use ZendPdf\InternalType;
+use ZendPdf\Action;
+use ZendPdf\Util;
+use ZendPdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\Destination;
 
-/** \Zend\Pdf\Action */
+/** \ZendPdf\Action */
 
 
 /** PHPUnit Test Case */
@@ -387,7 +387,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $dictionary->S    = new InternalType\NameObject('URI');
 
 
-        $this->setExpectedException('\Zend\Pdf\Exception\CorruptedPdfException', 'URI action dictionary entry is required');
+        $this->setExpectedException('\ZendPdf\Exception\CorruptedPdfException', 'URI action dictionary entry is required');
         $action = Action\AbstractAction::load($dictionary);
 
     }
@@ -430,7 +430,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
     public function testPhpVersionBug()
     {
         $this->setExpectedException(
-            '\Zend\Pdf\Exception\NotImplementedException',
+            '\ZendPdf\Exception\NotImplementedException',
             'Cross-reference streams are not supported yet'
         );
 

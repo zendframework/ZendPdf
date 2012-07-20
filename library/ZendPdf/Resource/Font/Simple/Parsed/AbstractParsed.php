@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource\Font\Simple\Parsed;
+namespace ZendPdf\Resource\Font\Simple\Parsed;
 
-use Zend\Pdf;
-use Zend\Pdf\BinaryParser\Font\OpenType as OpenTypeFontParser;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\BinaryParser\Font\OpenType as OpenTypeFontParser;
+use ZendPdf\InternalType;
 
 /**
  * Parsed and (optionaly) embedded fonts implementation
@@ -22,13 +22,13 @@ use Zend\Pdf\InternalType;
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Fonts
  */
-abstract class AbstractParsed extends \Zend\Pdf\Resource\Font\Simple\AbstractSimple
+abstract class AbstractParsed extends \ZendPdf\Resource\Font\Simple\AbstractSimple
 {
     /**
      * Object constructor
      *
-     * @param \Zend\Pdf\BinaryParser\Font\OpenType\AbstractOpenType $fontParser Font parser object containing OpenType file.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @param \ZendPdf\BinaryParser\Font\OpenType\AbstractOpenType $fontParser Font parser object containing OpenType file.
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(OpenTypeFontParser\AbstractOpenType $fontParser)
     {
@@ -71,13 +71,13 @@ abstract class AbstractParsed extends \Zend\Pdf\Resource\Font\Simple\AbstractSim
         $this->_resource->FirstChar = new InternalType\NumericObject(0);
         $this->_resource->LastChar  = new InternalType\NumericObject(count($this->_glyphWidths) - 1);
 
-        /* Now convert the scalar glyph widths to \Zend\Pdf\InternalType\NumericObect objects.
+        /* Now convert the scalar glyph widths to \ZendPdf\InternalType\NumericObect objects.
          */
         $pdfWidths = array();
         foreach ($this->_glyphWidths as $width) {
             $pdfWidths[] = new InternalType\NumericObject($this->toEmSpace($width));
         }
-        /* Create the \Zend\Pdf\InternalType\ArrayObject object and add it to the font's
+        /* Create the \ZendPdf\InternalType\ArrayObject object and add it to the font's
          * object factory and resource dictionary.
          */
         $widthsArrayElement = new InternalType\ArrayObject($pdfWidths);

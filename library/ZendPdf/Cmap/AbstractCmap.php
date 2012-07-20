@@ -8,13 +8,13 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Cmap;
+namespace ZendPdf\Cmap;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
 
 /**
- * Abstract helper class for {@link \Zend\Pdf\Resource\Font\AbstractFont}
+ * Abstract helper class for {@link \ZendPdf\Resource\Font\AbstractFont}
  * which manages font character maps.
  *
  * Defines the public interface for concrete subclasses which are responsible
@@ -32,10 +32,10 @@ use Zend\Pdf\Exception;
  *  <li>{@link http://partners.adobe.com/public/developer/opentype/index_cmap.html}
  * </ul>
  *
- * @todo Write code for \Zend\Pdf\Cmap\HighByteMapping class.
- * @todo Write code for \Zend\Pdf\Cmap\MixedCoverage class.
- * @todo Write code for \Zend\Pdf\Cmap\TrimmedArray class.
- * @todo Write code for \Zend\Pdf\Cmap\SegmentedCoverage class.
+ * @todo Write code for \ZendPdf\Cmap\HighByteMapping class.
+ * @todo Write code for \ZendPdf\Cmap\MixedCoverage class.
+ * @todo Write code for \ZendPdf\Cmap\TrimmedArray class.
+ * @todo Write code for \ZendPdf\Cmap\SegmentedCoverage class.
  *
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Font
@@ -114,14 +114,14 @@ abstract class AbstractCmap
      *
      * The cmap type must be one of the following values:
      * <ul>
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_BYTE_ENCODING}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_BYTE_ENCODING_STATIC}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_HIGH_BYTE_MAPPING}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_SEGMENT_TO_DELTA}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_TRIMMED_TABLE}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_MIXED_COVERAGE}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_TRIMMED_ARRAY}
-     *  <li>{@link \Zend\Pdf\Cmap\AbstractCmap::TYPE_SEGMENTED_COVERAGE}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_BYTE_ENCODING}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_BYTE_ENCODING_STATIC}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_HIGH_BYTE_MAPPING}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_SEGMENT_TO_DELTA}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_TRIMMED_TABLE}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_MIXED_COVERAGE}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_TRIMMED_ARRAY}
+     *  <li>{@link \ZendPdf\Cmap\AbstractCmap::TYPE_SEGMENTED_COVERAGE}
      * </ul>
      *
      * Throws an exception if the table type is invalid or the cmap table data
@@ -129,8 +129,8 @@ abstract class AbstractCmap
      *
      * @param integer $cmapType Type of cmap.
      * @param mixed $cmapData CMap table data. Usually a string or array.
-     * @return \Zend\Pdf\Cmap\AbstractCmap
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Cmap\AbstractCmap
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function cmapWithTypeData($cmapType, $cmapData)
     {
@@ -174,7 +174,7 @@ abstract class AbstractCmap
      * malformed.
      *
      * @param string $cmapData Raw binary cmap table data.
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     abstract public function __construct($cmapData);
 
@@ -241,7 +241,7 @@ abstract class AbstractCmap
      * @param string &$data
      * @param integer $index Position in string of integer.
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     protected function _extractInt2(&$data, $index)
     {
@@ -266,7 +266,7 @@ abstract class AbstractCmap
      * @param string &$data
      * @param integer $index Position in string of integer.
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     protected function _extractUInt2(&$data, $index)
     {
@@ -291,7 +291,7 @@ abstract class AbstractCmap
      * @param string &$data
      * @param integer $index Position in string of integer.
      * @return integer
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     protected function _extractUInt4(&$data, $index)
     {

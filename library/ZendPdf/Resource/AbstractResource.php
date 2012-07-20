@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Resource;
+namespace ZendPdf\Resource;
 
-use Zend\Pdf;
-use Zend\Pdf\InternalType;
-use Zend\Pdf\ObjectFactory;
+use ZendPdf as Pdf;
+use ZendPdf\InternalType;
+use ZendPdf\ObjectFactory;
 
 /**
  * PDF file Resource abstraction
@@ -38,24 +38,24 @@ abstract class AbstractResource
      * doesn't duplicate resource description each time then Resource is rendered
      * (referenced).
      *
-     * @var \Zend\Pdf\ObjectFactory
+     * @var \ZendPdf\ObjectFactory
      */
     protected $_objectFactory;
 
     /**
      * Main resource object
      *
-     * @var \Zend\Pdf\InternalType\IndirectObject
+     * @var \ZendPdf\InternalType\IndirectObject
      */
     protected $_resource;
 
     /**
      * Object constructor.
      *
-     * If resource is not a \Zend\Pdf\InternalType\AbstractTypeObject object,
+     * If resource is not a \ZendPdf\InternalType\AbstractTypeObject object,
      * then stream object with specified value is generated.
      *
-     * @param \Zend\Pdf\InternalType\AbstractTypeObject|string $resource
+     * @param \ZendPdf\InternalType\AbstractTypeObject|string $resource
      */
     public function __construct($resource)
     {
@@ -73,7 +73,7 @@ abstract class AbstractResource
      */
     public function __clone()
     {
-        $factory = \Zend\Pdf\ObjectFactory::createFactory(1);
+        $factory = \ZendPdf\ObjectFactory::createFactory(1);
         $processed = array();
 
         // Clone dictionary object.
@@ -98,9 +98,9 @@ abstract class AbstractResource
      * so it can be used within other docs.
      *
      * @internal
-     * @param \Zend\Pdf\ObjectFactory $factory
+     * @param \ZendPdf\ObjectFactory $factory
      * @param array $processed
-     * @return \Zend\Pdf\Page
+     * @return \ZendPdf\Page
      */
     public function clonePage($factory, &$processed)
     {
@@ -125,7 +125,7 @@ abstract class AbstractResource
      * Used to reference resource in an internal PDF data structures (resource dictionaries)
      *
      * @internal
-     * @return \Zend\Pdf\InternalType\IndirectObject
+     * @return \ZendPdf\InternalType\IndirectObject
      */
     public function getResource()
     {
@@ -136,7 +136,7 @@ abstract class AbstractResource
      * Get factory.
      *
      * @internal
-     * @return \Zend\Pdf\ObjectFactory
+     * @return \ZendPdf\ObjectFactory
      */
     public function getFactory()
     {

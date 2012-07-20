@@ -8,14 +8,14 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Destination;
+namespace ZendPdf\Destination;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
- * \Zend\Pdf\Destination\Zoom explicit detination
+ * \ZendPdf\Destination\Zoom explicit detination
  *
  * Destination array: [page /XYZ left top zoom]
  *
@@ -33,12 +33,12 @@ class Zoom extends AbstractExplicitDestination
     /**
      * Create destination object
      *
-     * @param \Zend\Pdf\Page|integer $page  Page object or page number
+     * @param \ZendPdf\Page|integer $page  Page object or page number
      * @param float $left  Left edge of displayed page
      * @param float $top   Top edge of displayed page
      * @param float $zoom  Zoom factor
-     * @return \Zend\Pdf\Destination\Zoom
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @return \ZendPdf\Destination\Zoom
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public static function create($page, $left = null, $top = null, $zoom = null)
     {
@@ -49,7 +49,7 @@ class Zoom extends AbstractExplicitDestination
         } elseif (is_integer($page)) {
             $destinationArray->items[] = new InternalType\NumericObject($page);
         } else {
-            throw new Exception\InvalidArgumentException('$page parametr must be a \Zend\Pdf\Page object or a page number.');
+            throw new Exception\InvalidArgumentException('$page parametr must be a \ZendPdf\Page object or a page number.');
         }
 
         $destinationArray->items[] = new InternalType\NameObject('XYZ');
@@ -89,7 +89,7 @@ class Zoom extends AbstractExplicitDestination
      * Set left edge of the displayed page (null means viewer application 'current value')
      *
      * @param float $left
-     * @return \Zend\Pdf\Action\Zoom
+     * @return \ZendPdf\Action\Zoom
      */
     public function setLeftEdge($left)
     {
@@ -116,7 +116,7 @@ class Zoom extends AbstractExplicitDestination
      * Set top edge of the displayed page (null means viewer application 'current viewer')
      *
      * @param float $top
-     * @return \Zend\Pdf\Action\Zoom
+     * @return \ZendPdf\Action\Zoom
      */
     public function setTopEdge($top)
     {
@@ -143,7 +143,7 @@ class Zoom extends AbstractExplicitDestination
      * Set ZoomFactor of the displayed page (null or 0 means viewer application 'current viewer')
      *
      * @param float $zoom
-     * @return \Zend\Pdf\Action\Zoom
+     * @return \ZendPdf\Action\Zoom
      */
     public function setZoomFactor($zoom)
     {

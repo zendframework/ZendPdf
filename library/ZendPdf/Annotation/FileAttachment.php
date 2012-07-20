@@ -8,11 +8,11 @@
  * @package   Zend_Pdf
  */
 
-namespace Zend\Pdf\Annotation;
+namespace ZendPdf\Annotation;
 
-use Zend\Pdf;
-use Zend\Pdf\Exception;
-use Zend\Pdf\InternalType;
+use ZendPdf as Pdf;
+use ZendPdf\Exception;
+use ZendPdf\InternalType;
 
 /**
  * A file attachment annotation contains a reference to a file,
@@ -26,7 +26,7 @@ class FileAttachment extends AbstractAnnotation
     /**
      * Annotation object constructor
      *
-     * @throws \Zend\Pdf\Exception\ExceptionInterface
+     * @throws \ZendPdf\Exception\ExceptionInterface
      */
     public function __construct(InternalType\AbstractTypeObject $annotationDictionary)
     {
@@ -51,7 +51,7 @@ class FileAttachment extends AbstractAnnotation
      * @param float $x2
      * @param float $y2
      * @param string $fileSpecification
-     * @return \Zend\Pdf\Annotation\FileAttachment
+     * @return \ZendPdf\Annotation\FileAttachment
      */
     public static function create($x1, $y1, $x2, $y2, $fileSpecification)
     {
