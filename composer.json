@@ -21,6 +21,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
+        "zendframework/zend-memory": "self.version",
         "zendframework/zend-stdlib": "self.version"
     }
 }
