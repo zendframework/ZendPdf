@@ -599,4 +599,24 @@ class DrawingTest extends \PHPUnit_Framework_TestCase
         unlink(__DIR__ . '/_files/output.pdf');
         unlink(__DIR__ . '/_files/output1.pdf');
     }
+
+    public function testStyle()
+    {
+        // Create new font
+        $font = Pdf\Font::fontWithName(Pdf\Font::FONT_HELVETICA);
+
+        // Create new style
+        $style = new Pdf\Style();
+
+        $this->assertNull($style->getFillColor());
+        $this->assertNull($style->getLineColor());
+
+        // Apply style options
+        $style->setFillColor(new Color\GrayScale(0.8));
+        $style->setLineColor(new Color\GrayScale(0.2));
+        $style->setFont($font, 10);
+
+        $this->assertTrue($style->getFillColor() instanceof Color\GrayScale);
+        $this->assertTrue($style->getLineColor() instanceof Color\GrayScale);
+    }
 }
