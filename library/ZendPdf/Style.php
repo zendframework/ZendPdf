@@ -24,7 +24,7 @@ class Style
      * Fill color.
      * Used to fill geometric shapes or text.
      *
-     * @var \ZendPdf\Color|null
+     * @var \ZendPdf\Color\ColorInterface|null
      */
     private $_fillColor = null;
 
@@ -32,7 +32,7 @@ class Style
      * Line color.
      * Current color, used for lines and font outlines.
      *
-     * @var \ZendPdf\Color|null
+     * @var \ZendPdf\Color\ColorInterface|null
      */
 
     private $_color;
@@ -98,9 +98,9 @@ class Style
     /**
      * Set fill color.
      *
-     * @param \ZendPdf\Color $color
+     * @param \ZendPdf\Color\ColorInterface $color
      */
-    public function setFillColor(Color $color)
+    public function setFillColor(Color\ColorInterface $color)
     {
         $this->_fillColor = $color;
     }
@@ -108,9 +108,9 @@ class Style
     /**
      * Set line color.
      *
-     * @param \ZendPdf\Color $color
+     * @param \ZendPdf\Color\ColorInterface $color
      */
-    public function setLineColor(Color $color)
+    public function setLineColor(Color\ColorInterface $color)
     {
         $this->_color = $color;
     }
@@ -169,7 +169,7 @@ class Style
     /**
      * Get fill color.
      *
-     * @return \ZendPdf\Color|null
+     * @return \ZendPdf\Color\ColorInterface|null
      */
     public function getFillColor()
     {
@@ -179,7 +179,7 @@ class Style
     /**
      * Get line color.
      *
-     * @return \ZendPdf\Color|null
+     * @return \ZendPdf\Color\ColorInterface|null
      */
     public function getLineColor()
     {
