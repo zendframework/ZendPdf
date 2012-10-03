@@ -56,4 +56,3 @@ abstract class AbstractImage extends Resource\AbstractResource
      */
     abstract public function getProperties();
 }
-
