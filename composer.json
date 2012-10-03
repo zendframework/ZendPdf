@@ -10,7 +10,7 @@
     "homepage": "http://packages.zendframework.com/",
     "autoload": {
         "psr-0": {
-            "ZendPdf": "library/"
+            "ZendPdf\\": "library/"
         }
     },
     "repositories": [
