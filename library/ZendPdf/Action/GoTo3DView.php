@@ -20,4 +20,3 @@ namespace ZendPdf\Action;
 class GoTo3DView extends AbstractAction
 {
 }
-
