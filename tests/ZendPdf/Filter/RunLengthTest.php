@@ -73,4 +73,3 @@ class RunLengthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(StreamFilter\RunLength::decode($encodedContents), $testString);
     }
 }
-

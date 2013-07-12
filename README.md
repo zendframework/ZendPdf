@@ -1,4 +1,6 @@
-ZendPdf component
+### ZendPdf component
+
+Master: [![Build Status](https://secure.travis-ci.org/zendframework/ZendPdf.png?branch=master)](http://travis-ci.org/zendframework/ZendPdf)
 
 You can install using:
 

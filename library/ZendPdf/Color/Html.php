@@ -69,11 +69,11 @@ class Html implements ColorInterface
     }
 
     /**
-     * Creates a \ZendPdf\Color object from the HTML representation.
+     * Creates a ColorInterface object from the HTML representation.
      *
      * @param string $color May either be a hexidecimal number of the form
      *    #rrggbb or one of the 140 well-known names (black, white, blue, etc.)
-     * @return \ZendPdf\Color
+     * @return ColorInterface
      */
     public static function color($color)
     {
@@ -93,11 +93,11 @@ class Html implements ColorInterface
     }
 
     /**
-     * Creates a \ZendPdf\Color object from the named color.
+     * Creates a ColorInterface object from the named color.
      *
      * @param string $color One of the 140 well-known color names (black, white,
      *    blue, etc.)
-     * @return \ZendPdf\Color
+     * @return ColorInterface
      */
     public static function namedColor($color)
     {
