@@ -16,7 +16,7 @@ namespace ZendPdf\Util;
  * @package    Zend_PDF
  * @subpackage Zend_PDF_Util
  */
-class RecursivelyIterableObjectsContainer implements \RecursiveIterator, \Countable
+class RecursivelyIterableObjectsContainer extends RecursivelyIterableObjectsContainer implements \RecursiveIterator, \Countable
 {
     protected $_objects = array();
 
