@@ -10,6 +10,8 @@
 
 namespace ZendPdf;
 
+use ZendPdf\Drawings\DrawingInterface;
+use ZendPdf\Drawings\SimpleText;
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
 
@@ -1574,20 +1576,8 @@ class Page
      */
     public function drawText($text, $x, $y, $charEncoding = '')
     {
-        if ($this->_font === null) {
-            throw new Exception\LogicException('Font has not been set');
-        }
-
-        $this->_addProcSet('Text');
-
-        $textObj = new InternalType\StringObject($this->_font->encodeString($text, $charEncoding));
-        $xObj    = new InternalType\NumericObject($x);
-        $yObj    = new InternalType\NumericObject($y);
-
-        $this->_contents .= "BT\n"
-                         .  $xObj->toString() . ' ' . $yObj->toString() . " Td\n"
-                         .  $textObj->toString() . " Tj\n"
-                         .  "ET\n";
+        $simpleText = new SimpleText($text,$charEncoding);
+        $this->draw($x, $y, $simpleText);
 
         return $this;
     }
@@ -1792,5 +1782,27 @@ class Page
                          .  '1 0 0 1 ' . $mXObj->toString() . ' ' . $mYObj->toString() . " cm\n";
 
         return $this;
+    }
+
+    /**
+     * Add procedureSet to the Page description
+     * @param $name
+     * @return void
+     */
+    public function addProcedureSet($name)
+    {
+        $this->_addProcSet($name);
+    }
+
+    /**
+     * Draw element in specific position.
+     * @param float $x x position
+     * @param float $y y position
+     * @param DrawingInterface $drawing Element to draw
+     */
+    public function draw($x, $y, DrawingInterface $drawing)
+    {
+        $drawing->setPosition($x, $y);
+        $this->_contents .= $drawing->draw($this);
     }
 }
