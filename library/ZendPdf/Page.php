@@ -13,6 +13,7 @@ namespace ZendPdf;
 use ZendPdf\Drawings\DrawingInterface;
 use ZendPdf\Drawings\Ellipse;
 use ZendPdf\Drawings\Image;
+use ZendPdf\Drawings\Line;
 use ZendPdf\Drawings\Rectangle;
 use ZendPdf\Drawings\RoundedRectangle;
 use ZendPdf\Drawings\SimpleText;
@@ -1219,16 +1220,8 @@ class Page
      */
     public function drawLine($x1, $y1, $x2, $y2)
     {
-        $this->_addProcSet('PDF');
-
-        $x1Obj = new InternalType\NumericObject($x1);
-        $y1Obj = new InternalType\NumericObject($y1);
-        $x2Obj = new InternalType\NumericObject($x2);
-        $y2Obj = new InternalType\NumericObject($y2);
-
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " m\n"
-                         .  $x2Obj->toString() . ' ' . $y2Obj->toString() . " l\n S\n";
-
+        $line = new Line($x2, $y2);
+        $this->draw($x1, $y1, $line);
         return $this;
     }
 
