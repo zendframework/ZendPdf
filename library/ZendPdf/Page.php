@@ -1151,10 +1151,12 @@ class Page
         if ($param5 === null) {
             // drawEllipse($x1, $y1, $x2, $y2);
             $startAngle = null;
+            $endAngle = null;
             $fillType = self::SHAPE_DRAW_FILL_AND_STROKE;
         } elseif ($param6 === null) {
             // drawEllipse($x1, $y1, $x2, $y2, $fillType);
             $startAngle = null;
+            $endAngle = null;
             $fillType = $param5;
         } else {
             // drawEllipse($x1, $y1, $x2, $y2, $startAngle, $endAngle);
@@ -1169,90 +1171,8 @@ class Page
             }
         }
 
-        $this->_addProcSet('PDF');
-
-        if ($x2 < $x1) {
-            $temp = $x1;
-            $x1   = $x2;
-            $x2   = $temp;
-        }
-        if ($y2 < $y1) {
-            $temp = $y1;
-            $y1   = $y2;
-            $y2   = $temp;
-        }
-
-        $x = ($x1 + $x2)/2.;
-        $y = ($y1 + $y2)/2.;
-
-        $xC = new InternalType\NumericObject($x);
-        $yC = new InternalType\NumericObject($y);
-
-        if ($startAngle !== null) {
-            if ($startAngle != 0) { $startAngle = fmod($startAngle, M_PI*2); }
-            if ($endAngle   != 0) { $endAngle   = fmod($endAngle,   M_PI*2); }
-
-            if ($startAngle > $endAngle) {
-                $endAngle += M_PI*2;
-            }
-
-            $clipPath    = $xC->toString() . ' ' . $yC->toString() . " m\n";
-            $clipSectors = (int)ceil(($endAngle - $startAngle)/M_PI_4);
-            $clipRadius  = max($x2 - $x1, $y2 - $y1);
-
-            for($count = 0; $count <= $clipSectors; $count++) {
-                $pAngle = $startAngle + ($endAngle - $startAngle)*$count/(float)$clipSectors;
-
-                $pX = new InternalType\NumericObject($x + cos($pAngle)*$clipRadius);
-                $pY = new InternalType\NumericObject($y + sin($pAngle)*$clipRadius);
-                $clipPath .= $pX->toString() . ' ' . $pY->toString() . " l\n";
-            }
-
-            $this->_contents .= "q\n" . $clipPath . "h\nW\nn\n";
-        }
-
-        $xLeft  = new InternalType\NumericObject($x1);
-        $xRight = new InternalType\NumericObject($x2);
-        $yUp    = new InternalType\NumericObject($y2);
-        $yDown  = new InternalType\NumericObject($y1);
-
-        $xDelta  = 2*(M_SQRT2 - 1)*($x2 - $x1)/3.;
-        $yDelta  = 2*(M_SQRT2 - 1)*($y2 - $y1)/3.;
-        $xr = new InternalType\NumericObject($x + $xDelta);
-        $xl = new InternalType\NumericObject($x - $xDelta);
-        $yu = new InternalType\NumericObject($y + $yDelta);
-        $yd = new InternalType\NumericObject($y - $yDelta);
-
-        $this->_contents .= $xC->toString() . ' ' . $yUp->toString() . " m\n"
-                         .  $xr->toString() . ' ' . $yUp->toString() . ' '
-                         .    $xRight->toString() . ' ' . $yu->toString() . ' '
-                         .      $xRight->toString() . ' ' . $yC->toString() . " c\n"
-                         .  $xRight->toString() . ' ' . $yd->toString() . ' '
-                         .    $xr->toString() . ' ' . $yDown->toString() . ' '
-                         .      $xC->toString() . ' ' . $yDown->toString() . " c\n"
-                         .  $xl->toString() . ' ' . $yDown->toString() . ' '
-                         .    $xLeft->toString() . ' ' . $yd->toString() . ' '
-                         .      $xLeft->toString() . ' ' . $yC->toString() . " c\n"
-                         .  $xLeft->toString() . ' ' . $yu->toString() . ' '
-                         .    $xl->toString() . ' ' . $yUp->toString() . ' '
-                         .      $xC->toString() . ' ' . $yUp->toString() . " c\n";
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                $this->_contents .= " B*\n";
-                break;
-            case self::SHAPE_DRAW_FILL:
-                $this->_contents .= " f*\n";
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
-        if ($startAngle !== null) {
-            $this->_contents .= "Q\n";
-        }
-
+        $ellipse = new Ellipse($x2, $y2, $startAngle, $endAngle, $fillType);
+        $this->draw($x1, $y1, $ellipse);
         return $this;
     }
 
