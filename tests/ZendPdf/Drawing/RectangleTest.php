@@ -43,11 +43,11 @@ class RectangleTest extends \PHPUnit_Framework_TestCase
         $text = new Rectangle(100, 50);
         $text->setPosition(10, 10);
 
-        $expected = <<<SIMPLETEXT
+        $expected = <<<DRAWING
 10 10 90 40 re
  B*
 
-SIMPLETEXT;
+DRAWING;
         $this->assertEquals($expected, $text->draw($page));
     }
 }

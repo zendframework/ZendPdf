@@ -16,20 +16,20 @@ use ZendPdf\Page;
 use ZendPdf\Resource\Image\AbstractImage;
 
 /**
- * Draw a rectangle at the specified position.
+ * Draw a line at the specified position.
  *
  * @package    ZendPdf
  * @subpackage ZendPdf\Drawings
  */
 class Line extends DrawingAbstract
 {
-    protected $width;
-    protected $height;
+    protected $horizontalPoint;
+    protected $verticalPoint;
 
-    public function __construct($width, $height)
+    public function __construct($horizontalPoint, $verticalPoint)
     {
-        $this->width = (float)$width;
-        $this->height = (float)$height;
+        $this->horizontalPoint = (float)$horizontalPoint;
+        $this->verticalPoint = (float)$verticalPoint;
     }
 
     /**
@@ -41,8 +41,8 @@ class Line extends DrawingAbstract
 
         $x1Obj = new NumericObject($this->xPosition);
         $y1Obj = new NumericObject($this->yPosition);
-        $x2Obj = new NumericObject($this->width);
-        $y2Obj = new NumericObject($this->height);
+        $x2Obj = new NumericObject($this->horizontalPoint);
+        $y2Obj = new NumericObject($this->verticalPoint);
 
         return $x1Obj->toString() . ' ' . $y1Obj->toString() . " m\n"
             .  $x2Obj->toString() . ' ' . $y2Obj->toString() . " l\n S\n";

@@ -103,21 +103,21 @@ class RoundedRectangle extends ShapeAbstract
         $radius = $this->radius;
 
         //draw top side
-        $x1Obj = new NumericObject($topLeftX + $radius[0]);
+        $x1Obj = new NumericObject($topLeftX + $radius[static::CORNER_TOP_LEFT]);
         $y1Obj = new NumericObject($topLeftY);
         $content = $x1Obj->toString() . ' ' . $y1Obj->toString() . " m\n";
-        $x1Obj = new NumericObject($topRightX - $radius[1]);
+        $x1Obj = new NumericObject($topRightX - $radius[static::CORNER_TOP_RIGHT]);
         $y1Obj = new NumericObject($topRightY);
         $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
 
         //draw top right corner if needed
-        if ($radius[1] != 0) {
+        if ($radius[static::CORNER_TOP_RIGHT] != 0) {
             $x1Obj = new NumericObject($topRightX);
             $y1Obj = new NumericObject($topRightY);
             $x2Obj = new NumericObject($topRightX);
             $y2Obj = new NumericObject($topRightY);
             $x3Obj = new NumericObject($topRightX);
-            $y3Obj = new NumericObject($topRightY - $radius[1]);
+            $y3Obj = new NumericObject($topRightY - $radius[static::CORNER_TOP_RIGHT]);
             $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
                 . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '
                 . $x3Obj->toString() . ' ' . $y3Obj->toString() . ' '
@@ -126,16 +126,16 @@ class RoundedRectangle extends ShapeAbstract
 
         //draw right side
         $x1Obj = new NumericObject($bottomRightX);
-        $y1Obj = new NumericObject($bottomRightY + $radius[2]);
+        $y1Obj = new NumericObject($bottomRightY + $radius[static::CORNER_BOTTOM_RIGHT]);
         $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
 
         //draw bottom right corner if needed
-        if ($radius[2] != 0) {
+        if ($radius[static::CORNER_BOTTOM_RIGHT] != 0) {
             $x1Obj = new NumericObject($bottomRightX);
             $y1Obj = new NumericObject($bottomRightY);
             $x2Obj = new NumericObject($bottomRightX);
             $y2Obj = new NumericObject($bottomRightY);
-            $x3Obj = new NumericObject($bottomRightX - $radius[2]);
+            $x3Obj = new NumericObject($bottomRightX - $radius[static::CORNER_BOTTOM_RIGHT]);
             $y3Obj = new NumericObject($bottomRightY);
             $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
                 . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '
@@ -144,12 +144,12 @@ class RoundedRectangle extends ShapeAbstract
         }
 
         //draw bottom side
-        $x1Obj = new NumericObject($bottomLeftX + $radius[3]);
+        $x1Obj = new NumericObject($bottomLeftX + $radius[static::CORNER_BOTTOM_LEFT]);
         $y1Obj = new NumericObject($bottomLeftY);
         $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
 
         //draw bottom left corner if needed
-        if ($radius[3] != 0) {
+        if ($radius[static::CORNER_BOTTOM_LEFT] != 0) {
             $x1Obj = new NumericObject($bottomLeftX);
             $y1Obj = new NumericObject($bottomLeftY);
             $x2Obj = new NumericObject($bottomLeftX);
@@ -164,16 +164,16 @@ class RoundedRectangle extends ShapeAbstract
 
         //draw left side
         $x1Obj = new NumericObject($topLeftX);
-        $y1Obj = new NumericObject($topLeftY - $radius[0]);
+        $y1Obj = new NumericObject($topLeftY - $radius[static::CORNER_TOP_LEFT]);
         $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
 
         //draw top left corner if needed
-        if ($radius[0] != 0) {
+        if ($radius[static::CORNER_TOP_LEFT] != 0) {
             $x1Obj = new NumericObject($topLeftX);
             $y1Obj = new NumericObject($topLeftY);
             $x2Obj = new NumericObject($topLeftX);
             $y2Obj = new NumericObject($topLeftY);
-            $x3Obj = new NumericObject($topLeftX + $radius[0]);
+            $x3Obj = new NumericObject($topLeftX + $radius[static::CORNER_TOP_LEFT]);
             $y3Obj = new NumericObject($topLeftY);
             $content .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
                 . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '

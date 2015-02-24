@@ -46,13 +46,13 @@ class SimpleTextTest extends \PHPUnit_Framework_TestCase
         $text = new SimpleText('testing my text');
         $text->setPosition(10, 10);
 
-        $expected = <<<SIMPLETEXT
+        $expected = <<<DRAWING
 BT
 10 10 Td
 (testing my text) Tj
 ET
 
-SIMPLETEXT;
+DRAWING;
         $this->assertEquals($expected, $text->draw($page));
     }
 
@@ -67,14 +67,14 @@ SIMPLETEXT;
         $text->setPosition(10, 10);
         $text->setStyle($style);
 
-        $expected = <<<SIMPLETEXT
+        $expected = <<<DRAWING
 1 0 0 rg
 BT
 10 10 Td
 (testing my text) Tj
 ET
 
-SIMPLETEXT;
+DRAWING;
         $this->assertEquals($expected, $text->draw($page));
     }
 }

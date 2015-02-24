@@ -43,7 +43,7 @@ class RoundedRectangleTest extends \PHPUnit_Framework_TestCase
         $text = new RoundedRectangle(100, 50, 10);
         $text->setPosition(10, 10);
 
-        $expected = <<<SIMPLETEXT
+        $expected = <<<DRAWING
 20 50 m
 90 50 l
 100 50 100 50 100 40  c
@@ -55,7 +55,7 @@ class RoundedRectangleTest extends \PHPUnit_Framework_TestCase
 10 50 10 50 20 50  c
  B*
 
-SIMPLETEXT;
+DRAWING;
         $this->assertEquals($expected, $text->draw($page));
     }
 }

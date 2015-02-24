@@ -13,11 +13,7 @@ namespace ZendPdfTest\Drawing;
 /**
  * PHPUnit Test Case
  */
-use ZendPdf\Color\Cmyk;
-use ZendPdf\Color\Html;
-use ZendPdf\Color\Rgb;
 use ZendPdf\Drawings\Ellipse;
-use ZendPdf\Font;
 use ZendPdf\Page;
 use ZendPdf\PdfDocument;
 
@@ -47,7 +43,7 @@ class EllipseTest extends \PHPUnit_Framework_TestCase
         $actualContent .= $ellipse3->draw($page);
 
 
-        $expected = <<<SIMPLETEXT
+        $expected = <<<DRAWING
 325 400 m
 366.4213562373095 400 400 388.80711874576986 400 375 c
 400 361.19288125423014 366.4213562373095 350 325 350 c
@@ -85,7 +81,7 @@ n
  B*
 Q
 
-SIMPLETEXT;
+DRAWING;
         $this->assertEquals($expected, $actualContent);
     }
 }

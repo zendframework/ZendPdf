@@ -16,7 +16,7 @@ use ZendPdf\Page;
 use ZendPdf\Resource\Image\AbstractImage;
 
 /**
- * Draw a rectangle at the specified position.
+ * Draw an image at the specified position.
  *
  * @package    ZendPdf
  * @subpackage ZendPdf\Drawings
