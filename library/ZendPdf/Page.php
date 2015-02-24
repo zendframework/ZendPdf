@@ -12,6 +12,7 @@ namespace ZendPdf;
 
 use ZendPdf\Drawings\DrawingInterface;
 use ZendPdf\Drawings\Ellipse;
+use ZendPdf\Drawings\Image;
 use ZendPdf\Drawings\Rectangle;
 use ZendPdf\Drawings\RoundedRectangle;
 use ZendPdf\Drawings\SimpleText;
@@ -1188,22 +1189,8 @@ class Page
      */
     public function drawImage(Resource\Image\AbstractImage $image, $x1, $y1, $x2, $y2)
     {
-        $this->_addProcSet('PDF');
-
-        $imageName    = $this->_attachResource('XObject', $image);
-        $imageNameObj = new InternalType\NameObject($imageName);
-
-        $x1Obj     = new InternalType\NumericObject($x1);
-        $y1Obj     = new InternalType\NumericObject($y1);
-        $widthObj  = new InternalType\NumericObject($x2 - $x1);
-        $heightObj = new InternalType\NumericObject($y2 - $y1);
-
-        $this->_contents .= "q\n"
-                         .  '1 0 0 1 ' . $x1Obj->toString() . ' ' . $y1Obj->toString() . " cm\n"
-                         .  $widthObj->toString() . ' 0 0 ' . $heightObj->toString() . " 0 0 cm\n"
-                         .  $imageNameObj->toString() . " Do\n"
-                         .  "Q\n";
-
+        $drawImage = new Image($image, $x2, $y2);
+        $this->draw($x1, $y1, $drawImage);
         return $this;
     }
 
@@ -1596,5 +1583,18 @@ class Page
     {
         $drawing->setPosition($x, $y);
         $this->_contents .= $drawing->draw($this);
+    }
+
+
+    /**
+     * Attach resource to the page
+     *
+     * @param string $type
+     * @param \ZendPdf\Resource\AbstractResource $resource
+     * @return string
+     */
+    public function attachResource($type, Resource\AbstractResource $resource)
+    {
+        return $this->_attachResource($type, $resource);
     }
 }
