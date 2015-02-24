@@ -63,12 +63,26 @@ abstract class ShapeAbstract extends DrawingAbstract implements ShapeInterface
 
     /**
      * @param int $fillType
+     * @param int $fillMethod
      * @return string
      */
-    protected function drawFillType($fillType)
+    protected function drawFillType($fillType, $fillMethod = null)
     {
         $content = '';
+
         switch ($fillType) {
+            case static::DRAW_FILL_AND_STROKE && $fillMethod === static::FILL_METHOD_NON_ZERO_WINDING:
+                $content .= " b\n";
+                break;
+            case static::DRAW_FILL_AND_STROKE && $fillMethod === static::FILL_METHOD_EVEN_ODD:
+                $content .= " b*\n";
+                break;
+            case static::DRAW_FILL && $fillMethod === static::FILL_METHOD_NON_ZERO_WINDING:
+                    $content .= " h\n f\n";
+                break;
+            case static::DRAW_FILL && $fillMethod === static::FILL_METHOD_EVEN_ODD:
+                    $content .= " h\n f*\n";
+                break;
             case static::DRAW_FILL_AND_STROKE:
                 $content .= " B*\n";
                 break;
@@ -81,5 +95,4 @@ abstract class ShapeAbstract extends DrawingAbstract implements ShapeInterface
         }
         return $content;
     }
-
 }

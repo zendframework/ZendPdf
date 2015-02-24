@@ -14,6 +14,7 @@ use ZendPdf\Drawings\DrawingInterface;
 use ZendPdf\Drawings\Ellipse;
 use ZendPdf\Drawings\Image;
 use ZendPdf\Drawings\Line;
+use ZendPdf\Drawings\Polygon;
 use ZendPdf\Drawings\Rectangle;
 use ZendPdf\Drawings\RoundedRectangle;
 use ZendPdf\Drawings\SimpleText;
@@ -1239,49 +1240,14 @@ class Page
      * @param integer $fillMethod
      * @return \ZendPdf\Page
      */
-    public function drawPolygon($x, $y,
-                                $fillType = self::SHAPE_DRAW_FILL_AND_STROKE,
-                                $fillMethod = self::FILL_METHOD_NON_ZERO_WINDING)
+    public function drawPolygon(
+                                $x,
+                                $y,
+                                $fillType = Polygon::DRAW_FILL_AND_STROKE,
+                                $fillMethod = Polygon::FILL_METHOD_NON_ZERO_WINDING)
     {
-        $this->_addProcSet('PDF');
-
-        $firstPoint = true;
-        foreach ($x as $id => $xVal) {
-            $xObj = new InternalType\NumericObject($xVal);
-            $yObj = new InternalType\NumericObject($y[$id]);
-
-            if ($firstPoint) {
-                $path = $xObj->toString() . ' ' . $yObj->toString() . " m\n";
-                $firstPoint = false;
-            } else {
-                $path .= $xObj->toString() . ' ' . $yObj->toString() . " l\n";
-            }
-        }
-
-        $this->_contents .= $path;
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                if ($fillMethod == self::FILL_METHOD_NON_ZERO_WINDING) {
-                    $this->_contents .= " b\n";
-                } else {
-                    // Even-Odd fill method.
-                    $this->_contents .= " b*\n";
-                }
-                break;
-            case self::SHAPE_DRAW_FILL:
-                if ($fillMethod == self::FILL_METHOD_NON_ZERO_WINDING) {
-                    $this->_contents .= " h\n f\n";
-                } else {
-                    // Even-Odd fill method.
-                    $this->_contents .= " h\n f*\n";
-                }
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
+        $polygon = new Polygon($x, $y, $fillType, $fillMethod);
+        $this->draw(null, null, $polygon);
         return $this;
     }
 

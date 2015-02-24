@@ -33,4 +33,13 @@ interface ShapeInterface extends DrawingInterface
      */
     const DRAW_FILL_AND_STROKE = 2;
 
+    /**
+     * Fill the path using the non-zero winding rule.
+     */
+    const FILL_METHOD_NON_ZERO_WINDING = 0;
+
+    /**
+     * Fill the path using the even-odd rule.
+     */
+    const FILL_METHOD_EVEN_ODD        = 1;
 }
