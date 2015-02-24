@@ -11,6 +11,7 @@
 namespace ZendPdf;
 
 use ZendPdf\Drawings\DrawingInterface;
+use ZendPdf\Drawings\Rectangle;
 use ZendPdf\Drawings\SimpleText;
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
@@ -1397,30 +1398,10 @@ class Page
      * @param integer $fillType
      * @return \ZendPdf\Page
      */
-    public function drawRectangle($x1, $y1, $x2, $y2, $fillType = self::SHAPE_DRAW_FILL_AND_STROKE)
+    public function drawRectangle($x1, $y1, $x2, $y2, $fillType = Rectangle::DRAW_FILL_AND_STROKE)
     {
-        $this->_addProcSet('PDF');
-
-        $x1Obj      = new InternalType\NumericObject($x1);
-        $y1Obj      = new InternalType\NumericObject($y1);
-        $widthObj   = new InternalType\NumericObject($x2 - $x1);
-        $height2Obj = new InternalType\NumericObject($y2 - $y1);
-
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
-                             .  $widthObj->toString() . ' ' . $height2Obj->toString() . " re\n";
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                $this->_contents .= " B*\n";
-                break;
-            case self::SHAPE_DRAW_FILL:
-                $this->_contents .= " f*\n";
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
+        $rectangle = new Rectangle($x2, $y2,$fillType);
+        $this->draw($x1, $y1, $rectangle);
         return $this;
     }
 
