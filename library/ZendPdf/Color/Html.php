@@ -72,16 +72,26 @@ class Html implements ColorInterface
      * Creates a ColorInterface object from the HTML representation.
      *
      * @param string $color May either be a hexidecimal number of the form
-     *    #rrggbb or one of the 140 well-known names (black, white, blue, etc.)
+     *    #rrggbb, #rgb or one of the 140 well-known names (black, white, blue, etc.)
      * @return ColorInterface
      */
     public static function color($color)
     {
-        $pattern = '/^#([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/';
+        $pattern = '/^#([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$|^#([A-Fa-f0-9])([A-Fa-f0-9])([A-Fa-f0-9])$/';
         if (preg_match($pattern, $color, $matches)) {
-            $r = round((hexdec($matches[1]) / 255), 3);
-            $g = round((hexdec($matches[2]) / 255), 3);
-            $b = round((hexdec($matches[3]) / 255), 3);
+            if (strlen($matches[1]) === 2) {
+                $r = $matches[1];
+                $g = $matches[2];
+                $b = $matches[3];
+            } else {
+                $r = $matches[4].$matches[4];
+                $g = $matches[5].$matches[5];
+                $b = $matches[6].$matches[6];
+            }
+            $r = round((hexdec($r) / 255), 3);
+            $g = round((hexdec($g) / 255), 3);
+            $b = round((hexdec($b) / 255), 3);
+
             if (($r == $g) && ($g == $b)) {
                 return new GrayScale($r);
             } else {
