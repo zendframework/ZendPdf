@@ -12,6 +12,8 @@ namespace ZendPdf;
 
 use Zend\Memory;
 use ZendPdf\Exception;
+use ZendPdf\InternalType\AcroFormObject;
+use ZendPdf\Page;
 
 /**
  * General entity which describes PDF document.
@@ -145,14 +147,29 @@ class PdfDocument
      * @var \ZendPdf\PdfParser\StructureParser
      */
     protected $_parser;
-
-
+    
+    /**
+     * Container and helper class for Acrobat forms and form fields
+     * @var AcroFormObject
+     */
+    protected $_form;
+    
     /**
      * List of inheritable attributesfor pages tree
      *
      * @var array
      */
     protected static $_inheritableAttributes = array('Resources', 'MediaBox', 'CropBox', 'Rotate');
+    
+    /**
+     * An object that represents the AcroForm
+     * 
+     * @return AcroFormObject
+     */
+    public function getForm()
+    {
+        return $this->_form;
+    }
 
     /**
      * Request used memory manager
@@ -258,6 +275,9 @@ class PdfDocument
             } else {
                 $this->_loadPages($this->_trailer->Root->Pages);
             }
+            
+            // parse any existing form and fields
+            $this->_form = new AcroFormObject($this->_trailer->Root->AcroForm, $this->_objFactory);
 
             $this->_loadNamedDestinations($this->_trailer->Root, $this->_parser->getPDFVersion());
             $this->_loadOutlines($this->_trailer->Root);
@@ -307,6 +327,9 @@ class PdfDocument
             $trailerDictionary->Size = new InternalType\NumericObject(0);
 
             $this->_trailer = new Trailer\Generated($trailerDictionary);
+            
+            // create an empty form
+            $this->_form = new AcroFormObject(null, $this->_objFactory);
 
             /**
              * Document catalog indirect object.
@@ -492,6 +515,53 @@ class PdfDocument
         if ($root->Outlines->Count !== null) {
             $this->_originalOpenOutlinesCount = $root->Outlines->Count->value;
         }
+    }
+    
+    /**
+     * Appends pages from the supplied PDF to the current document
+     * @param \ZendPdf\PdfDocument $pdf another PDF whose pages and form should be appended to this document
+     * @param AcroFormObject\AcroFormFieldWorker $formFieldWorker a custom form field worker to be used when generating new shared fields
+     */
+    public function appendPagesFrom(PdfDocument $pdf, $formFieldWorker = null)
+    {
+        if ($formFieldWorker !== null && !($formFieldWorker instanceof AcroFormObject\AcroFormFieldWorker)) {
+            throw new \Exception("Invalid value specified for \$formFieldWorker when calling PdfDocument::appendPagesFrom()");
+        }
+        
+        // create a new ObjectFactory for these cloned pages
+        $objFactory = ObjectFactory::createFactory($pdf->_objFactory->getObjectCount());
+        if ($formFieldWorker !== null) {
+            $objFactory->setAcroFormFieldWorker($formFieldWorker);
+        }
+        $this->_objFactory->attach($objFactory);
+        $processed = [];
+        
+        /* @var $page \ZendPdf\Page */
+        foreach ($pdf->pages as $page) {
+            /*
+             * Either of these clone methods will make a page available for use in another doc however
+             * $page->clonePage() will let us reduce the total number of object factories in play.
+             */ 
+            $newpage = $page->clonePage($objFactory, $processed);
+            $this->pages[] = $newpage;
+        }
+    }
+    
+    /**
+     * Find any directly placed form fields, and move them to the AcroForm object. Change the DictionaryObject into
+     * a pointer to that shared field.
+     */
+    protected function _deduplicateFormFields()
+    {
+        $this->_form->processFormFields();
+    }
+    
+    /**
+     * Add the AcroForm if it has been defined.
+     */
+    protected function _dumpForm()
+    {
+        $this->_form->createFormReference($this->_trailer->Root);
     }
 
     /**
@@ -1161,6 +1231,8 @@ class PdfDocument
             $this->_trailer->Info = $docInfo;
         }
 
+        $this->_deduplicateFormFields();
+        $this->_dumpForm();
         $this->_dumpPages();
         $this->_dumpNamedDestinations();
         $this->_dumpOutlines();

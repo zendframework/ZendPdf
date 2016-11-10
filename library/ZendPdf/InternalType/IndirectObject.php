@@ -50,7 +50,7 @@ class IndirectObject extends AbstractTypeObject
      * @var \ZendPdf\ObjectFactory
      */
     protected $_factory;
-
+    
     /**
      * Object constructor
      *
@@ -186,6 +186,15 @@ class IndirectObject extends AbstractTypeObject
     public function __set($property, $value)
     {
         $this->_value->$property = $value;
+    }
+    
+    /**
+     * Delete the specified key
+     * 
+     * @param string $property
+     */
+    public function __unset($property) {
+        unset($this->_value->$property);
     }
 
     /**
