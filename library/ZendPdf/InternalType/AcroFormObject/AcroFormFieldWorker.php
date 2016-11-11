@@ -1,4 +1,13 @@
 <?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2016 RightSource Compliance
+ * @author    Nate Chrysler <nchrysler@rightsourcecompliance.com>
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Pdf
+ */
 
 namespace ZendPdf\InternalType\AcroFormObject;
 
