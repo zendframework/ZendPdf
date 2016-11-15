@@ -206,15 +206,15 @@ class AcroFormObject
         
         // copy font configuration
         if ($sourceForm !== null && $sourceForm instanceof IndirectObject) {
-//            if ($sourceForm->DA !== null) {
-//                $dict->DA = clone $sourceForm->DA;
-//            }
-//            if ($sourceForm->DR !== null) {
-//                $dict->DR = clone $sourceForm->DR;
-//            }
-//            if ($sourceForm->Font !== null) {
-//                $dict->Font = clone $sourceForm->Font;
-//            }
+            if ($sourceForm->DA !== null) {
+                $dict->DA = clone $sourceForm->DA;
+            }
+            if ($sourceForm->DR !== null) {
+                $dict->DR = clone $sourceForm->DR;
+            }
+            if ($sourceForm->Font !== null) {
+                $dict->Font = clone $sourceForm->Font;
+            }
         }
         
         // create a shared field object

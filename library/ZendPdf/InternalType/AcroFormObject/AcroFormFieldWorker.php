@@ -84,8 +84,12 @@ class AcroFormFieldWorker {
     {
         // create a new field object
         $dict = new DictionaryObject();
-        $dict->DA = clone $widget->DA;
-        $dict->FT = clone $widget->FT;
+        if ($widget->DA !== null) {
+            $dict->DA = clone $widget->DA;
+        }
+        if ($widget->FT !== null) {
+            $dict->FT = clone $widget->FT;
+        }
         $dict->Kids = new ArrayObject();
         $dict->T = new StringObject($title);
         
