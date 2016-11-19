@@ -170,6 +170,15 @@ class PdfDocument
     {
         return $this->_form;
     }
+    
+    /**
+     * Returns the PDF version
+     * @return string
+     */
+    public function getPdfVersion()
+    {
+        return $this->_pdfHeaderVersion;
+    }
 
     /**
      * Request used memory manager
