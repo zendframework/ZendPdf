@@ -17,6 +17,7 @@ use ZendPdf\InternalType\IndirectObjectReference;
 use ZendPdf\InternalType\DictionaryObject;
 use ZendPdf\InternalType\ArrayObject;
 use ZendPdf\InternalType\StringObject;
+use ZendPdf\InternalType\AcroFormObject\FormToken;
 
 class AcroFormFieldWorker {
     
@@ -35,6 +36,17 @@ class AcroFormFieldWorker {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Replace the existing form field with a read-only text block, using the same text formatting and positioning.
+     * @param ObjectFactory $targetFactory
+     * @param IndirectObject $widget
+     * @param FormToken $token
+     */
+    public function replaceField(ObjectFactory $targetFactory, IndirectObject $widget, FormToken $token)
+    {
+        //TODO:
     }
     
     /**
@@ -82,6 +94,8 @@ class AcroFormFieldWorker {
      */
     protected function createNewFieldDictionary(IndirectObject $widget, $title)
     {
+        // NOTE: do not move the value (V) attribute into a shared field dictionary
+        
         // create a new field object
         $dict = new DictionaryObject();
         if ($widget->DA !== null) {

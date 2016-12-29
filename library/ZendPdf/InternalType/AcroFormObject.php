@@ -19,6 +19,7 @@ use ZendPdf\InternalType\DictionaryObject;
 use ZendPdf\InternalType\IndirectObjectReference;
 use ZendPdf\InternalType\IndirectObject;
 use ZendPdf\InternalType\ArrayObject;
+use ZendPdf\InternalType\AcroFormObject\FormToken;
 
 /**
  * PDF file 'AcroForm' element implementation
@@ -35,6 +36,12 @@ class AcroFormObject
      * @var array of DictionaryObject representing each form field
      */
     protected $_fields = array();
+    
+    /**
+     * Associative array of form tokens to be used when rendering.
+     * @var array of FormToken objects
+     */
+    protected $_tokens = array();
 
     /**
      * PDF objects factory.
@@ -194,6 +201,42 @@ class AcroFormObject
     }
     
     /**
+     * Add (or replace) a token.
+     * @param FormToken $token
+     */
+    public function addToken(FormToken $token)
+    {
+        $this->_tokens[$token->getFieldName()] = $token;
+    }
+    
+    /**
+     * Remove an existing token from the array of tokens.
+     * @param string $tokenFieldName
+     */
+    public function removeToken($tokenFieldName)
+    {
+        unset($this->_tokens[$tokenFieldName]);
+    }
+    
+    /**
+     * Override any current tokens and set all the tokens supplied by the array. Can be an indexed or associative array, as long as each value is a FormToken object.
+     * @param array $tokens array of FormToken objects
+     */
+    public function setTokens($tokens)
+    {
+        // start with a blank array
+        $this->_tokens = array();
+        
+        // add each supplied token
+        foreach ($tokens as $token)
+        {
+            if ($token instanceof FormToken) {
+                $this->addToken($token);
+            }
+        }
+    }
+    
+    /**
      * 
      * @param IndirectObject $sourceForm
      * @param ObjectFactory $factory
@@ -231,14 +274,23 @@ class AcroFormObject
      */
     protected function createFormField(IndirectObject $widget, ObjectFactory $factory)
     {
+        /* @var $token FormToken */
         $worker = $widget->getFactory()->getAcroFormFieldWorker();
+        $title = $worker->getTitle($factory, $widget);
+        $token = (array_key_exists($title, $this->_tokens)) ? $this->_tokens[$title] : null;
         
+        // see if we're replacing this field with read-only text
+        if ($token !== null && $token->getMode() == FormToken::MODE_REPLACE) {
+            $worker->replaceField($factory, $widget, $token);
+            return;
+        }
+        
+        // if this field has already been converted to a shared field, leave it be
         if (!$worker->shouldProcessField($factory, $widget)) {
             return;
         }
         
-        $title = $worker->getTitle($factory, $widget);
-        
+        // set up the shared form field object
         if (array_key_exists($title, $this->_fields)) {
             // reuse the existing field
             $objRef = $this->_fields[$title];
@@ -248,6 +300,13 @@ class AcroFormObject
             $objRef = $worker->createNewSharedField($factory, $widget, $title, $this->_primaryFormDict);
             
             $this->_fields[$title] = $objRef;
+        }
+        
+        // populate the default value
+        if ($token !== null && $token->getMode() == FormToken::MODE_FILL) {
+            // apply the value to both the original field and the shared field
+            $widget->V = new StringObject($token->getValue());
+            $objRef->V = new StringObject($token->getValue());
         }
         
         $worker->linkPageFieldToSharedField($factory, $widget, $objRef);
