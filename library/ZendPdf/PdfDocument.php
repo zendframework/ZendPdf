@@ -566,6 +566,14 @@ class PdfDocument
     }
     
     /**
+     * Find any matching form fields and replace them with read-only text blocks.
+     */
+    protected function _replaceTokens()
+    {
+        $this->_form->replaceTokens($this->pages);
+    }
+    
+    /**
      * Add the AcroForm if it has been defined.
      */
     protected function _dumpForm()
@@ -1241,6 +1249,7 @@ class PdfDocument
         }
 
         $this->_deduplicateFormFields();
+        $this->_replaceTokens();
         $this->_dumpForm();
         $this->_dumpPages();
         $this->_dumpNamedDestinations();

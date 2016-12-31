@@ -12,6 +12,7 @@ namespace ZendPdf;
 
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
+use ZendPdf\InternalType\IndirectObject;
 
 /**
  * PDF Page
@@ -1591,6 +1592,46 @@ class Page
 
         return $this;
     }
+    
+    /**
+     * Draw a line of text at the location of the supplied object
+     * @param string $text the text to draw
+     * @param IndirectObject $locationObj the object to use for positioning the text
+     * @param integer $offsetX the X offset for placement
+     * @param integer $offsetY the Y offset for placement
+     * @return \ZendPdf\Page
+     * @throws Exception\LogicException
+     */
+    public function drawTextAt($text, IndirectObject $locationObj, $offsetX=0, $offsetY=0)
+    {
+        $da = $locationObj->DA;
+        if ($da === null && $this->_font === null) {
+            throw new Exception\LogicException('Font has not been set and was not found in location object');
+        }
+        if ($this->_font === null) {
+            throw new Exception\LogicException('Font has not been set');
+        }
+        
+        /* @var $rect \ZendPdf\InternalType\ArrayObject */
+        $rect = $locationObj->Rect;
+        if ($rect === null) {
+            throw new Exception\LogicException('Location Rect not available in location object');
+        }
+        
+        $this->_addProcSet('Text');
+
+        $charEncoding = '';
+        $textObj = new InternalType\StringObject($this->_font->encodeString($text, $charEncoding));
+        $xObj    = intval($rect->items[0]->toString()) + $offsetX;
+        $yObj    = intval($rect->items[1]->toString()) + $offsetY;
+
+        $this->_contents .= "BT\n"
+                         .  $xObj . ' ' . $yObj . " Td\n"
+                         .  $textObj->toString() . " Tj\n"
+                         .  "ET\n";
+
+        return $this;
+    }
 
     /**
      *
@@ -1618,6 +1659,37 @@ class Page
         $annotationDictionary->P = $this->_pageDictionary;
 
         return $this;
+    }
+    
+    /**
+     * @return array of annotations (including form field references) in this Page
+     */
+    public function getAnnotations()
+    {
+        if ($this->_pageDictionary->Annots === null) {
+            return [];
+        } else {
+            return $this->_pageDictionary->Annots->items;
+        }
+    }
+    
+    /**
+     * Find an annotation by object reference number
+     * @return object the annotation
+     */
+    public function findAnnotation(IndirectObject $object)
+    {
+        // short circuit for no annotations
+        if ($this->_pageDictionary->Annots === null) {
+            return false;
+        }
+        // lets find a match
+        foreach ($this->_pageDictionary->Annots->items as $annot) {
+            if ($annot === $object) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

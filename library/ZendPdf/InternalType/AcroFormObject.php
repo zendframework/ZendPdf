@@ -33,7 +33,7 @@ class AcroFormObject
     
     /**
      * Associative array of form fields in this document.
-     * @var array of DictionaryObject representing each form field
+     * @var array of IndirectObject representing each form field
      */
     protected $_fields = array();
     
@@ -152,6 +152,88 @@ class AcroFormObject
         
         foreach ($factory->getAttachedFactories() as $subFactory) {
             $this->processFormFieldsInFactory($formObject, $subFactory);
+        }
+    }
+    
+    /**
+     * Process the supplied FormToken objects to replace form fields with read-only values.
+     * @param array $pages array of Page objects in the current document
+     * @param AcroFormObject $formObject or null if it should use $this
+     */
+    public function replaceTokens($pages)
+    {
+        // loop through supplied tokens, find existing form fields, find and replace the field's instances with text blocks, delete the field references and any pointers in the ObjectFactory
+        /* @var $token FormToken */
+        /* @var $field IndirectObject */
+        foreach ($this->_tokens as $token) {
+            $fieldName = $token->getFieldName();
+            if (array_key_exists($fieldName, $this->_fields)) {
+                $field = $this->_fields[$fieldName];
+                
+                // the Kids property contains references to field instances, and each field instance's Parent property refers to the shared field
+                if ($field->Kids instanceof ArrayObject) {
+                    /* @var $idr IndirectObjectReference */
+                    $i=0; 
+                    /* @var $items \ArrayObject */
+                    $items = $field->Kids->items;
+                    foreach ($items as $idr) {
+                        $io = $idr->getObject();
+                        /*
+                         * Source properties that will be needed:
+                         * DA = text style
+                         * Rect = positioning
+                         * P = page (note it's not always available - why?)
+                         * Options for text block:
+                         * - get the page, call drawText()?
+                         * - repliace what happens in drawText()?
+                         */
+                        $da = $idr->DA; // example: "/TiRo 8 Tf 0 g"
+                        $rect = $idr->Rect;
+                        $p = $idr->P;
+                        $this->log[] = "processReplaceTokens(): Retrieved the field instance data";
+                        
+                        if ($p === null) {
+                            // we gotta go find the page now...
+                            /* @var $page Page */
+                            foreach ($pages as $page) {
+                                if ($page->findAnnotation($io)) {
+                                    $p = $page;
+                                    break;
+                                }
+                            }
+                        }
+                        if ($p !== null) {
+                            /* @var $p Page */
+                            // draw some text!
+                            
+                            // parse font information from DA
+                            $reg = '/([0-9]+) Tf/';
+                            $matches = [];
+                            $reg_result = preg_match($reg, $da->toString(), $matches);
+                            if ($reg_result == 1) {
+                                // get the font size
+                                $size = $matches[1];
+                                // TODO: also parse font name
+                                $p->setFont(new \ZendPdf\Resource\Font\Simple\Standard\TimesRoman(), intval($size));
+                            } elseif ($p->getFont() === null) {
+                                // default to Times-Roman 10
+                                $p->setFont(new \ZendPdf\Resource\Font\Simple\Standard\TimesRoman(), 10);
+                            }
+                            
+                            $p->drawTextAt($token->getValue(), $io, $token->getOffsetX(), $token->getOffsetY());
+                        }
+                        
+                        $io->getFactory()->remove($io);
+                    }
+                    
+                    // remove all the field instances - empty the array
+                    $field->Kids->items = new \ArrayObject();
+                }
+                
+                // remove the field from its factory
+                $field->getFactory()->remove($field);
+                
+            }
         }
     }
     
@@ -279,12 +361,6 @@ class AcroFormObject
         $title = $worker->getTitle($factory, $widget);
         $token = (array_key_exists($title, $this->_tokens)) ? $this->_tokens[$title] : null;
         
-        // see if we're replacing this field with read-only text
-        if ($token !== null && $token->getMode() == FormToken::MODE_REPLACE) {
-            $worker->replaceField($factory, $widget, $token);
-            return;
-        }
-        
         // if this field has already been converted to a shared field, leave it be
         if (!$worker->shouldProcessField($factory, $widget)) {
             return;
@@ -303,11 +379,12 @@ class AcroFormObject
         }
         
         // populate the default value
-        if ($token !== null && $token->getMode() == FormToken::MODE_FILL) {
-            // apply the value to both the original field and the shared field
-            $widget->V = new StringObject($token->getValue());
-            $objRef->V = new StringObject($token->getValue());
-        }
+        // note: FormToken:MODE_REPLACE is handled separately, after the form fields are merged. @see replaceTokens()
+//        if ($token !== null && $token->getMode() == FormToken::MODE_FILL) {
+//            // apply the value to both the original field and the shared field
+//            $widget->V = new StringObject($token->getValue());
+//            $objRef->V = new StringObject($token->getValue());
+//        }
         
         $worker->linkPageFieldToSharedField($factory, $widget, $objRef);
     }

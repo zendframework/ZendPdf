@@ -23,7 +23,7 @@ class FormToken {
     /**
      * The FILL mode pre-populates the form field with the requested value.
      */
-    const MODE_FILL = "fill";
+//    const MODE_FILL = "fill";
     
     /**
      * The REPLACE mode replaces the form field with text using the same position, font, and sizing.
@@ -36,16 +36,23 @@ class FormToken {
     
     private $mode;
     
+    private $offsetX = 0;
+    
+    private $offsetY = 0;
+    
     /**
      * Create a new FormToken object, representing a value to be used in this AcroForm.
      * @param string $fieldName the name of the form field that should be affected by this token
      * @param string $value the value to use
-     * @param constant $mode one of FormToken::MODE_FILL or FormToken::MODE_REPLACE
+     * @param constant $mode one of FormToken::MODE_* constants
      */
-    public function __construct($fieldName, $value, $mode) {
+    public function __construct($fieldName, $value, $mode, $offsetX=0, $offsetY=0) {
         $this->fieldName = $fieldName;
         $this->value = $value;
-        if ($mode == self::MODE_FILL || $mode == self::MODE_REPLACE) {
+        $this->offsetX = $offsetX;
+        $this->offsetY = $offsetY;
+        
+        if ($mode == self::MODE_REPLACE) { // $mode == self::MODE_FILL || 
             $this->mode = $mode;
         } else {
             throw new \ZendPdf\Exception\NotImplementedException("Unknown mode supplied: " . $mode);
@@ -71,12 +78,30 @@ class FormToken {
     }
     
     /**
-     * Returns the supplied mode constant - one of FormToken::MODE_FILL or FormToken::MODE_REPLACE
+     * Returns the supplied mode constant - one of FormToken::MODE_* constants
      * @return constant
      */
     public function getMode()
     {
         return $this->mode;
+    }
+    
+    /**
+     * When replacing the form field with read-only text, use this offset for positioning the new text
+     * @return integer
+     */
+    public function getOffsetX()
+    {
+        return $this->offsetX;
+    }
+    
+    /**
+     * When replacing the form field with read-only text, use this offset for positioning the new text
+     * @return integer
+     */
+    public function getOffsetY()
+    {
+        return $this->offsetY;
     }
     
 }

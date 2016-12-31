@@ -97,6 +97,16 @@ class IndirectObject extends AbstractTypeObject
     {
         return $this->_factory;
     }
+    
+    /**
+     * Check if the supplied object factory is our same object factory
+     * @param ObjectFactory $fact
+     * @return boolean
+     */
+    public function compareFactory(ObjectFactory $fact)
+    {
+        return $this->_factory === $fact;
+    }
 
     /**
      * Return type of the element.
