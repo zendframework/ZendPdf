@@ -209,7 +209,7 @@ class AcroFormObject
                             // parse font information from DA
                             $reg = '/([0-9]+) Tf/';
                             $matches = [];
-                            $reg_result = preg_match($reg, $da->toString(), $matches);
+                            $reg_result = ($da === null) ? 0 : preg_match($reg, $da->toString(), $matches);
                             if ($reg_result == 1) {
                                 // get the font size
                                 $size = $matches[1];
