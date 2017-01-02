@@ -14,6 +14,7 @@ namespace ZendPdf\InternalType;
 use ZendPdf as Pdf;
 use ZendPdf\Exception;
 use ZendPdf\Page;
+use ZendPdf\Font;
 use ZendPdf\ObjectFactory;
 use ZendPdf\InternalType\DictionaryObject;
 use ZendPdf\InternalType\IndirectObjectReference;
@@ -30,6 +31,12 @@ use ZendPdf\InternalType\AcroFormObject\FormToken;
  */
 class AcroFormObject
 {
+    
+    /**
+     * The owning PDF Document.
+     * @var Pdf\PdfDocument
+     */
+    protected $_pdf;
     
     /**
      * Associative array of form fields in this document.
@@ -99,8 +106,9 @@ class AcroFormObject
      * @param ObjectFactory $objFactory
      * @throws \ZendPdf\Exception\ExceptionInterface
      */
-    public function __construct($val, ObjectFactory $objFactory)
+    public function __construct(Pdf\PdfDocument $pdf, $val, ObjectFactory $objFactory)
     {
+        $this->_pdf = $pdf;
         $this->_sourceForm = $val;
         $this->_objFactory = $objFactory;
         
@@ -188,7 +196,6 @@ class AcroFormObject
                          * - repliace what happens in drawText()?
                          */
                         $da = $idr->DA; // example: "/TiRo 8 Tf 0 g"
-                        $rect = $idr->Rect;
                         $p = $idr->P;
                         $this->log[] = "processReplaceTokens(): Retrieved the field instance data";
                         
@@ -205,21 +212,9 @@ class AcroFormObject
                         if ($p !== null) {
                             /* @var $p Page */
                             // draw some text!
+                            list($font, $size) = $this->getFontAndSize($da);
                             
-                            // parse font information from DA
-                            $reg = '/([0-9]+) Tf/';
-                            $matches = [];
-                            $reg_result = ($da === null) ? 0 : preg_match($reg, $da->toString(), $matches);
-                            if ($reg_result == 1) {
-                                // get the font size
-                                $size = $matches[1];
-                                // TODO: also parse font name
-                                $p->setFont(new \ZendPdf\Resource\Font\Simple\Standard\TimesRoman(), intval($size));
-                            } elseif ($p->getFont() === null) {
-                                // default to Times-Roman 10
-                                $p->setFont(new \ZendPdf\Resource\Font\Simple\Standard\TimesRoman(), 10);
-                            }
-                            
+                            $p->setFont($font, $size);
                             $p->drawTextAt($token->getValue(), $io, $token->getOffsetX(), $token->getOffsetY());
                         }
                         
@@ -235,6 +230,41 @@ class AcroFormObject
                 
             }
         }
+    }
+    
+    /**
+     * Extract the font styling from the supplied string.
+     * @param string $da Font styling string (e.g. Helv 12 Tf 0 g) typically found in the DA attribute on a PDF element.
+     * @return list($font, $size, $g)
+     */
+    private function getFontAndSize($da)
+    {
+//        $fonts = $this->_pdf->extractFonts();
+        
+        $font = null;
+        // parse font information from DA
+        $reg = '/^\(\\/(.*?) ([0-9]+) Tf ([0-9]+) g\)$/';
+        $matches = [];
+        
+        $da_str = ($da === null) ? "" : $da->toString();
+        $reg_result = preg_match($reg, $da_str, $matches);
+        if ($reg_result == 1) {
+            // get the font size
+            $fontName = $matches[1];
+            // TODO: properly look up font names. E.g. $fontName might be "TiRo", and there is an
+            // xref SOMEWHERE that we can use that looks like this: <</BaseFont/Helvetica/Encoding 4 0 R/Name/Helv/Subtype/Type1/Type/Font>>
+            $font = $this->_pdf->extractFont($fontName);
+            $size = intval($matches[2]);
+            $g = intval($matches[3]);
+        } else {
+            // defaults
+            $size = 10;
+            $g = 0;
+        }
+        if ($font === null) {
+            $font = new \ZendPdf\Resource\Font\Simple\Standard\TimesRoman();
+        }
+        return [$font, $size, $g];
     }
     
     /**

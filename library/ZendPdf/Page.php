@@ -13,6 +13,7 @@ namespace ZendPdf;
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
 use ZendPdf\InternalType\IndirectObject;
+use ZendPdf\InternalType\NumericObject;
 
 /**
  * PDF Page
@@ -1622,15 +1623,62 @@ class Page
 
         $charEncoding = '';
         $textObj = new InternalType\StringObject($this->_font->encodeString($text, $charEncoding));
-        $xObj    = intval($rect->items[0]->toString()) + $offsetX;
-        $yObj    = intval($rect->items[1]->toString()) + $offsetY;
-
+        
+        // read the Rect object and get actual numbers we can use
+        $loc = [];
+        foreach ($rect->items as $idx => $item) {
+            $loc[$idx] = intval($item->toString());
+        }
+        
+        // determine horizontal alignment
+        /* @var $align NumericObject */
+        $align = $locationObj->Q;
+        $aligned = false;
+        if ($align !== null) {
+            // measure the text we're about to draw
+            $width = $this->getTextWidth($text);
+            // calculate the position based on the horizontal alignment specified
+            if ($align->value == "1") { // centered
+                $xObj = $loc[0] + ((($loc[2]-$loc[0])/2) - ($width/2)); // ignore the offset since that is considered padding and we're centering
+                $aligned = true;
+            } elseif ($align->value == "2") { // right
+                $xObj = $loc[2] - $width - $offsetX;
+                $aligned = true;
+            }
+        }
+        if (!$aligned) { // left
+            $xObj = $loc[0] + $offsetX;
+        }
+        
+        // Y is always the same regardless of horizontal alignment
+        $yObj = $loc[1] + $offsetY;
+        
         $this->_contents .= "BT\n"
                          .  $xObj . ' ' . $yObj . " Td\n"
                          .  $textObj->toString() . " Tj\n"
                          .  "ET\n";
 
         return $this;
+    }
+    
+    /**
+     * Calculates the width of the supplied line of text based on the current $_font and $_fontSize.
+     * @param string $text
+     */
+    public function getTextWidth($text)
+    {
+        if ($this->_font === null) {
+            throw new Exception\LogicException('Font has not been set');
+        }
+        $drawing_text = iconv('', 'UTF-8', $text);
+        $characters    = array();
+        for ($i = 0; $i < strlen($drawing_text); $i++) {
+            $characters[] = ord($drawing_text[$i]);
+        }
+        $glyphs        = $this->_font->glyphNumbersForCharacters($characters);
+        $widths        = $this->_font->widthsForGlyphs($glyphs);
+        $text_width   = (array_sum($widths) / $this->_font->getUnitsPerEm()) * $this->_fontSize;
+        return $text_width;
     }
 
     /**

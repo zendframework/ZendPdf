@@ -286,7 +286,7 @@ class PdfDocument
             }
             
             // parse any existing form and fields
-            $this->_form = new AcroFormObject($this->_trailer->Root->AcroForm, $this->_objFactory);
+            $this->_form = new AcroFormObject($this, $this->_trailer->Root->AcroForm, $this->_objFactory);
 
             $this->_loadNamedDestinations($this->_trailer->Root, $this->_parser->getPDFVersion());
             $this->_loadOutlines($this->_trailer->Root);
@@ -338,7 +338,7 @@ class PdfDocument
             $this->_trailer = new Trailer\Generated($trailerDictionary);
             
             // create an empty form
-            $this->_form = new AcroFormObject(null, $this->_objFactory);
+            $this->_form = new AcroFormObject($this, null, $this->_objFactory);
 
             /**
              * Document catalog indirect object.
