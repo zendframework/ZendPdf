@@ -175,15 +175,19 @@ class AcroFormObject
         /* @var $field IndirectObject */
         foreach ($this->_tokens as $token) {
             $fieldName = $token->getFieldName();
+            
             if (array_key_exists($fieldName, $this->_fields)) {
                 $field = $this->_fields[$fieldName];
+                $kids_num = 0;
+                $kids_removed = 0;
                 
                 // the Kids property contains references to field instances, and each field instance's Parent property refers to the shared field
                 if ($field->Kids instanceof ArrayObject) {
                     /* @var $idr IndirectObjectReference */
-                    $i=0; 
+                    $i=0;
                     /* @var $items \ArrayObject */
                     $items = $field->Kids->items;
+                    $kids_num = count($items);// TODO: count properly
                     foreach ($items as $idr) {
                         $io = $idr->getObject();
                         /*
@@ -216,20 +220,61 @@ class AcroFormObject
                             
                             $p->setFont($font, $size);
                             $p->drawTextAt($token->getValue(), $io, $token->getOffsetX(), $token->getOffsetY());
+                            
+                            // remove the existing field
+                            $io->getFactory()->remove($io);
+                            
+                            // remove the field annotation from the page
+                            try {
+                                /* @var $annots \ArrayObject */
+                                $annots = $p->getPageDictionary()->Annots->items;
+                                $this->spliceArrayObject($annots, $io);
+                            } catch (\Exception $ex) {
+                                // continue with a warning
+                                $this->log[] = "WARNING: replaceTokens() error while locating Page Annots for field instance: " . $ex->getMessage();
+                            }
+                            
+                            $kids_removed++;
                         }
-                        
-                        $io->getFactory()->remove($io);
                     }
                     
                     // remove all the field instances - empty the array
                     $field->Kids->items = new \ArrayObject();
                 }
                 
-                // remove the field from its factory
-                $field->getFactory()->remove($field);
-                
+                if ($kids_removed == $kids_num) {
+                    // remove the field from its factory
+                    $field->getFactory()->remove($field);
+                    
+                    // remove the field from our lookup array
+                    unset($this->_fields[$fieldName]);
+                    
+                    try {
+                        // remove the field from the form dictionary
+                        $fields = $this->_primaryFormDict->Fields->items;
+                        $this->spliceArrayObject($fields, $field);
+                    } catch (\Exception $ex) {
+                        // continue with a warning
+                        $this->log[] = "WARNING: replaceTokens() error while locating AcroForm Fields for field instance: " . $ex->getMessage();
+                    }
+                }
             }
         }
+    }
+    
+    private function spliceArrayObject(\ArrayObject $array, IndirectObject $remove)
+    {
+        $keep = array();
+        foreach ($array as $item) {
+            if ($item === $remove) {
+                // skip
+            } elseif ($item instanceof IndirectObjectReference && $item->getObject() === $remove) {
+                // skip
+            } else {
+                $keep[] = $item;
+            }
+        }
+        $array->exchangeArray($keep);
     }
     
     /**
