@@ -20,7 +20,7 @@ use ZendPdf\Exception;
  * @package    Zend_PDF
  * @subpackage Zend_PDF_BinaryParser
  */
-class String extends AbstractDataSource
+class StringSource extends AbstractDataSource
 {
     /**** Instance Variables ****/
 
