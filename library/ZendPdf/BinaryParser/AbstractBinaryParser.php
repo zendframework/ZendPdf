@@ -428,7 +428,7 @@ abstract class AbstractBinaryParser
         if ($characterSet == 'MacRoman') {
             return $bytes;
         }
-        return iconv('MacRoman', $characterSet, $bytes);
+        return iconv('macintosh', $characterSet, $bytes);
     }
 
     /**
