@@ -10,6 +10,14 @@
 
 namespace ZendPdf;
 
+use ZendPdf\Drawings\DrawingInterface;
+use ZendPdf\Drawings\Ellipse;
+use ZendPdf\Drawings\Image;
+use ZendPdf\Drawings\Line;
+use ZendPdf\Drawings\Polygon;
+use ZendPdf\Drawings\Rectangle;
+use ZendPdf\Drawings\RoundedRectangle;
+use ZendPdf\Drawings\SimpleText;
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
 
@@ -1146,10 +1154,12 @@ class Page
         if ($param5 === null) {
             // drawEllipse($x1, $y1, $x2, $y2);
             $startAngle = null;
+            $endAngle = null;
             $fillType = self::SHAPE_DRAW_FILL_AND_STROKE;
         } elseif ($param6 === null) {
             // drawEllipse($x1, $y1, $x2, $y2, $fillType);
             $startAngle = null;
+            $endAngle = null;
             $fillType = $param5;
         } else {
             // drawEllipse($x1, $y1, $x2, $y2, $startAngle, $endAngle);
@@ -1164,90 +1174,8 @@ class Page
             }
         }
 
-        $this->_addProcSet('PDF');
-
-        if ($x2 < $x1) {
-            $temp = $x1;
-            $x1   = $x2;
-            $x2   = $temp;
-        }
-        if ($y2 < $y1) {
-            $temp = $y1;
-            $y1   = $y2;
-            $y2   = $temp;
-        }
-
-        $x = ($x1 + $x2)/2.;
-        $y = ($y1 + $y2)/2.;
-
-        $xC = new InternalType\NumericObject($x);
-        $yC = new InternalType\NumericObject($y);
-
-        if ($startAngle !== null) {
-            if ($startAngle != 0) { $startAngle = fmod($startAngle, M_PI*2); }
-            if ($endAngle   != 0) { $endAngle   = fmod($endAngle,   M_PI*2); }
-
-            if ($startAngle > $endAngle) {
-                $endAngle += M_PI*2;
-            }
-
-            $clipPath    = $xC->toString() . ' ' . $yC->toString() . " m\n";
-            $clipSectors = (int)ceil(($endAngle - $startAngle)/M_PI_4);
-            $clipRadius  = max($x2 - $x1, $y2 - $y1);
-
-            for($count = 0; $count <= $clipSectors; $count++) {
-                $pAngle = $startAngle + ($endAngle - $startAngle)*$count/(float)$clipSectors;
-
-                $pX = new InternalType\NumericObject($x + cos($pAngle)*$clipRadius);
-                $pY = new InternalType\NumericObject($y + sin($pAngle)*$clipRadius);
-                $clipPath .= $pX->toString() . ' ' . $pY->toString() . " l\n";
-            }
-
-            $this->_contents .= "q\n" . $clipPath . "h\nW\nn\n";
-        }
-
-        $xLeft  = new InternalType\NumericObject($x1);
-        $xRight = new InternalType\NumericObject($x2);
-        $yUp    = new InternalType\NumericObject($y2);
-        $yDown  = new InternalType\NumericObject($y1);
-
-        $xDelta  = 2*(M_SQRT2 - 1)*($x2 - $x1)/3.;
-        $yDelta  = 2*(M_SQRT2 - 1)*($y2 - $y1)/3.;
-        $xr = new InternalType\NumericObject($x + $xDelta);
-        $xl = new InternalType\NumericObject($x - $xDelta);
-        $yu = new InternalType\NumericObject($y + $yDelta);
-        $yd = new InternalType\NumericObject($y - $yDelta);
-
-        $this->_contents .= $xC->toString() . ' ' . $yUp->toString() . " m\n"
-                         .  $xr->toString() . ' ' . $yUp->toString() . ' '
-                         .    $xRight->toString() . ' ' . $yu->toString() . ' '
-                         .      $xRight->toString() . ' ' . $yC->toString() . " c\n"
-                         .  $xRight->toString() . ' ' . $yd->toString() . ' '
-                         .    $xr->toString() . ' ' . $yDown->toString() . ' '
-                         .      $xC->toString() . ' ' . $yDown->toString() . " c\n"
-                         .  $xl->toString() . ' ' . $yDown->toString() . ' '
-                         .    $xLeft->toString() . ' ' . $yd->toString() . ' '
-                         .      $xLeft->toString() . ' ' . $yC->toString() . " c\n"
-                         .  $xLeft->toString() . ' ' . $yu->toString() . ' '
-                         .    $xl->toString() . ' ' . $yUp->toString() . ' '
-                         .      $xC->toString() . ' ' . $yUp->toString() . " c\n";
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                $this->_contents .= " B*\n";
-                break;
-            case self::SHAPE_DRAW_FILL:
-                $this->_contents .= " f*\n";
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
-        if ($startAngle !== null) {
-            $this->_contents .= "Q\n";
-        }
-
+        $ellipse = new Ellipse($x2, $y2, $startAngle, $endAngle, $fillType);
+        $this->draw($x1, $y1, $ellipse);
         return $this;
     }
 
@@ -1263,22 +1191,8 @@ class Page
      */
     public function drawImage(Resource\Image\AbstractImage $image, $x1, $y1, $x2, $y2)
     {
-        $this->_addProcSet('PDF');
-
-        $imageName    = $this->_attachResource('XObject', $image);
-        $imageNameObj = new InternalType\NameObject($imageName);
-
-        $x1Obj     = new InternalType\NumericObject($x1);
-        $y1Obj     = new InternalType\NumericObject($y1);
-        $widthObj  = new InternalType\NumericObject($x2 - $x1);
-        $heightObj = new InternalType\NumericObject($y2 - $y1);
-
-        $this->_contents .= "q\n"
-                         .  '1 0 0 1 ' . $x1Obj->toString() . ' ' . $y1Obj->toString() . " cm\n"
-                         .  $widthObj->toString() . ' 0 0 ' . $heightObj->toString() . " 0 0 cm\n"
-                         .  $imageNameObj->toString() . " Do\n"
-                         .  "Q\n";
-
+        $drawImage = new Image($image, $x2, $y2);
+        $this->draw($x1, $y1, $drawImage);
         return $this;
     }
 
@@ -1307,16 +1221,8 @@ class Page
      */
     public function drawLine($x1, $y1, $x2, $y2)
     {
-        $this->_addProcSet('PDF');
-
-        $x1Obj = new InternalType\NumericObject($x1);
-        $y1Obj = new InternalType\NumericObject($y1);
-        $x2Obj = new InternalType\NumericObject($x2);
-        $y2Obj = new InternalType\NumericObject($y2);
-
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " m\n"
-                         .  $x2Obj->toString() . ' ' . $y2Obj->toString() . " l\n S\n";
-
+        $line = new Line($x2, $y2);
+        $this->draw($x1, $y1, $line);
         return $this;
     }
 
@@ -1334,49 +1240,14 @@ class Page
      * @param integer $fillMethod
      * @return \ZendPdf\Page
      */
-    public function drawPolygon($x, $y,
-                                $fillType = self::SHAPE_DRAW_FILL_AND_STROKE,
-                                $fillMethod = self::FILL_METHOD_NON_ZERO_WINDING)
+    public function drawPolygon(
+                                $x,
+                                $y,
+                                $fillType = Polygon::DRAW_FILL_AND_STROKE,
+                                $fillMethod = Polygon::FILL_METHOD_NON_ZERO_WINDING)
     {
-        $this->_addProcSet('PDF');
-
-        $firstPoint = true;
-        foreach ($x as $id => $xVal) {
-            $xObj = new InternalType\NumericObject($xVal);
-            $yObj = new InternalType\NumericObject($y[$id]);
-
-            if ($firstPoint) {
-                $path = $xObj->toString() . ' ' . $yObj->toString() . " m\n";
-                $firstPoint = false;
-            } else {
-                $path .= $xObj->toString() . ' ' . $yObj->toString() . " l\n";
-            }
-        }
-
-        $this->_contents .= $path;
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                if ($fillMethod == self::FILL_METHOD_NON_ZERO_WINDING) {
-                    $this->_contents .= " b\n";
-                } else {
-                    // Even-Odd fill method.
-                    $this->_contents .= " b*\n";
-                }
-                break;
-            case self::SHAPE_DRAW_FILL:
-                if ($fillMethod == self::FILL_METHOD_NON_ZERO_WINDING) {
-                    $this->_contents .= " h\n f\n";
-                } else {
-                    // Even-Odd fill method.
-                    $this->_contents .= " h\n f*\n";
-                }
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
+        $polygon = new Polygon($x, $y, $fillType, $fillMethod);
+        $this->draw(null, null, $polygon);
         return $this;
     }
 
@@ -1395,30 +1266,10 @@ class Page
      * @param integer $fillType
      * @return \ZendPdf\Page
      */
-    public function drawRectangle($x1, $y1, $x2, $y2, $fillType = self::SHAPE_DRAW_FILL_AND_STROKE)
+    public function drawRectangle($x1, $y1, $x2, $y2, $fillType = Rectangle::DRAW_FILL_AND_STROKE)
     {
-        $this->_addProcSet('PDF');
-
-        $x1Obj      = new InternalType\NumericObject($x1);
-        $y1Obj      = new InternalType\NumericObject($y1);
-        $widthObj   = new InternalType\NumericObject($x2 - $x1);
-        $height2Obj = new InternalType\NumericObject($y2 - $y1);
-
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
-                             .  $widthObj->toString() . ' ' . $height2Obj->toString() . " re\n";
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                $this->_contents .= " B*\n";
-                break;
-            case self::SHAPE_DRAW_FILL:
-                $this->_contents .= " f*\n";
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
+        $rectangle = new Rectangle($x2, $y2,$fillType);
+        $this->draw($x1, $y1, $rectangle);
         return $this;
     }
 
@@ -1443,121 +1294,10 @@ class Page
      * @return \ZendPdf\Page
      */
     public function drawRoundedRectangle($x1, $y1, $x2, $y2, $radius,
-                                         $fillType = self::SHAPE_DRAW_FILL_AND_STROKE)
+                                         $fillType = RoundedRectangle::DRAW_FILL_AND_STROKE)
     {
-
-        $this->_addProcSet('PDF');
-
-        if(!is_array($radius)) {
-            $radius = array($radius, $radius, $radius, $radius);
-        } else {
-            for ($i = 0; $i < 4; $i++) {
-                if(!isset($radius[$i])) {
-                    $radius[$i] = 0;
-                }
-            }
-        }
-
-        $topLeftX      = $x1;
-        $topLeftY      = $y2;
-        $topRightX     = $x2;
-        $topRightY     = $y2;
-        $bottomRightX  = $x2;
-        $bottomRightY  = $y1;
-        $bottomLeftX   = $x1;
-        $bottomLeftY   = $y1;
-
-        //draw top side
-        $x1Obj = new InternalType\NumericObject($topLeftX + $radius[0]);
-        $y1Obj = new InternalType\NumericObject($topLeftY);
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " m\n";
-        $x1Obj = new InternalType\NumericObject($topRightX - $radius[1]);
-        $y1Obj = new InternalType\NumericObject($topRightY);
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
-
-        //draw top right corner if needed
-        if ($radius[1] != 0) {
-            $x1Obj = new InternalType\NumericObject($topRightX);
-            $y1Obj = new InternalType\NumericObject($topRightY);
-            $x2Obj = new InternalType\NumericObject($topRightX);
-            $y2Obj = new InternalType\NumericObject($topRightY);
-            $x3Obj = new InternalType\NumericObject($topRightX);
-            $y3Obj = new InternalType\NumericObject($topRightY - $radius[1]);
-            $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
-                              . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '
-                              . $x3Obj->toString() . ' ' . $y3Obj->toString() . ' '
-                              . " c\n";
-        }
-
-        //draw right side
-        $x1Obj = new InternalType\NumericObject($bottomRightX);
-        $y1Obj = new InternalType\NumericObject($bottomRightY + $radius[2]);
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
-
-        //draw bottom right corner if needed
-        if ($radius[2] != 0) {
-            $x1Obj = new InternalType\NumericObject($bottomRightX);
-            $y1Obj = new InternalType\NumericObject($bottomRightY);
-            $x2Obj = new InternalType\NumericObject($bottomRightX);
-            $y2Obj = new InternalType\NumericObject($bottomRightY);
-            $x3Obj = new InternalType\NumericObject($bottomRightX - $radius[2]);
-            $y3Obj = new InternalType\NumericObject($bottomRightY);
-            $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
-                              . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '
-                              . $x3Obj->toString() . ' ' . $y3Obj->toString() . ' '
-                              . " c\n";
-        }
-
-        //draw bottom side
-        $x1Obj = new InternalType\NumericObject($bottomLeftX + $radius[3]);
-        $y1Obj = new InternalType\NumericObject($bottomLeftY);
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
-
-        //draw bottom left corner if needed
-        if ($radius[3] != 0) {
-            $x1Obj = new InternalType\NumericObject($bottomLeftX);
-            $y1Obj = new InternalType\NumericObject($bottomLeftY);
-            $x2Obj = new InternalType\NumericObject($bottomLeftX);
-            $y2Obj = new InternalType\NumericObject($bottomLeftY);
-            $x3Obj = new InternalType\NumericObject($bottomLeftX);
-            $y3Obj = new InternalType\NumericObject($bottomLeftY + $radius[3]);
-            $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
-                              . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '
-                              . $x3Obj->toString() . ' ' . $y3Obj->toString() . ' '
-                              . " c\n";
-        }
-
-        //draw left side
-        $x1Obj = new InternalType\NumericObject($topLeftX);
-        $y1Obj = new InternalType\NumericObject($topLeftY - $radius[0]);
-        $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . " l\n";
-
-        //draw top left corner if needed
-        if ($radius[0] != 0) {
-            $x1Obj = new InternalType\NumericObject($topLeftX);
-            $y1Obj = new InternalType\NumericObject($topLeftY);
-            $x2Obj = new InternalType\NumericObject($topLeftX);
-            $y2Obj = new InternalType\NumericObject($topLeftY);
-            $x3Obj = new InternalType\NumericObject($topLeftX + $radius[0]);
-            $y3Obj = new InternalType\NumericObject($topLeftY);
-            $this->_contents .= $x1Obj->toString() . ' ' . $y1Obj->toString() . ' '
-                              . $x2Obj->toString() . ' ' . $y2Obj->toString() . ' '
-                              . $x3Obj->toString() . ' ' . $y3Obj->toString() . ' '
-                              . " c\n";
-        }
-
-        switch ($fillType) {
-            case self::SHAPE_DRAW_FILL_AND_STROKE:
-                $this->_contents .= " B*\n";
-                break;
-            case self::SHAPE_DRAW_FILL:
-                $this->_contents .= " f*\n";
-                break;
-            case self::SHAPE_DRAW_STROKE:
-                $this->_contents .= " S\n";
-                break;
-        }
-
+        $roundedRectangle = new RoundedRectangle($x2, $y2, $radius,$fillType);
+        $this->draw($x1, $y1, $roundedRectangle);
         return $this;
     }
 
@@ -1574,20 +1314,8 @@ class Page
      */
     public function drawText($text, $x, $y, $charEncoding = '')
     {
-        if ($this->_font === null) {
-            throw new Exception\LogicException('Font has not been set');
-        }
-
-        $this->_addProcSet('Text');
-
-        $textObj = new InternalType\StringObject($this->_font->encodeString($text, $charEncoding));
-        $xObj    = new InternalType\NumericObject($x);
-        $yObj    = new InternalType\NumericObject($y);
-
-        $this->_contents .= "BT\n"
-                         .  $xObj->toString() . ' ' . $yObj->toString() . " Td\n"
-                         .  $textObj->toString() . " Tj\n"
-                         .  "ET\n";
+        $simpleText = new SimpleText($text,$charEncoding);
+        $this->draw($x, $y, $simpleText);
 
         return $this;
     }
@@ -1792,5 +1520,40 @@ class Page
                          .  '1 0 0 1 ' . $mXObj->toString() . ' ' . $mYObj->toString() . " cm\n";
 
         return $this;
+    }
+
+    /**
+     * Add procedureSet to the Page description
+     * @param $name
+     * @return void
+     */
+    public function addProcedureSet($name)
+    {
+        $this->_addProcSet($name);
+    }
+
+    /**
+     * Draw element in specific position.
+     * @param float $x x position
+     * @param float $y y position
+     * @param DrawingInterface $drawing Element to draw
+     */
+    public function draw($x, $y, DrawingInterface $drawing)
+    {
+        $drawing->setPosition($x, $y);
+        $this->_contents .= $drawing->draw($this);
+    }
+
+
+    /**
+     * Attach resource to the page
+     *
+     * @param string $type
+     * @param \ZendPdf\Resource\AbstractResource $resource
+     * @return string
+     */
+    public function attachResource($type, Resource\AbstractResource $resource)
+    {
+        return $this->_attachResource($type, $resource);
     }
 }
