@@ -219,7 +219,24 @@ class AcroFormObject
                             list($font, $size) = $this->getFontAndSize($da);
                             
                             $p->setFont($font, $size);
-                            $p->drawTextAt($token->getValue(), $io, $token->getOffsetX(), $token->getOffsetY());
+                          
+                            //line breaks are not recognized when drawing the text, explode into array on \n and draw each line separately
+                            $text = $token->getValue();
+                            $lines = array();
+                            foreach (explode("\n", $text) as $line) {
+                                $lines[] = $line;
+                            }
+                            
+                            $offsetY = $token->getOffsetY();
+                            //draws from the bottom up so reverse the array to start with the last line
+                            $reverse_lines = array_reverse($lines);
+                            
+                            foreach ( $reverse_lines as $line ) {
+                                $p->drawTextAt($line, $io, $token->getOffsetX(), $offsetY);
+                                $offsetY = $offsetY + $size;//go up to next line based on font size
+                            }
+                            //original line calling draw only once
+//                            $p->drawTextAt($token->getValue(), $io, $token->getOffsetX(), $token->getOffsetY());
                             
                             // remove the existing field
                             $io->getFactory()->remove($io);
