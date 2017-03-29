@@ -1594,6 +1594,21 @@ class Page
         return $this;
     }
     
+    public function getLocationArray(IndirectObject $locationObj){
+        /* @var $rect \ZendPdf\InternalType\ArrayObject */
+        $rect = $locationObj->Rect;
+        if ($rect === null) {
+            throw new Exception\LogicException('Location Rect not available in location object');
+        }
+        // read the Rect object and get actual numbers we can use
+        $loc = [];
+        foreach ($rect->items as $idx => $item) {
+            $loc[$idx] = intval($item->toString());
+        }
+        
+        return $loc;
+    }
+    
     /**
      * Draw a line of text at the location of the supplied object
      * @param string $text the text to draw
@@ -1613,22 +1628,13 @@ class Page
             throw new Exception\LogicException('Font has not been set');
         }
         
-        /* @var $rect \ZendPdf\InternalType\ArrayObject */
-        $rect = $locationObj->Rect;
-        if ($rect === null) {
-            throw new Exception\LogicException('Location Rect not available in location object');
-        }
-        
         $this->_addProcSet('Text');
 
         $charEncoding = '';
         $textObj = new InternalType\StringObject($this->_font->encodeString($text, $charEncoding));
         
-        // read the Rect object and get actual numbers we can use
-        $loc = [];
-        foreach ($rect->items as $idx => $item) {
-            $loc[$idx] = intval($item->toString());
-        }
+        // get location array 
+        $loc = $this->getLocationArray($locationObj);
         
         // determine horizontal alignment
         /* @var $align NumericObject */

@@ -163,6 +163,52 @@ class AcroFormObject
         }
     }
     
+    /*
+     * @param int $width - width of bounding box 
+     * @param obj $p - page object
+     * @param string $text - text to be wrapped 
+     * @return array $lines
+     */
+    public function wrapText($width, $p, $text){
+        //start the array
+        $lines = [];
+        
+        // $lineText is the line of text that we will ultimately write out - we may write more than one line
+        $lineText = '';
+        // Preserve leading spaces (otherwise we'll lose them at the next step)
+        for( $i = 0, $m = strlen( $text ); $i < $m && $text[$i] == ' '; $i++ ){
+            $lineText .= ' ';
+        }
+        // Break up paragraph into individual words using space as the delimiter
+        preg_match_all( '/([^\s]*\s*)/i', $text, $matches );
+        $words = $matches[1];
+        //get keys
+        $wordKeys = array_keys($words);
+        //get the last word
+        $lastWordKey = array_pop($wordKeys);
+        $lineWidth = $p->getTextWidth($lineText);
+
+        foreach( $words as $key => $word ){
+            // there may be some stray carriage returns in there, which we will strip out.
+            $word = str_replace( "\x0a", ' ', $word );
+            $wordWidth = $p->getTextWidth( $word );
+            //see if we are continuing on the same line or need to go down one
+            if ( ($lineWidth + $wordWidth < $width) && $word != '\n' && $key != $lastWordKey){
+                //stay on this line
+                $lineText .= $word;
+                $lineWidth += $wordWidth;
+            }else{
+                //finish the line
+                $lines[] = $lineText;
+                // start the next line
+                $lineText = $word;
+                $lineWidth = $wordWidth;
+            }
+        }
+        
+        return $lines;
+    }
+    
     /**
      * Process the supplied FormToken objects to replace form fields with read-only values.
      * @param array $pages array of Page objects in the current document
@@ -219,12 +265,18 @@ class AcroFormObject
                             list($font, $size) = $this->getFontAndSize($da);
                             
                             $p->setFont($font, $size);
-                          
-                            //line breaks are not recognized when drawing the text, explode into array on \n and draw each line separately
                             $text = $token->getValue();
                             $lines = array();
-                            foreach (explode("\n", $text) as $line) {
-                                $lines[] = $line;
+                            $mode = $token->getMode();
+                            if($mode == FormToken::MODE_REPLACE){
+                                //explode into array on \n and draw each line separately
+                                foreach (explode("\n", $text) as $line) {
+                                    $lines[] = $line;
+                                }
+                            } else if($mode == FormToken::MODE_REPLACE_WRAP){
+                                // get location array 
+                                $loc = $p->getLocationArray($io);
+                                $lines = $this->wrapText($loc[2], $p, $text);
                             }
                             
                             $offsetY = $token->getOffsetY();

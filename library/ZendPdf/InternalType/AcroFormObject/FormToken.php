@@ -28,7 +28,8 @@ class FormToken {
     /**
      * The REPLACE mode replaces the form field with text using the same position, font, and sizing.
      */
-    const MODE_REPLACE = "replace";
+    const MODE_REPLACE = "replace";//won't wrap text but will go down a line if \n is provided in the string
+    const MODE_REPLACE_WRAP = "replace_wrap";//will wrap text either at edge of token field or at any \n provided
     
     private $fieldName;
     
@@ -45,6 +46,8 @@ class FormToken {
      * @param string $fieldName the name of the form field that should be affected by this token
      * @param string $value the value to use
      * @param constant $mode one of FormToken::MODE_* constants
+     * @param int $offsetX
+     * @param int $offsetY
      */
     public function __construct($fieldName, $value, $mode, $offsetX=0, $offsetY=0) {
         $this->fieldName = $fieldName;
@@ -52,7 +55,7 @@ class FormToken {
         $this->offsetX = $offsetX;
         $this->offsetY = $offsetY;
         
-        if ($mode == self::MODE_REPLACE) { // $mode == self::MODE_FILL || 
+        if ($mode == self::MODE_REPLACE || $mode == self::MODE_REPLACE_WRAP) { // $mode == self::MODE_FILL || 
             $this->mode = $mode;
         } else {
             throw new \ZendPdf\Exception\NotImplementedException("Unknown mode supplied: " . $mode);
