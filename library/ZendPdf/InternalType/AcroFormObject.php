@@ -263,7 +263,11 @@ class AcroFormObject
                             /* @var $p Page */
                             // draw some text!
                             list($font, $size) = $this->getFontAndSize($da);
-                            
+                            //ideally use the size provided, but if none is available default to size 10
+                            //stop gap fix for tokens not consistently displaying on forms - will likely need a better long term solution - 2017-04-20 - CM
+                            if($size == 0){
+                                $size = 10;
+                            }
                             $p->setFont($font, $size);
                             $text = $token->getValue();
                             $lines = array();
