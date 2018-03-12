@@ -95,18 +95,24 @@ class AcroFormFieldWorker {
     protected function createNewFieldDictionary(IndirectObject $widget, $title)
     {
         // NOTE: do not move the value (V) attribute into a shared field dictionary
+        // NOTE: isset and property_exists appear to not work very well on the IndirectObject, probably due to
+        // the class using a "magic" getter method for the various attributes.
+        // NOTE: also make sure you clone the object here, or else it may be retained and reused elsewhere, and
+        // not actually end up in the desired shared form field.
         
         // create a new field object
         $dict = new DictionaryObject();
         if ($widget->DA !== null) {
-            $dict->DA = clone $widget->DA;
+            $dict->DA = clone $widget->DA; // font
         }
         if ($widget->FT !== null) {
-            $dict->FT = clone $widget->FT;
+            $dict->FT = clone $widget->FT; // field type
         }
         $dict->Kids = new ArrayObject();
-        $dict->T = new StringObject($title);
+        $dict->T = new StringObject($title); // title
         
+        $dict->Ff = clone $widget->Ff; // "read-only" setting
+
         return $dict;
     }
     
@@ -144,6 +150,7 @@ class AcroFormFieldWorker {
         // hack up the supplied widget to point to the new shared field
         unset($pageField->FT);
         unset($pageField->T);
+        unset($pageField->Ff); // remove the read-only flag
         unset($pageField->P); // TODO: link back to Page object
 
         // create a new reference for the original embedded field
