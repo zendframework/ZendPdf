@@ -111,8 +111,10 @@ class AcroFormFieldWorker {
         $dict->Kids = new ArrayObject();
         $dict->T = new StringObject($title); // title
         
-        $dict->Ff = clone $widget->Ff; // "read-only" setting
-
+        if ($widget->Ff !== null) {
+            $dict->Ff = clone $widget->Ff; // "read-only" setting
+        }
+        
         return $dict;
     }
     
