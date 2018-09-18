@@ -14,6 +14,7 @@ use ZendPdf as Pdf;
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
 use ZendPdf\ObjectFactory\UpdateInfoContainer;
+use ZendPdf\InternalType\AcroFormObject\AcroFormFieldWorker;
 
 /**
  * PDF element factory.
@@ -92,8 +93,14 @@ class ObjectFactory
      * @var array
      */
     private $_shiftCalculationCache = array();
+    
+    /**
+     * Suffix to append to any AcroForm fields found in this ObjectFactory
+     * @var AcroFormFieldWorker
+     */
+    private $_acroFormFieldWorker = null;
 
-
+    
     /**
      * Object constructor
      *
@@ -133,6 +140,25 @@ class ObjectFactory
             $obj->cleanUp();
         }
         $this->_registeredObjects = null;
+    }
+    
+    /**
+     * @param AcroFormFieldWorker $worker
+     */
+    public function setAcroFormFieldWorker(AcroFormFieldWorker $worker)
+    {
+        $this->_acroFormFieldWorker = $worker;
+    }
+    
+    /**
+     * @return AcroFormFieldWorker
+     */
+    public function getAcroFormFieldWorker()
+    {
+        if ($this->_acroFormFieldWorker === null) {
+            $this->_acroFormFieldWorker = new AcroFormFieldWorker();
+        }
+        return $this->_acroFormFieldWorker;
     }
 
     /**
@@ -188,9 +214,10 @@ class ObjectFactory
              */
             return;
         }
-
+        
         $this->_attachedFactories[$factory->getId()] = $factory;
     }
+    
 
 
     /**
@@ -208,7 +235,8 @@ class ObjectFactory
         if (isset($this->_shiftCalculationCache[$factory->_factoryId])) {
             return $this->_shiftCalculationCache[$factory->_factoryId];
         }
-
+        
+        // determine our shift based on attached sub-factories
         $shift = $this->_objectCount - 1;
 
         foreach ($this->_attachedFactories as $subFactory) {
@@ -385,7 +413,23 @@ class ObjectFactory
         }
         return $this->_registeredObjects[$refString];
     }
-
+    
+    /**
+     * Fetch all the modified objects in an associative array
+     * @return array
+     */
+    public function getModifiedObjects()
+    {
+        return $this->_modifiedObjects;
+    }
+    
+    /**
+     * Return the attached ObjectFactory objects
+     */
+    public function getAttachedFactories()
+    {
+        return $this->_attachedFactories;
+    }
 
     /**
      * Check if PDF file was modified

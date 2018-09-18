@@ -12,6 +12,8 @@ namespace ZendPdf;
 
 use ZendPdf\Exception;
 use ZendPdf\InternalType;
+use ZendPdf\InternalType\IndirectObject;
+use ZendPdf\InternalType\NumericObject;
 
 /**
  * PDF Page
@@ -1591,6 +1593,99 @@ class Page
 
         return $this;
     }
+    
+    public function getLocationArray(IndirectObject $locationObj){
+        /* @var $rect \ZendPdf\InternalType\ArrayObject */
+        $rect = $locationObj->Rect;
+        if ($rect === null) {
+            throw new Exception\LogicException('Location Rect not available in location object');
+        }
+        // read the Rect object and get actual numbers we can use
+        $loc = [];
+        foreach ($rect->items as $idx => $item) {
+            $loc[$idx] = intval($item->toString());
+        }
+        
+        return $loc;
+    }
+    
+    /**
+     * Draw a line of text at the location of the supplied object
+     * @param string $text the text to draw
+     * @param IndirectObject $locationObj the object to use for positioning the text
+     * @param integer $offsetX the X offset for placement
+     * @param integer $offsetY the Y offset for placement
+     * @return \ZendPdf\Page
+     * @throws Exception\LogicException
+     */
+    public function drawTextAt($text, IndirectObject $locationObj, $offsetX=0, $offsetY=0)
+    {
+        $da = $locationObj->DA;
+        if ($da === null && $this->_font === null) {
+            throw new Exception\LogicException('Font has not been set and was not found in location object');
+        }
+        if ($this->_font === null) {
+            throw new Exception\LogicException('Font has not been set');
+        }
+        
+        $this->_addProcSet('Text');
+
+        $charEncoding = '';
+        $textObj = new InternalType\StringObject($this->_font->encodeString($text, $charEncoding));
+        
+        // get location array 
+        $loc = $this->getLocationArray($locationObj);
+        
+        // determine horizontal alignment
+        /* @var $align NumericObject */
+        $align = $locationObj->Q;
+        $aligned = false;
+        if ($align !== null) {
+            // measure the text we're about to draw
+            $width = $this->getTextWidth($text);
+            // calculate the position based on the horizontal alignment specified
+            if ($align->value == "1") { // centered
+                $xObj = $loc[0] + ((($loc[2]-$loc[0])/2) - ($width/2)); // ignore the offset since that is considered padding and we're centering
+                $aligned = true;
+            } elseif ($align->value == "2") { // right
+                $xObj = $loc[2] - $width - $offsetX;
+                $aligned = true;
+            }
+        }
+        if (!$aligned) { // left
+            $xObj = $loc[0] + $offsetX;
+        }
+        
+        // Y is always the same regardless of horizontal alignment
+        $yObj = $loc[1] + $offsetY;
+        
+        $this->_contents .= "BT\n"
+                         .  $xObj . ' ' . $yObj . " Td\n"
+                         .  $textObj->toString() . " Tj\n"
+                         .  "ET\n";
+
+        return $this;
+    }
+    
+    /**
+     * Calculates the width of the supplied line of text based on the current $_font and $_fontSize.
+     * @param string $text
+     */
+    public function getTextWidth($text)
+    {
+        if ($this->_font === null) {
+            throw new Exception\LogicException('Font has not been set');
+        }
+        $drawing_text = iconv('', 'UTF-8', $text);
+        $characters    = array();
+        for ($i = 0; $i < strlen($drawing_text); $i++) {
+            $characters[] = ord($drawing_text[$i]);
+        }
+        $glyphs        = $this->_font->glyphNumbersForCharacters($characters);
+        $widths        = $this->_font->widthsForGlyphs($glyphs);
+        $text_width   = (array_sum($widths) / $this->_font->getUnitsPerEm()) * $this->_fontSize;
+        return $text_width;
+    }
 
     /**
      *
@@ -1618,6 +1713,37 @@ class Page
         $annotationDictionary->P = $this->_pageDictionary;
 
         return $this;
+    }
+    
+    /**
+     * @return array of annotations (including form field references) in this Page
+     */
+    public function getAnnotations()
+    {
+        if ($this->_pageDictionary->Annots === null) {
+            return [];
+        } else {
+            return $this->_pageDictionary->Annots->items;
+        }
+    }
+    
+    /**
+     * Find an annotation by object reference number
+     * @return object the annotation
+     */
+    public function findAnnotation(IndirectObject $object)
+    {
+        // short circuit for no annotations
+        if ($this->_pageDictionary->Annots === null) {
+            return false;
+        }
+        // lets find a match
+        foreach ($this->_pageDictionary->Annots->items as $annot) {
+            if ($annot === $object) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

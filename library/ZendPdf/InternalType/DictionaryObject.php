@@ -108,6 +108,15 @@ class DictionaryObject extends AbstractTypeObject
             $this->_items[$item] = $value;
         }
     }
+    
+    /**
+     * Delete the specified key
+     * 
+     * @param string $item
+     */
+    public function __unset($item) {
+        unset($this->_items[$item]);
+    }
 
     /**
      * Return type of the element.

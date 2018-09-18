@@ -47,26 +47,20 @@ class Png extends AbstractImage
     protected $_height;
     protected $_imageProperties;
 
-    /**
-     * Object constructor
-     *
-     * @param string $imageFileName
-     * @throws \ZendPdf\Exception\ExceptionInterface
-     * @todo Add compression conversions to support compression strategys other than PNG_COMPRESSION_DEFAULT_STRATEGY.
-     * @todo Add pre-compression filtering.
-     * @todo Add interlaced image handling.
-     * @todo Add support for 16-bit images. Requires PDF version bump to 1.5 at least.
-     * @todo Add processing for all PNG chunks defined in the spec. gAMA etc.
-     * @todo Fix tRNS chunk support for Indexed Images to a SMask.
-     */
-    public function __construct($imageFileName)
-    {
-        if (($imageFile = @fopen($imageFileName, 'rb')) === false ) {
-            throw new Exception\IOException("Can not open '$imageFileName' file for reading.");
-        }
-
+    public function __construct($imageFileName, $imageFile = null) {
         parent::__construct();
+        if ($imageFileName) {
+            if (($imageFile = @fopen($imageFileName, 'rb')) === false ) {
+                throw new Exception\IOException("Can not open '$imageFileName' file for reading.");
+            }
+            $this->process($imageFile);
+        } elseif ($imageFile) {
+            $this->process($imageFile);
+        }
+    }
 
+    protected function process($imageFile) {
+        
         //Check if the file is a PNG
         fseek($imageFile, 1, SEEK_CUR); //First signature byte (%)
         if ('PNG' != fread($imageFile, 3)) {
@@ -322,7 +316,7 @@ class Png extends AbstractImage
             $this->_resource->skipFilters();
         }
     }
-
+    
     /**
      * Image width
      */
