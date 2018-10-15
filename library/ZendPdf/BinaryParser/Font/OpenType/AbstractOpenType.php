@@ -858,7 +858,7 @@ abstract class AbstractOpenType extends Pdf\BinaryParser\Font\AbstractFont
                     if ($language != 0) {
                         $this->_debugLog('Type 0 cmap tables must be language-independent;'
                                          . ' language: %d; skipping', $language);
-                        continue;
+                        continue 2;
                     }
                     break;
 
@@ -877,7 +877,7 @@ abstract class AbstractOpenType extends Pdf\BinaryParser\Font\AbstractFont
                 case 0xa:    // break intentionally omitted
                 case 0xc:
                     $this->_debugLog('Format: 0x%x currently unsupported; skipping', $format);
-                    continue;
+                    continue 2;
                     //$this->skipBytes(2);
                     //$cmapLength = $this->readUInt(4);
                     //$language = $this->readUInt(4);
@@ -889,7 +889,7 @@ abstract class AbstractOpenType extends Pdf\BinaryParser\Font\AbstractFont
 
                 default:
                     $this->_debugLog('Unknown subtable format: 0x%x; skipping', $format);
-                    continue;
+                    continue 2;
             }
             $cmapType = $format;
             break;
